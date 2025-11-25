@@ -1,1 +1,1121 @@
-index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern News Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #000;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hamburger-menu {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .logo {
+            width: 150px;
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .search-icon {
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            background-color: #111;
+            padding: 80px 20px 20px;
+            transition: left 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .mobile-menu-link {
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu-link:hover {
+            color: #ff6600;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 98;
+            display: none;
+        }
+        
+        .menu-overlay.active {
+            display: block;
+        }
+        
+        /* Search Modal */
+        .search-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 102;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .search-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .search-container {
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .search-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff6600;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ff6600;
+            background-color: #000;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        .search-button {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .search-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .search-filter {
+            background-color: #222;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-filter.active {
+            background-color: #ff6600;
+        }
+        
+        .search-results {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        
+        .search-result-item {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-result-item:hover {
+            background-color: #222;
+        }
+        
+        .search-result-category {
+            color: #ff6600;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        
+        .search-result-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .search-result-snippet {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .close-search {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        /* Category Bar */
+        .category-bar {
+            background-color: #111;
+            padding: 15px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .category-bar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .categories {
+            display: flex;
+            gap: 20px;
+            padding: 0 15px;
+        }
+        
+        .category-btn {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn.active {
+            background-color: #ff6600;
+            border-color: #ff6600;
+        }
+        
+        /* Content Styles */
+        .content {
+            padding: 30px 0;
+        }
+        
+        .article {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #333; /* Faint line between articles */
+        }
+        
+        .category-label {
+            color: #ff6600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-label::before {
+            content: "●";
+            margin-right: 5px;
+        }
+        
+        .article-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .featured-image {
+            width: 100%;
+            height: 250px;
+            background-color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .author-name {
+            font-weight: 600;
+        }
+        
+        .date {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .share-section {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .share-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .share-btn {
+            color: #ff6600;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        
+        .share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        .article-content {
+            margin-bottom: 20px;
+        }
+        
+        .article-content p {
+            margin-bottom: 15px;
+        }
+        
+        .comments-link {
+            color: #ff6600;
+            font-weight: 600;
+        }
+        
+        /* Recently Added Section */
+        .recently-added {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .recent-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .recent-article {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        
+        .recent-img {
+            width: 80px;
+            height: 60px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 10px;
+        }
+        
+        .recent-title {
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        .recent-share {
+            color: #ff6600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        
+        .recent-share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        .contact-email {
+            margin-top: 30px;
+            text-align: center;
+            color: #ff6600;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 40px 0 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .subscribe-section {
+            text-align: center;
+        }
+        
+        .subscribe-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #333;
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .subscribe-btn {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .footer-link {
+            color: #ff6600;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Mobile Responsive */
+        @media (min-width: 768px) {
+            .article-title {
+                font-size: 28px;
+            }
+            
+            .featured-image {
+                height: 350px;
+            }
+            
+            .recent-articles {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .subscribe-section {
+                text-align: left;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <a href="about.html" class="logo">
+                    <img src="images/0021" alt="Logo">
+                </a>
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-links">
+            <a href="#" class="mobile-menu-link" data-category="tech">Tech</a>
+            <a href="#" class="mobile-menu-link" data-category="news">News</a>
+            <a href="#" class="mobile-menu-link" data-category="health">Health</a>
+            <a href="#" class="mobile-menu-link" data-category="education">Education</a>
+            <a href="#" class="mobile-menu-link">Who We Are</a>
+            <a href="#" class="mobile-menu-link">Contact Us</a>
+            <a href="#" class="mobile-menu-link">Terms and Privacy</a>
+            <a href="#" class="mobile-menu-link">Terms of Service</a>
+        </div>
+    </div>
+    <div class="menu-overlay"></div>
+
+    <!-- Search Modal -->
+    <div class="search-modal">
+        <div class="close-search">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="search-container">
+            <h2 class="search-title">Search Articles</h2>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Enter keywords...">
+                <button class="search-button">Search</button>
+            </div>
+            <div class="search-filters">
+                <button class="search-filter active" data-filter="all">All</button>
+                <button class="search-filter" data-filter="tech">Tech</button>
+                <button class="search-filter" data-filter="news">News</button>
+                <button class="search-filter" data-filter="health">Health</button>
+                <button class="search-filter" data-filter="education">Education</button>
+            </div>
+            <div class="search-results">
+                <!-- Search results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Bar -->
+    <div class="category-bar">
+        <div class="categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="tech">Tech</button>
+            <button class="category-btn" data-category="news">News</button>
+            <button class="category-btn" data-category="health">Health</button>
+            <button class="category-btn" data-category="education">Education</button>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container content">
+        <!-- Tech Article -->
+        <article class="article" data-category="tech" id="article-1">
+            <div class="category-label">TECH</div>
+            <h1 class="article-title">Software engineering vs computer science: which are in high demand</h1>
+            <div class="featured-image">
+                <img src="images/002" alt="Software engineering vs computer science">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Nov 15, 2023</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Software engineering vs computer science: which are in high demand">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Software engineering vs computer science: which are in high demand">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Software engineering vs computer science: which are in high demand">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Software engineering vs computer science: which are in high demand">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Software engineering vs computer science: which are in high demand">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand. However, the nature of this demand differs significantly between the two fields, and understanding these differences can help aspiring tech professionals make informed career decisions.</p>
+
+                <p>Software engineering focuses on the practical application of engineering principles to software development. Software engineers design, develop, test, and maintain software systems. They work closely with clients and stakeholders to understand requirements and deliver functional, reliable software solutions. The role requires strong problem-solving skills, attention to detail, and the ability to work collaboratively in team environments.</p>
+
+                <p>Computer science, on the other hand, is more theoretical and research-oriented. Computer scientists explore the fundamental principles of computation, algorithms, data structures, and the mathematical foundations of computing. They often work on advancing the field through research and innovation, developing new algorithms, improving computational efficiency, and exploring the theoretical limits of what computers can achieve.</p>
+
+                <p>Currently, the job market shows strong demand for both disciplines, but software engineering roles tend to have more immediate openings in industry settings. According to recent labor statistics, software developer positions are projected to grow much faster than average over the next decade, with an estimated 22% growth rate compared to the 5% average for all occupations.</p>
+
+                <p>The demand for software engineers is driven by several factors, including the ongoing digital transformation across industries, the proliferation of mobile applications, the growth of cloud computing, and the increasing importance of cybersecurity. Companies in virtually every sector—from finance and healthcare to retail and entertainment—need skilled software engineers to develop and maintain their digital infrastructure.</p>
+
+                <p>Computer science professionals, while also in high demand, often find opportunities in more specialized areas. These include artificial intelligence and machine learning research, data science, computational biology, quantum computing, and academic research. The skills of computer scientists are particularly valuable in organizations that are pushing the boundaries of technology or solving complex computational problems.</p>
+
+                <p>Both fields offer excellent career prospects, but the choice between them depends on individual interests and career goals. Those who enjoy practical problem-solving, building applications, and seeing immediate results from their work may prefer software engineering. This path typically leads to roles such as software developer, DevOps engineer, quality assurance engineer, or systems architect.</p>
+
+                <p>On the other hand, individuals who are fascinated by the theoretical aspects of computing, enjoy mathematical challenges, and want to contribute to advancing the field through research might find computer science more fulfilling. Career paths in computer science can include research scientist, data scientist, algorithm specialist, or academic professor.</p>
+
+                <p>It's worth noting that the lines between these fields are becoming increasingly blurred. Many software engineering roles now require knowledge of computer science fundamentals, and computer scientists often need to implement their ideas in practical applications. This convergence means that professionals with skills in both areas are particularly valuable in today's job market.</p>
+
+                <p>For those considering which path to pursue, it's important to evaluate personal interests, strengths, and career aspirations. Both fields offer competitive salaries, opportunities for advancement, and the chance to work on cutting-edge technologies. The key is to choose the path that aligns with your passions and strengths, as this will lead to greater job satisfaction and long-term success in the rapidly evolving tech industry.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+
+        <!-- News Article -->
+        <article class="article" data-category="news" id="article-2">
+            <div class="category-label">NEWS</div>
+            <h1 class="article-title">Top 10 largest African countries: by economy size</h1>
+            <div class="featured-image">
+                <img src="images/005" alt="Top 10 largest African countries">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Nov 12, 2023</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Top 10 largest African countries: by economy size">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Top 10 largest African countries: by economy size">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Top 10 largest African countries: by economy size">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Top 10 largest African countries: by economy size">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Top 10 largest African countries: by economy size">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>Africa's economic landscape is diverse and rapidly changing, with several countries emerging as economic powerhouses on the continent. Based on GDP figures, here are the top 10 largest African economies, each with unique strengths, challenges, and growth trajectories.</p>
+
+                <p>1. Nigeria - With a GDP of over $500 billion, Nigeria leads as Africa's largest economy. Its wealth comes primarily from petroleum resources, which account for about 90% of the country's export earnings and more than half of government revenue. However, Nigeria is also developing its technology, entertainment, and agricultural sectors. The country has a rapidly growing tech startup scene, particularly in Lagos, which has earned the nickname "Silicon Lagoon." Nigeria's large population of over 200 million people provides both a substantial domestic market and a significant labor force.</p>
+
+                <p>2. South Africa - As the most industrialized economy in Africa, South Africa has a diverse economic base including mining, manufacturing, and services. Its GDP stands at approximately $400 billion. The country is rich in mineral resources, being the world's largest producer of platinum, chromium, and manganese. South Africa also has well-developed financial, legal, communications, energy, and transport sectors, with the Johannesburg Stock Exchange being the largest in Africa. Despite these strengths, the country faces challenges including high unemployment, income inequality, and energy supply issues.</p>
+
+                <p>3. Egypt - With a GDP of around $350 billion, Egypt's economy benefits from its strategic location, tourism, and a growing technology sector alongside traditional industries like textiles and agriculture. The Suez Canal is a critical source of revenue, providing passage for approximately 10% of global trade. Egypt has implemented economic reforms in recent years, including floating its currency and cutting fuel subsidies, which have helped stabilize the economy and attract foreign investment. The country's large population of over 100 million provides a substantial domestic market, though it also presents challenges in terms of providing employment and public services.</p>
+
+                <p>4. Algeria - This North African nation has an economy heavily reliant on hydrocarbons, with a GDP of about $200 billion. Petroleum and natural gas account for approximately 95% of export earnings and 60% of budget revenues. Recent efforts have focused on economic diversification to reduce this dependency, with investments in agriculture, manufacturing, and renewable energy. Algeria has substantial foreign exchange reserves, which provide a buffer against economic shocks, but the country faces challenges related to youth unemployment and the need for economic reforms.</p>
+
+                <p>5. Morocco - With a GDP of approximately $130 billion, Morocco has developed strong automotive, aerospace, and renewable energy industries alongside its traditional agricultural and tourism sectors. The country has positioned itself as a manufacturing hub, particularly for the automotive industry, with major plants producing vehicles and components for European markets. Morocco has also invested heavily in renewable energy, with one of the world's largest solar power plants. The country's political stability and strategic location have made it an attractive destination for foreign investment.</p>
+
+                <p>6. Angola - With a GDP of about $120 billion, Angola's economy is heavily dependent on oil, which accounts for about 90% of exports. The country has made efforts to diversify its economy, particularly in agriculture and mining, but progress has been slow. Angola has substantial natural resources beyond oil, including diamonds, gold, and other minerals, but infrastructure challenges and governance issues have hindered development in these sectors.</p>
+
+                <p>7. Ethiopia - With a GDP of approximately $110 billion, Ethiopia has been one of Africa's fastest-growing economies in recent years, though growth has slowed due to political conflicts and the COVID-19 pandemic. The economy is primarily agricultural, with coffee being a major export, but the country has been developing its manufacturing sector, particularly in textiles and leather products. Ethiopia has also invested heavily in infrastructure, including hydroelectric dams, railways, and industrial parks.</p>
+
+                <p>8. Kenya - With a GDP of about $100 billion, Kenya has a diverse economy with strengths in agriculture, services, and technology. The country is a regional hub for trade and finance, with the Nairobi Securities Exchange being one of Africa's largest. Kenya is known for its innovation in mobile technology, particularly through the M-Pesa mobile payment system, which has revolutionized financial services in the country and beyond. Tourism is also an important sector, with Kenya's wildlife parks and beaches attracting visitors from around the world.</p>
+
+                <p>9. Ghana - With a GDP of approximately $80 billion, Ghana has one of West Africa's more stable and diversified economies. The country is a major producer of gold, cocoa, and oil, but has also developed strong services and manufacturing sectors. Ghana has made significant progress in poverty reduction and human development in recent decades, though it still faces challenges related to public debt and infrastructure gaps.</p>
+
+                <p>10. Tanzania - With a GDP of about $70 billion, Tanzania's economy has grown steadily in recent years, driven by gold production, tourism, and agriculture. The country has substantial natural resources, including natural gas reserves, and has invested in infrastructure projects such as a standard gauge railway and a new port. Tanzania's political stability and economic reforms have made it an attractive destination for foreign investment, particularly in mining and infrastructure.</p>
+
+                <p>These ten countries represent the dynamic and evolving economic landscape of the African continent. While they face various challenges, including infrastructure deficits, governance issues, and the need for economic diversification, they also offer significant opportunities for growth and investment. As Africa continues to develop and integrate into the global economy, these economic powerhouses will play a crucial role in shaping the continent's future.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+    </div>
+
+    <!-- Recently Added Section -->
+    <div class="container recently-added">
+        <h2 class="section-title">Recently Added</h2>
+        <div class="recent-articles">
+            <a href="text.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/010" alt="Christmas destinations">
+                </div>
+                <div class="recent-title">Five best places to celebrate christmas: exploring lively countries</div>
+                <div class="recent-share" data-title="Five best places to celebrate christmas: exploring lively countries">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="text.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/012" alt="Wonders of the world">
+                </div>
+                <div class="recent-title">Eight wonders of the world: which was recently added</div>
+                <div class="recent-share" data-title="Eight wonders of the world: which was recently added">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="text.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/013" alt="Early snow">
+                </div>
+                <div class="recent-title">Countries who experienced snow too early in 2025: minimal Climate change</div>
+                <div class="recent-share" data-title="Countries who experienced snow too early in 2025: minimal Climate change">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="text.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/014" alt="Scholarship programs">
+                </div>
+                <div class="recent-title">Upcoming schorlarship programmes in 2026: starting and deadlines</div>
+                <div class="recent-share" data-title="Upcoming schorlarship programmes in 2026: starting and deadlines">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+        </div>
+        <a href="mailto:contactoureditors@gmail.com" class="contact-email">contactoureditors@gmail.com</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="subscribe-section">
+                    <h3 class="subscribe-title">Subscribe to our newsletter</h3>
+                    <form class="subscribe-form">
+                        <input type="email" class="email-input" placeholder="Your email address" required>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Having any issues? Reach us</a>
+                    <a href="#" class="footer-link">Understanding our privacy policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">Who we are?</a>
+                    <a href="index.html" class="footer-link">The Writer Henry Xavier</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Modern News Blog. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample article data for search functionality
+        const articlesData = [
+            {
+                id: 1,
+                title: "Software engineering vs computer science: which are in high demand",
+                category: "tech",
+                snippet: "In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand...",
+                content: "In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand. However, the nature of this demand differs significantly between the two fields. Software engineering focuses on the practical application of engineering principles to software development..."
+            },
+            {
+                id: 2,
+                title: "Top 10 largest African countries: by economy size",
+                category: "news",
+                snippet: "Africa's economic landscape is diverse and rapidly changing, with several countries emerging as economic powerhouses...",
+                content: "Africa's economic landscape is diverse and rapidly changing, with several countries emerging as economic powerhouses on the continent. Based on GDP figures, here are the top 10 largest African economies. Nigeria leads as Africa's largest economy with a GDP of over $500 billion..."
+            },
+            {
+                id: 3,
+                title: "The future of renewable energy in developing nations",
+                category: "news",
+                snippet: "Renewable energy adoption is accelerating across developing countries, with solar and wind leading the transition...",
+                content: "Renewable energy adoption is accelerating across developing countries, with solar and wind leading the transition away from fossil fuels. Government incentives and decreasing technology costs are making clean energy more accessible than ever before."
+            },
+            {
+                id: 4,
+                title: "AI in healthcare: revolutionizing patient diagnosis",
+                category: "health",
+                snippet: "Artificial intelligence is transforming healthcare by improving diagnostic accuracy and personalizing treatment plans...",
+                content: "Artificial intelligence is transforming healthcare by improving diagnostic accuracy and personalizing treatment plans. Machine learning algorithms can analyze medical images with precision that sometimes exceeds human capabilities."
+            },
+            {
+                id: 5,
+                title: "Online learning platforms compared: which is best for you?",
+                category: "education",
+                snippet: "With the rise of digital education, we compare the top online learning platforms to help you choose the right one...",
+                content: "With the rise of digital education, we compare the top online learning platforms to help you choose the right one for your educational goals. Factors like course variety, pricing, and certification options vary significantly between platforms."
+            }
+        ];
+
+        // Share functionality
+        function shareArticle(title, platform) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`Check out this article: ${title}`);
+            
+            let shareUrl;
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+                    break;
+                case 'share':
+                default:
+                    if (navigator.share) {
+                        navigator.share({
+                            title: title,
+                            text: text,
+                            url: window.location.href,
+                        })
+                        .then(() => console.log('Successful share'))
+                        .catch((error) => console.log('Error sharing:', error));
+                        return;
+                    } else {
+                        // Fallback for browsers that don't support the Web Share API
+                        shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                    }
+                    break;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        }
+
+        // Mobile menu functionality
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        
+        hamburgerMenu.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        });
+        
+        menuOverlay.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        });
+        
+        // Close menu when a category link is clicked
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+                
+                // If it's a category link, filter articles
+                const category = this.getAttribute('data-category');
+                if (category) {
+                    filterArticlesByCategory(category);
+                    
+                    // Update category buttons
+                    document.querySelectorAll('.category-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('data-category') === category) {
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Search functionality
+        const searchIcon = document.querySelector('.search-icon');
+        const searchModal = document.querySelector('.search-modal');
+        const closeSearch = document.querySelector('.close-search');
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-button');
+        const searchFilters = document.querySelectorAll('.search-filter');
+        const searchResults = document.querySelector('.search-results');
+        
+        searchIcon.addEventListener('click', function() {
+            searchModal.classList.add('active');
+            searchInput.focus();
+        });
+        
+        closeSearch.addEventListener('click', function() {
+            searchModal.classList.remove('active');
+        });
+        
+        // Close search modal when clicking outside
+        searchModal.addEventListener('click', function(e) {
+            if (e.target === searchModal) {
+                searchModal.classList.remove('active');
+            }
+        });
+        
+        // Search filter functionality
+        searchFilters.forEach(filter => {
+            filter.addEventListener('click', function() {
+                searchFilters.forEach(f => f.classList.remove('active'));
+                this.classList.add('active');
+                performSearch();
+            });
+        });
+        
+        // Perform search when typing or clicking search button
+        searchInput.addEventListener('input', performSearch);
+        searchButton.addEventListener('click', performSearch);
+        
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeFilter = document.querySelector('.search-filter.active').getAttribute('data-filter');
+            
+            // Filter articles based on search term and category
+            const filteredArticles = articlesData.filter(article => {
+                const matchesSearch = searchTerm === '' || 
+                    article.title.toLowerCase().includes(searchTerm) ||
+                    article.snippet.toLowerCase().includes(searchTerm) ||
+                    article.content.toLowerCase().includes(searchTerm);
+                
+                const matchesCategory = activeFilter === 'all' || article.category === activeFilter;
+                
+                return matchesSearch && matchesCategory;
+            });
+            
+            // Display results
+            displaySearchResults(filteredArticles);
+        }
+        
+        function displaySearchResults(results) {
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="search-result-item">No articles found matching your search criteria.</div>';
+                return;
+            }
+            
+            searchResults.innerHTML = results.map(article => `
+                <div class="search-result-item" data-article-id="${article.id}">
+                    <div class="search-result-category">${article.category.toUpperCase()}</div>
+                    <div class="search-result-title">${article.title}</div>
+                    <div class="search-result-snippet">${article.snippet}</div>
+                </div>
+            `).join('');
+            
+            // Add click event to result items
+            document.querySelectorAll('.search-result-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const articleId = this.getAttribute('data-article-id');
+                    
+                    // Close search modal
+                    searchModal.classList.remove('active');
+                    
+                    // Show all articles first
+                    document.querySelectorAll('.article').forEach(article => {
+                        article.style.display = 'block';
+                    });
+                    
+                    // Hide all articles except the selected one
+                    if (articleId) {
+                        document.querySelectorAll('.article').forEach(article => {
+                            if (article.id !== `article-${articleId}`) {
+                                article.style.display = 'none';
+                            }
+                        });
+                        
+                        // Scroll to the selected article
+                        const selectedArticle = document.getElementById(`article-${articleId}`);
+                        if (selectedArticle) {
+                            selectedArticle.scrollIntoView({ behavior: 'smooth' });
+                        }
+                        
+                        // Update category buttons to show "All" as active
+                        document.querySelectorAll('.category-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                            if (btn.getAttribute('data-category') === 'all') {
+                                btn.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Category filtering functionality
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const articles = document.querySelectorAll('.article');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                filterArticlesByCategory(category);
+                
+                // Update active button
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        function filterArticlesByCategory(category) {
+            articles.forEach(article => {
+                if (category === 'all' || article.getAttribute('data-category') === category) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+        
+        // Add share functionality to all share buttons
+        document.querySelectorAll('.share-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const title = this.getAttribute('data-title');
+                const platform = this.getAttribute('data-platform');
+                shareArticle(title, platform);
+            });
+        });
+        
+        // Add share functionality to recent article share icons
+        document.querySelectorAll('.recent-share').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent navigation when clicking share icon
+                const title = this.getAttribute('data-title');
+                shareArticle(title, 'share');
+            });
+        });
+    </script>
+</body>
+</html>
