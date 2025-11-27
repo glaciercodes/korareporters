@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern News Blog</title>
+    <title>kora Reporters</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -571,6 +571,7 @@
             border: none;
             padding: 0 20px;
             cursor: pointer;
+            height: 40px
         }
         
         .footer-links {
@@ -621,6 +622,107 @@
             border: 1px solid #3498db;
         }
         
+        /* Horizontal Scrolling Sections */
+        .horizontal-section {
+            margin: 50px 0;
+            padding: 30px 0;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        
+        .horizontal-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #ff6600;
+        }
+        
+        .scroll-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .scroll-content {
+            display: inline-flex;
+            gap: 20px;
+        }
+        
+        .scroll-card {
+            width: 280px;
+            background-color: #111;
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+            white-space: normal;
+            vertical-align: top;
+            border: 1px solid #333;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .scroll-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 102, 0, 0.2);
+        }
+        
+        .scroll-img {
+            width: 100%;
+            height: 160px;
+            background-color: #333;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            overflow: hidden;
+        }
+        
+        .scroll-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .scroll-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .scroll-card-content {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #ccc;
+            margin-bottom: 15px;
+            height: 80px;
+            overflow: hidden;
+        }
+        
+        .scroll-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .read-more {
+            color: #ff6600;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .scroll-share {
+            color: #ff6600;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
         /* Mobile Responsive */
         @media (min-width: 768px) {
             .article-title {
@@ -667,6 +769,10 @@
             
             .subscribe-form {
                 flex-direction: column;
+            }
+            
+            .scroll-card {
+                width: 260px;
             }
         }
     </style>
@@ -877,6 +983,99 @@
             </div>
             <a href="#" class="comments-link">Comments</a>
         </article>
+
+        <!-- Tech Horizontal Section -->
+        <div class="horizontal-section">
+            <h2 class="horizontal-title">Tech Insights</h2>
+            <div class="scroll-container">
+                <div class="scroll-content">
+                    <!-- Tech Card 1 -->
+                    <div class="scroll-card" data-category="tech" data-title="Top Samsung phones with camera qualities">
+                        <div class="scroll-img">
+                            <img src="images/1112" alt="Samsung phone camera">
+                        </div>
+                        <h3 class="scroll-card-title">Top Samsung phones with camera qualities</h3>
+                        <div class="scroll-card-content">
+                            Samsung's flagship phones like the Galaxy S23 Ultra and Z Fold 5 feature exceptional camera systems with advanced sensors, optical zoom capabilities, and AI-powered photography features that rival professional cameras. These devices deliver stunning image quality in various lighting conditions.
+                        </div>
+                        <div class="scroll-card-footer">
+                            <a href="text.html" class="read-more">Read More</a>
+                            <div class="scroll-share" data-title="Top Samsung phones with camera qualities">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tech Card 2 -->
+                    <div class="scroll-card" data-category="tech" data-title="Why you must use cloud storage as first choice">
+                        <div class="scroll-img">
+                            <img src="images/537" alt="Cloud storage">
+                        </div>
+                        <h3 class="scroll-card-title">Why you must use cloud storage as first choice</h3>
+                        <div class="scroll-card-content">
+                            Cloud storage offers automatic backups, accessibility from any device, enhanced security, and collaboration features. It protects against data loss from device failure or theft while enabling seamless file sharing and remote work capabilities that local storage can't match.
+                        </div>
+                        <div class="scroll-card-footer">
+                            <a href="text.html" class="read-more">Read More</a>
+                            <div class="scroll-share" data-title="Why you must use cloud storage as first choice">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tech Card 3 -->
+                    <div class="scroll-card" data-category="tech" data-title="Rapid effect of AI: does it makes us productive or lazy">
+                        <div class="scroll-img">
+                            <img src="images/1112" alt="AI productivity">
+                        </div>
+                        <h3 class="scroll-card-title">Rapid effect of AI: does it makes us productive or lazy</h3>
+                        <div class="scroll-card-content">
+                            AI tools boost productivity by automating repetitive tasks and providing data-driven insights, but may reduce critical thinking if over-relied upon. The key is using AI as an assistant rather than replacement for human creativity and problem-solving skills.
+                        </div>
+                        <div class="scroll-card-footer">
+                            <a href="text.html" class="read-more">Read More</a>
+                            <div class="scroll-share" data-title="Rapid effect of AI: does it makes us productive or lazy">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tech Card 4 -->
+                    <div class="scroll-card" data-category="tech" data-title="Why drones are preferred to motorcycles for delivery">
+                        <div class="scroll-img">
+                            <img src="images/537" alt="Delivery drone">
+                        </div>
+                        <h3 class="scroll-card-title">Why drones are preferred to motorcycles for delivery</h3>
+                        <div class="scroll-card-content">
+                            Drones bypass traffic congestion, reduce delivery times significantly, lower operational costs, and have minimal environmental impact compared to motorcycles. They're especially effective for urgent medical supplies and hard-to-reach locations where traditional delivery struggles.
+                        </div>
+                        <div class="scroll-card-footer">
+                            <a href="text.html" class="read more">Read More</a>
+                            <div class="scroll-share" data-title="Why drones are preferred to motorcycles for delivery">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tech Card 5 -->
+                    <div class="scroll-card" data-category="tech" data-title="Would smartphones without screens be possible">
+                        <div class="scroll-img">
+                            <img src="images/1112" alt="Screenless phone concept">
+                        </div>
+                        <h3 class="scroll-card-title">Would smartphones without screens be possible</h3>
+                        <div class="scroll-card-content">
+                            Screenless smartphones could use holographic displays, AR glasses, voice interfaces, and haptic feedback. While technically possible, user adoption challenges remain as screens provide intuitive visual feedback that alternative interfaces struggle to replicate effectively for most tasks.
+                        </div>
+                        <div class="scroll-card-footer">
+                            <a href="text.html" class="read-more">Read More</a>
+                            <div class="scroll-share" data-title="Would smartphones without screens be possible">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Health Article 1 -->
         <article class="article" data-category="health" id="article-3">
@@ -1218,6 +1417,48 @@
             </div>
             <a href="#" class="comments-link">Comments</a>
         </article>
+
+        <!-- Education Horizontal Section -->
+        <div class="horizontal-section">
+            <h2 class="horizontal-title">Education Insights</h2>
+            <div class="scroll-container">
+                <div class="scroll-content">
+                    <!-- Education Card 1 -->
+                    <div class="scroll-card" data-category="education" data-title="Advantages of reading everyday: steps in vocabulary building">
+                        <div class="scroll-img">
+                            <img src="images/537" alt="Reading for vocabulary">
+                        </div>
+                        <h3 class="scroll-card-title">Advantages of reading everyday: steps in vocabulary building</h3>
+                        <div class="scroll-card-content">
+                            Daily reading exposes you to new words in context, reinforces language patterns, and improves retention. Start with material slightly above your level, note unfamiliar words, use them in sentences, and review regularly to build a robust vocabulary effectively over time.
+                        </div>
+                        <div class="scroll-card-footer">
+                            <a href="text.html" class="read-more">Read More</a>
+                            <div class="scroll-share" data-title="Advantages of reading everyday: steps in vocabulary building">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Education Card 2 -->
+                    <div class="scroll-card" data-category="education" data-title="How lack of Gadgets affect tech students academically">
+                        <div class="scroll-img">
+                            <img src="images/1112" alt="Tech students without gadgets">
+                        </div>
+                        <h3 class="scroll-card-title">How lack of Gadgets affect tech students academically</h3>
+                        <div class="scroll-card-content">
+                            Without access to modern devices, tech students miss hands-on practice with essential tools, struggle with software-based assignments, and fall behind in digital literacy. This disadvantage affects their practical skills development and limits exposure to current industry-standard technologies and workflows.
+                        </div>
+                        <div class="scroll-card-footer">
+                            <a href="text.html" class="read-more">Read More</a>
+                            <div class="scroll-share" data-title="How lack of Gadgets affect tech students academically">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Education Article 3 -->
         <article class="article" data-category="education" id="article-8">
@@ -1698,6 +1939,56 @@
                 category: "news",
                 snippet: "Africa's technology sector is experiencing remarkable growth, with several countries emerging as innovation hubs that are gaining global recognition...",
                 content: "Africa's technology sector is experiencing remarkable growth, with several countries emerging as innovation hubs that are gaining global recognition. These nations are not only adapting technology but are creating original solutions to local and global challenges."
+            },
+            // Horizontal section articles
+            {
+                id: 12,
+                title: "Top Samsung phones with camera qualities",
+                category: "tech",
+                snippet: "Samsung's flagship phones like the Galaxy S23 Ultra and Z Fold 5 feature exceptional camera systems with advanced sensors...",
+                content: "Samsung's flagship phones like the Galaxy S23 Ultra and Z Fold 5 feature exceptional camera systems with advanced sensors, optical zoom capabilities, and AI-powered photography features that rival professional cameras. These devices deliver stunning image quality in various lighting conditions."
+            },
+            {
+                id: 13,
+                title: "Why you must use cloud storage as first choice",
+                category: "tech",
+                snippet: "Cloud storage offers automatic backups, accessibility from any device, enhanced security, and collaboration features...",
+                content: "Cloud storage offers automatic backups, accessibility from any device, enhanced security, and collaboration features. It protects against data loss from device failure or theft while enabling seamless file sharing and remote work capabilities that local storage can't match."
+            },
+            {
+                id: 14,
+                title: "Rapid effect of AI: does it makes us productive or lazy",
+                category: "tech",
+                snippet: "AI tools boost productivity by automating repetitive tasks and providing data-driven insights, but may reduce critical thinking...",
+                content: "AI tools boost productivity by automating repetitive tasks and providing data-driven insights, but may reduce critical thinking if over-relied upon. The key is using AI as an assistant rather than replacement for human creativity and problem-solving skills."
+            },
+            {
+                id: 15,
+                title: "Why drones are preferred to motorcycles for delivery",
+                category: "tech",
+                snippet: "Drones bypass traffic congestion, reduce delivery times significantly, lower operational costs, and have minimal environmental impact...",
+                content: "Drones bypass traffic congestion, reduce delivery times significantly, lower operational costs, and have minimal environmental impact compared to motorcycles. They're especially effective for urgent medical supplies and hard-to-reach locations where traditional delivery struggles."
+            },
+            {
+                id: 16,
+                title: "Would smartphones without screens be possible",
+                category: "tech",
+                snippet: "Screenless smartphones could use holographic displays, AR glasses, voice interfaces, and haptic feedback...",
+                content: "Screenless smartphones could use holographic displays, AR glasses, voice interfaces, and haptic feedback. While technically possible, user adoption challenges remain as screens provide intuitive visual feedback that alternative interfaces struggle to replicate effectively for most tasks."
+            },
+            {
+                id: 17,
+                title: "Advantages of reading everyday: steps in vocabulary building",
+                category: "education",
+                snippet: "Daily reading exposes you to new words in context, reinforces language patterns, and improves retention...",
+                content: "Daily reading exposes you to new words in context, reinforces language patterns, and improves retention. Start with material slightly above your level, note unfamiliar words, use them in sentences, and review regularly to build a robust vocabulary effectively over time."
+            },
+            {
+                id: 18,
+                title: "How lack of Gadgets affect tech students academically",
+                category: "education",
+                snippet: "Without access to modern devices, tech students miss hands-on practice with essential tools, struggle with software-based assignments...",
+                content: "Without access to modern devices, tech students miss hands-on practice with essential tools, struggle with software-based assignments, and fall behind in digital literacy. This disadvantage affects their practical skills development and limits exposure to current industry-standard technologies and workflows."
             }
         ];
 
@@ -1842,6 +2133,26 @@
                     window.open(shareUrl, '_blank', 'width=600,height=400');
                 }
             }
+
+            // Add share functionality to horizontal section cards
+            document.querySelectorAll('.scroll-share').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const title = this.getAttribute('data-title');
+                    shareArticle(title, 'share');
+                });
+            });
+
+            // Add click functionality to horizontal section cards
+            document.querySelectorAll('.scroll-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Only redirect if not clicking on share button or read more link
+                    if (!e.target.closest('.scroll-share') && !e.target.closest('.read-more')) {
+                        window.location.href = 'text.html';
+                    }
+                });
+            });
 
             // Latest Report functionality
             const latestReportLink = document.getElementById('latest-report-link');
