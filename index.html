@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern News Blog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <style>
         /* Base Styles */
         * {
@@ -413,6 +415,11 @@
         .article-content p {
             margin-bottom: 15px;
         }
+
+        .article-content strong {
+            font-weight: 700;
+            color: #ff6600;
+        }
         
         .comments-link {
             color: #ff6600;
@@ -584,6 +591,36 @@
             font-size: 14px;
         }
         
+        /* Subscription Message Styles */
+        .subscription-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .subscription-message.success {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        
+        .subscription-message.error {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        .subscription-message.info {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            border: 1px solid #3498db;
+        }
+        
         /* Mobile Responsive */
         @media (min-width: 768px) {
             .article-title {
@@ -626,6 +663,10 @@
             
             .latest-report {
                 font-size: 12px;
+            }
+            
+            .subscribe-form {
+                flex-direction: column;
             }
         }
     </style>
@@ -747,17 +788,17 @@
             <div class="article-content">
                 <p>In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand. However, the nature of this demand differs significantly between the two fields, and understanding these differences can help aspiring tech professionals make informed career decisions.</p>
 
-                <p>Software engineering focuses on the practical application of engineering principles to software development. Software engineers design, develop, test, and maintain software systems. They work closely with clients and stakeholders to understand requirements and deliver functional, reliable software solutions. The role requires strong problem-solving skills, attention to detail, and the ability to work collaboratively in team environments.</p>
+                <p><strong>Software engineering focuses on the practical application of engineering principles to software development.</strong> Software engineers design, develop, test, and maintain software systems. They work closely with clients and stakeholders to understand requirements and deliver functional, reliable software solutions. The role requires strong problem-solving skills, attention to detail, and the ability to work collaboratively in team environments.</p>
 
-                <p>Computer science, on the other hand, is more theoretical and research-oriented. Computer scientists explore the fundamental principles of computation, algorithms, data structures, and the mathematical foundations of computing. They often work on advancing the field through research and innovation, developing new algorithms, improving computational efficiency, and exploring the theoretical limits of what computers can achieve.</p>
+                <p><strong>Computer science, on the other hand, is more theoretical and research-oriented.</strong> Computer scientists explore the fundamental principles of computation, algorithms, data structures, and the mathematical foundations of computing. They often work on advancing the field through research and innovation, developing new algorithms, improving computational efficiency, and exploring the theoretical limits of what computers can achieve.</p>
 
                 <p>Currently, the job market shows strong demand for both disciplines, but software engineering roles tend to have more immediate openings in industry settings. According to recent labor statistics, software developer positions are projected to grow much faster than average over the next decade, with an estimated 22% growth rate compared to the 5% average for all occupations.</p>
 
-                <p>The demand for software engineers is driven by several factors, including the ongoing digital transformation across industries, the proliferation of mobile applications, the growth of cloud computing, and the increasing importance of cybersecurity. Companies in virtually every sector—from finance and healthcare to retail and entertainment—need skilled software engineers to develop and maintain their digital infrastructure.</p>
+                <p><strong>The demand for software engineers is driven by several factors</strong>, including the ongoing digital transformation across industries, the proliferation of mobile applications, the growth of cloud computing, and the increasing importance of cybersecurity. Companies in virtually every sector—from finance and healthcare to retail and entertainment—need skilled software engineers to develop and maintain their digital infrastructure.</p>
 
-                <p>Computer science professionals, while also in high demand, often find opportunities in more specialized areas. These include artificial intelligence and machine learning research, data science, computational biology, quantum computing, and academic research. The skills of computer scientists are particularly valuable in organizations that are pushing the boundaries of technology or solving complex computational problems.</p>
+                <p><strong>Computer science professionals, while also in high demand, often find opportunities in more specialized areas.</strong> These include artificial intelligence and machine learning research, data science, computational biology, quantum computing, and academic research. The skills of computer scientists are particularly valuable in organizations that are pushing the boundaries of technology or solving complex computational problems.</p>
 
-                <p>Both fields offer excellent career prospects, but the choice between them depends on individual interests and career goals. Those who enjoy practical problem-solving, building applications, and seeing immediate results from their work may prefer software engineering. This path typically leads to roles such as software developer, DevOps engineer, quality assurance engineer, or systems architect.</p>
+                <p><strong>Both fields offer excellent career prospects</strong>, but the choice between them depends on individual interests and career goals. Those who enjoy practical problem-solving, building applications, and seeing immediate results from their work may prefer software engineering. This path typically leads to roles such as software developer, DevOps engineer, quality assurance engineer, or systems architect.</p>
 
                 <p>On the other hand, individuals who are fascinated by the theoretical aspects of computing, enjoy mathematical challenges, and want to contribute to advancing the field through research might find computer science more fulfilling. Career paths in computer science can include research scientist, data scientist, algorithm specialist, or academic professor.</p>
 
@@ -812,27 +853,658 @@
             <div class="article-content">
                 <p>Africa's economic landscape is diverse and rapidly changing, with several countries emerging as economic powerhouses on the continent. Based on GDP figures, here are the top 10 largest African economies, each with unique strengths, challenges, and growth trajectories.</p>
 
-                <p>1. Nigeria - With a GDP of over $500 billion, Nigeria leads as Africa's largest economy. Its wealth comes primarily from petroleum resources, which account for about 90% of the country's export earnings and more than half of government revenue. However, Nigeria is also developing its technology, entertainment, and agricultural sectors. The country has a rapidly growing tech startup scene, particularly in Lagos, which has earned the nickname "Silicon Lagoon." Nigeria's large population of over 200 million people provides both a substantial domestic market and a significant labor force.</p>
+                <p><strong>1. Nigeria</strong> - With a GDP of over $500 billion, Nigeria leads as Africa's largest economy. Its wealth comes primarily from petroleum resources, which account for about 90% of the country's export earnings and more than half of government revenue. However, Nigeria is also developing its technology, entertainment, and agricultural sectors. The country has a rapidly growing tech startup scene, particularly in Lagos, which has earned the nickname "Silicon Lagoon." Nigeria's large population of over 200 million people provides both a substantial domestic market and a significant labor force.</p>
 
-                <p>2. South Africa - As the most industrialized economy in Africa, South Africa has a diverse economic base including mining, manufacturing, and services. Its GDP stands at approximately $400 billion. The country is rich in mineral resources, being the world's largest producer of platinum, chromium, and manganese. South Africa also has well-developed financial, legal, communications, energy, and transport sectors, with the Johannesburg Stock Exchange being the largest in Africa. Despite these strengths, the country faces challenges including high unemployment, income inequality, and energy supply issues.</p>
+                <p><strong>2. South Africa</strong> - As the most industrialized economy in Africa, South Africa has a diverse economic base including mining, manufacturing, and services. Its GDP stands at approximately $400 billion. The country is rich in mineral resources, being the world's largest producer of platinum, chromium, and manganese. South Africa also has well-developed financial, legal, communications, energy, and transport sectors, with the Johannesburg Stock Exchange being the largest in Africa. Despite these strengths, the country faces challenges including high unemployment, income inequality, and energy supply issues.</p>
 
-                <p>3. Egypt - With a GDP of around $350 billion, Egypt's economy benefits from its strategic location, tourism, and a growing technology sector alongside traditional industries like textiles and agriculture. The Suez Canal is a critical source of revenue, providing passage for approximately 10% of global trade. Egypt has implemented economic reforms in recent years, including floating its currency and cutting fuel subsidies, which have helped stabilize the economy and attract foreign investment. The country's large population of over 100 million provides a substantial domestic market, though it also presents challenges in terms of providing employment and public services.</p>
+                <p><strong>3. Egypt</strong> - With a GDP of around $350 billion, Egypt's economy benefits from its strategic location, tourism, and a growing technology sector alongside traditional industries like textiles and agriculture. The Suez Canal is a critical source of revenue, providing passage for approximately 10% of global trade. Egypt has implemented economic reforms in recent years, including floating its currency and cutting fuel subsidies, which have helped stabilize the economy and attract foreign investment. The country's large population of over 100 million provides a substantial domestic market, though it also presents challenges in terms of providing employment and public services.</p>
 
-                <p>4. Algeria - This North African nation has an economy heavily reliant on hydrocarbons, with a GDP of about $200 billion. Petroleum and natural gas account for approximately 95% of export earnings and 60% of budget revenues. Recent efforts have focused on economic diversification to reduce this dependency, with investments in agriculture, manufacturing, and renewable energy. Algeria has substantial foreign exchange reserves, which provide a buffer against economic shocks, but the country faces challenges related to youth unemployment and the need for economic reforms.</p>
+                <p><strong>4. Algeria</strong> - This North African nation has an economy heavily reliant on hydrocarbons, with a GDP of about $200 billion. Petroleum and natural gas account for approximately 95% of export earnings and 60% of budget revenues. Recent efforts have focused on economic diversification to reduce this dependency, with investments in agriculture, manufacturing, and renewable energy. Algeria has substantial foreign exchange reserves, which provide a buffer against economic shocks, but the country faces challenges related to youth unemployment and the need for economic reforms.</p>
 
-                <p>5. Morocco - With a GDP of approximately $130 billion, Morocco has developed strong automotive, aerospace, and renewable energy industries alongside its traditional agricultural and tourism sectors. The country has positioned itself as a manufacturing hub, particularly for the automotive industry, with major plants producing vehicles and components for European markets. Morocco has also invested heavily in renewable energy, with one of the world's largest solar power plants. The country's political stability and strategic location have made it an attractive destination for foreign investment.</p>
+                <p><strong>5. Morocco</strong> - With a GDP of approximately $130 billion, Morocco has developed strong automotive, aerospace, and renewable energy industries alongside its traditional agricultural and tourism sectors. The country has positioned itself as a manufacturing hub, particularly for the automotive industry, with major plants producing vehicles and components for European markets. Morocco has also invested heavily in renewable energy, with one of the world's largest solar power plants. The country's political stability and strategic location have made it an attractive destination for foreign investment.</p>
 
-                <p>6. Angola - With a GDP of about $120 billion, Angola's economy is heavily dependent on oil, which accounts for about 90% of exports. The country has made efforts to diversify its economy, particularly in agriculture and mining, but progress has been slow. Angola has substantial natural resources beyond oil, including diamonds, gold, and other minerals, but infrastructure challenges and governance issues have hindered development in these sectors.</p>
+                <p><strong>6. Angola</strong> - With a GDP of about $120 billion, Angola's economy is heavily dependent on oil, which accounts for about 90% of exports. The country has made efforts to diversify its economy, particularly in agriculture and mining, but progress has been slow. Angola has substantial natural resources beyond oil, including diamonds, gold, and other minerals, but infrastructure challenges and governance issues have hindered development in these sectors.</p>
 
-                <p>7. Ethiopia - With a GDP of approximately $110 billion, Ethiopia has been one of Africa's fastest-growing economies in recent years, though growth has slowed due to political conflicts and the COVID-19 pandemic. The economy is primarily agricultural, with coffee being a major export, but the country has been developing its manufacturing sector, particularly in textiles and leather products. Ethiopia has also invested heavily in infrastructure, including hydroelectric dams, railways, and industrial parks.</p>
+                <p><strong>7. Ethiopia</strong> - With a GDP of approximately $110 billion, Ethiopia has been one of Africa's fastest-growing economies in recent years, though growth has slowed due to political conflicts and the COVID-19 pandemic. The economy is primarily agricultural, with coffee being a major export, but the country has been developing its manufacturing sector, particularly in textiles and leather products. Ethiopia has also invested heavily in infrastructure, including hydroelectric dams, railways, and industrial parks.</p>
 
-                <p>8. Kenya - With a GDP of about $100 billion, Kenya has a diverse economy with strengths in agriculture, services, and technology. The country is a regional hub for trade and finance, with the Nairobi Securities Exchange being one of Africa's largest. Kenya is known for its innovation in mobile technology, particularly through the M-Pesa mobile payment system, which has revolutionized financial services in the country and beyond. Tourism is also an important sector, with Kenya's wildlife parks and beaches attracting visitors from around the world.</p>
+                <p><strong>8. Kenya</strong> - With a GDP of about $100 billion, Kenya has a diverse economy with strengths in agriculture, services, and technology. The country is a regional hub for trade and finance, with the Nairobi Securities Exchange being one of Africa's largest. Kenya is known for its innovation in mobile technology, particularly through the M-Pesa mobile payment system, which has revolutionized financial services in the country and beyond. Tourism is also an important sector, with Kenya's wildlife parks and beaches attracting visitors from around the world.</p>
 
-                <p>9. Ghana - With a GDP of approximately $80 billion, Ghana has one of West Africa's more stable and diversified economies. The country is a major producer of gold, cocoa, and oil, but has also developed strong services and manufacturing sectors. Ghana has made significant progress in poverty reduction and human development in recent decades, though it still faces challenges related to public debt and infrastructure gaps.</p>
+                <p><strong>9. Ghana</strong> - With a GDP of approximately $80 billion, Ghana has one of West Africa's more stable and diversified economies. The country is a major producer of gold, cocoa, and oil, but has also developed strong services and manufacturing sectors. Ghana has made significant progress in poverty reduction and human development in recent decades, though it still faces challenges related to public debt and infrastructure gaps.</p>
 
-                <p>10. Tanzania - With a GDP of about $70 billion, Tanzania's economy has grown steadily in recent years, driven by gold production, tourism, and agriculture. The country has substantial natural resources, including natural gas reserves, and has invested in infrastructure projects such as a standard gauge railway and a new port. Tanzania's political stability and economic reforms have made it an attractive destination for foreign investment, particularly in mining and infrastructure.</p>
+                <p><strong>10. Tanzania</strong> - With a GDP of about $70 billion, Tanzania's economy has grown steadily in recent years, driven by gold production, tourism, and agriculture. The country has substantial natural resources, including natural gas reserves, and has invested in infrastructure projects such as a standard gauge railway and a new port. Tanzania's political stability and economic reforms have made it an attractive destination for foreign investment, particularly in mining and infrastructure.</p>
 
                 <p>These ten countries represent the dynamic and evolving economic landscape of the African continent. While they face various challenges, including infrastructure deficits, governance issues, and the need for economic diversification, they also offer significant opportunities for growth and investment. As Africa continues to develop and integrate into the global economy, these economic powerhouses will play a crucial role in shaping the continent's future.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+
+        <!-- Health Article 1 -->
+        <article class="article" data-category="health" id="article-3">
+            <div class="category-label">HEALTH</div>
+            <h1 class="article-title">Signs you're in sleep debt: hidden damage you ignore at night</h1>
+            <div class="featured-image">
+                <img src="images/health-sleep" alt="Sleep debt concept">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Jan 10, 2025</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Signs you're in sleep debt: hidden damage you ignore at night">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Signs you're in sleep debt: hidden damage you ignore at night">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Signs you're in sleep debt: hidden damage you ignore at night">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Signs you're in sleep debt: hidden damage you ignore at night">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Signs you're in sleep debt: hidden damage you ignore at night">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>Sleep debt is a growing epidemic in our fast-paced society, with millions of people accumulating a significant sleep deficit without even realizing it. This hidden health crisis can have profound effects on both physical and mental well-being, yet many continue to ignore the warning signs.</p>
+
+                <p><strong>The most obvious sign of sleep debt is constant fatigue</strong>, but there are many subtler indicators that often go unnoticed. If you find yourself needing caffeine to get through the day, struggling to concentrate, or experiencing mood swings, you might be carrying a significant sleep debt. These symptoms are often dismissed as normal stress, but they frequently point to inadequate rest.</p>
+
+                <p><strong>Your cognitive abilities are among the first to suffer</strong> when you're sleep deprived. Memory lapses, difficulty making decisions, and reduced problem-solving capabilities are common manifestations of sleep debt. Research shows that being awake for 18 hours produces impairment equivalent to a blood alcohol content of 0.05%, and 24 hours awake equates to 0.10% - above the legal driving limit in most countries.</p>
+
+                <p><strong>Physical symptoms of sleep debt extend far beyond simple tiredness.</strong> You might notice increased appetite and cravings for high-carbohydrate foods, as sleep deprivation disrupts hormones that regulate hunger. Weight gain often follows, as the body attempts to compensate for lack of energy through increased caloric intake. Additionally, your immune system becomes compromised, making you more susceptible to infections and slowing recovery from illness.</p>
+
+                <p><strong>The long-term consequences of chronic sleep debt are particularly concerning.</strong> Studies have linked insufficient sleep to an increased risk of serious health conditions including heart disease, diabetes, obesity, and certain types of cancer. The body uses sleep to repair cellular damage, consolidate memories, and regulate vital systems - processes that are disrupted when sleep is consistently shortened.</p>
+
+                <p><strong>Many people develop a condition called "sleep debt blindness"</strong> where they become so accustomed to functioning with less sleep that they no longer recognize their impaired state. They believe they've adapted to needing less rest, when in reality their performance, health, and quality of life continue to deteriorate.</p>
+
+                <p>The good news is that sleep debt is reversible. While you can't "bank" sleep in advance, you can pay back accumulated debt through consistent, quality rest. Most adults need 7-9 hours of sleep per night, and making this a priority can help reverse the damage caused by chronic sleep deprivation.</p>
+
+                <p>If you suspect you're carrying sleep debt, start by establishing a consistent sleep schedule, creating a restful bedroom environment, and limiting screen time before bed. Within just a few weeks of proper sleep habits, you'll likely notice improved mood, better concentration, and increased energy levels - clear signs that you're reducing your sleep debt and restoring your health.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+
+        <!-- Education Article 1 -->
+        <article class="article" data-category="education" id="article-4">
+            <div class="category-label">EDUCATION</div>
+            <h1 class="article-title">Online learning vs Physical learning: The future of education</h1>
+            <div class="featured-image">
+                <img src="images/education-online" alt="Online vs physical learning">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Jan 8, 2025</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Online learning vs Physical learning: The future of education">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Online learning vs Physical learning: The future of education">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Online learning vs Physical learning: The future of education">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Online learning vs Physical learning: The future of education">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Online learning vs Physical learning: The future of education">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>The education landscape has undergone a dramatic transformation in recent years, with online learning emerging as a powerful alternative to traditional physical classrooms. As we look toward the future of education, it's becoming increasingly clear that the most effective approach may not be an either/or choice, but rather a thoughtful integration of both modalities.</p>
+
+                <p><strong>Online learning offers unprecedented flexibility and accessibility</strong> that physical classrooms simply cannot match. Students can learn from anywhere in the world, at their own pace, and often at a lower cost than traditional education. This democratization of education has opened doors for millions who previously faced geographic, financial, or scheduling barriers to learning.</p>
+
+                <p><strong>The COVID-19 pandemic accelerated the adoption of online learning</strong> by necessity, but what began as an emergency measure has evolved into a legitimate educational pathway. Institutions that previously resisted digital transformation were forced to adapt, and many discovered unexpected benefits in the process. The result is a more diverse educational ecosystem with multiple pathways to knowledge and skills.</p>
+
+                <p><strong>However, physical learning environments provide unique benefits</strong> that online platforms struggle to replicate. The spontaneous interactions between students and instructors, the development of social skills through face-to-face collaboration, and the structured environment of a physical classroom all contribute to a holistic educational experience. For many learners, especially younger students, these elements are crucial for development.</p>
+
+                <p><strong>Research suggests that different subjects may benefit from different delivery methods.</strong> Hands-on skills like surgery, mechanical repair, or laboratory work often require physical presence and direct supervision. Meanwhile, theoretical subjects like computer programming, mathematics, or literature can be effectively taught online with proper instructional design.</p>
+
+                <p><strong>The future likely lies in hybrid models</strong> that combine the best aspects of both approaches. These blended learning environments allow for personalized pacing through online components while maintaining valuable in-person interactions for discussions, collaborative projects, and practical applications. This approach recognizes that different students have different learning styles and needs.</p>
+
+                <p><strong>Technology continues to bridge the gap between physical and digital learning.</strong> Virtual reality can simulate laboratory environments, augmented reality can bring historical events to life, and AI-powered tutoring systems can provide personalized support. As these technologies mature, the distinction between online and physical learning may become increasingly blurred.</p>
+
+                <p>Educational institutions that thrive in the coming decades will likely be those that embrace flexibility and innovation. Rather than viewing online and physical learning as competitors, forward-thinking educators are exploring how to integrate them strategically to create more effective, accessible, and engaging learning experiences for all students.</p>
+
+                <p>Ultimately, the goal of education remains the same regardless of delivery method: to empower individuals with knowledge, skills, and critical thinking abilities. The evolution of learning modalities represents not a dilution of education, but an expansion of its reach and potential impact on society.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+
+        <!-- Education Article 2 -->
+        <article class="article" data-category="education" id="article-5">
+            <div class="category-label">EDUCATION</div>
+            <h1 class="article-title">Skilled or Degree Certification: find out what big companies are looking for</h1>
+            <div class="featured-image">
+                <img src="images/education-skills" alt="Skills vs degrees">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Jan 5, 2025</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Skilled or Degree Certification: find out what big companies are looking for">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Skilled or Degree Certification: find out what big companies are looking for">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Skilled or Degree Certification: find out what big companies are looking for">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Skilled or Degree Certification: find out what big companies are looking for">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Skilled or Degree Certification: find out what big companies are looking for">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>The traditional hiring landscape is undergoing a significant transformation as major corporations reevaluate what they truly value in candidates. The long-standing preference for degree credentials is being challenged by a growing emphasis on practical skills and demonstrated capabilities.</p>
+
+                <p><strong>Tech giants like Google, Apple, and IBM have publicly announced</strong> that they no longer require college degrees for many positions. This shift represents a fundamental change in how companies assess talent and potential. Instead of using educational credentials as a filtering mechanism, these organizations are developing more sophisticated methods to evaluate candidates based on their actual abilities.</p>
+
+                <p><strong>The driving force behind this change is the rapid pace of technological evolution.</strong> Traditional four-year degree programs often struggle to keep curriculum current with the latest industry developments. Meanwhile, specialized training programs, coding bootcamps, and online certifications can provide more targeted, up-to-date skills that are immediately applicable in the workplace.</p>
+
+                <p><strong>However, this doesn't mean that degrees have lost all value.</strong> For certain roles, particularly in research, academia, and highly specialized fields, advanced degrees remain essential. The key insight from forward-thinking companies is that different roles require different qualifications, and a one-size-fits-all approach to hiring is increasingly ineffective.</p>
+
+                <p><strong>Many companies are now implementing skills-based hiring practices</strong> that focus on what candidates can do rather than where they studied. This approach often includes practical assessments, portfolio reviews, and problem-solving exercises that directly relate to job requirements. This method not only identifies capable candidates who might lack traditional credentials but also helps reduce unconscious bias in the hiring process.</p>
+
+                <p><strong>The most sought-after candidates often combine both formal education and practical skills.</strong> While companies are placing greater emphasis on demonstrable abilities, they still value the critical thinking, research skills, and theoretical foundation that quality degree programs provide. The ideal candidate profile is evolving to include both academic knowledge and hands-on experience.</p>
+
+                <p><strong>Industry-specific certifications are gaining prominence</strong> as a middle ground between full degrees and informal skill acquisition. These credentials, often developed in partnership with industry leaders, provide standardized validation of specific competencies. They offer employers confidence in a candidate's abilities while being more accessible and focused than traditional degree programs.</p>
+
+                <p><strong>Soft skills remain critically important regardless of educational background.</strong> Companies consistently report that attributes like communication, collaboration, adaptability, and problem-solving are among the most valuable qualities in employees. These skills can be developed through various pathways, not exclusively through formal education.</p>
+
+                <p>For job seekers, this changing landscape means that there are multiple pathways to career success. While degrees still open certain doors, they are no longer the only option. Building a strong portfolio, gaining practical experience through projects or internships, and obtaining relevant certifications can be equally effective strategies for landing desirable positions.</p>
+
+                <p>The most successful approach for both individuals and organizations appears to be a balanced one that values demonstrated capabilities while recognizing the unique benefits that different educational pathways provide. As the workplace continues to evolve, this nuanced understanding of talent and qualification will likely become increasingly important for building effective, innovative teams.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+
+        <!-- Health Article 2 -->
+        <article class="article" data-category="health" id="article-6">
+            <div class="category-label">HEALTH</div>
+            <h1 class="article-title">Why you should make drinking water a habit: avoiding kidney stones</h1>
+            <div class="featured-image">
+                <img src="images/health-water" alt="Drinking water for health">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Jan 3, 2025</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Why you should make drinking water a habit: avoiding kidney stones">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Why you should make drinking water a habit: avoiding kidney stones">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Why you should make drinking water a habit: avoiding kidney stones">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Why you should make drinking water a habit: avoiding kidney stones">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Why you should make drinking water a habit: avoiding kidney stones">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>Water is essential for life, yet many people don't drink enough of it. Making water consumption a daily habit is one of the simplest and most effective ways to protect your health, particularly when it comes to preventing painful kidney stones.</p>
+
+                <p><strong>Kidney stones form when certain minerals in your urine become concentrated and crystallize.</strong> These crystals can grow into stones that range in size from a grain of sand to a pea or even larger. When these stones try to pass through your urinary system, they can cause excruciating pain that many describe as worse than childbirth.</p>
+
+                <p><strong>Drinking adequate water is the single most important factor in preventing kidney stones.</strong> When you're well-hydrated, your urine contains more water relative to waste products and minerals. This dilution makes it much less likely that minerals will concentrate enough to form stones. Think of it like adding more water to a glass of sugary drink - the sugar becomes less concentrated and less likely to crystallize.</p>
+
+                <p><strong>How much water should you drink?</strong> While the standard recommendation is eight 8-ounce glasses per day (about 2 liters), your individual needs may vary based on your size, activity level, and climate. A good indicator is the color of your urine - it should be light yellow or nearly clear. Dark yellow urine often means you need to drink more water.</p>
+
+                <p><strong>Beyond kidney stone prevention, proper hydration offers numerous other health benefits:</strong></p>
+                <ul>
+                    <li>Improved energy levels and brain function</li>
+                    <li>Better digestion and nutrient absorption</li>
+                    <li>Healthier skin</li>
+                    <li>Improved physical performance</li>
+                    <li>Better temperature regulation</li>
+                </ul>
+
+                <p><strong>Making water drinking a habit doesn't have to be difficult.</strong> Try these simple strategies:</p>
+                <ul>
+                    <li>Keep a water bottle with you throughout the day</li>
+                    <li>Set reminders on your phone</li>
+                    <li>Drink a glass of water before each meal</li>
+                    <li>Add natural flavor with lemon, cucumber, or mint</li>
+                    <li>Eat water-rich foods like watermelon and cucumbers</li>
+                </ul>
+
+                <p><strong>If you've had kidney stones before, staying hydrated is even more crucial.</strong> People who have had one kidney stone have about a 50% chance of developing another within 5-10 years. Consistent water intake can cut this risk significantly.</p>
+
+                <p>Remember that other beverages like coffee, tea, and soda can contribute to your fluid intake, but water is always the best choice. Sugary drinks can actually increase your risk of kidney stones in some cases.</p>
+
+                <p>Making water consumption a daily habit is a small change that can have a big impact on your health. By simply drinking enough water each day, you're taking a powerful step toward preventing the formation of kidney stones and supporting your overall wellbeing.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+
+        <!-- Health Article 3 -->
+        <article class="article" data-category="health" id="article-7">
+            <div class="category-label">HEALTH</div>
+            <h1 class="article-title">Why you have headache after using your smartphone too long</h1>
+            <div class="featured-image">
+                <img src="images/health-headache" alt="Smartphone headache">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Jan 1, 2025</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Why you have headache after using your smartphone too long">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Why you have headache after using your smartphone too long">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Why you have headache after using your smartphone too long">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Why you have headache after using your smartphone too long">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Why you have headache after using your smartphone too long">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>If you've ever experienced a headache after spending too much time on your smartphone, you're not alone. This common phenomenon, sometimes called "tech neck" or "digital eye strain," affects millions of people worldwide. Understanding why this happens can help you prevent these painful headaches.</p>
+
+                <p><strong>Eye strain is the most common cause of smartphone-related headaches.</strong> When you stare at a bright screen for extended periods, your eye muscles work constantly to maintain focus. Unlike printed text, digital screens add flicker, glare, and contrast that make reading more difficult for your eyes. This continuous effort can lead to tired, strained eyes that eventually trigger a headache.</p>
+
+                <p><strong>Poor posture while using your phone contributes significantly to headaches.</strong> Most people tilt their heads forward when looking at their phones, which puts extra pressure on the neck and shoulder muscles. This position can strain the suboccipital muscles at the base of your skull, which are connected to the muscles that surround your eyes. When these muscles become tense, they can refer pain to your forehead and temples, creating a tension headache.</p>
+
+                <p><strong>Blue light exposure from screens may also play a role.</strong> Smartphone screens emit blue light, which can disrupt your sleep-wake cycle and potentially contribute to headaches, especially when used in the evening. While research is ongoing, many people report that reducing blue light exposure helps decrease their headache frequency.</p>
+
+                <p><strong>Here are simple strategies to prevent smartphone-induced headaches:</strong></p>
+                <ul>
+                    <li><strong>Take regular breaks:</strong> Follow the 20-20-20 rule - every 20 minutes, look at something 20 feet away for 20 seconds</li>
+                    <li><strong>Adjust your screen:</strong> Increase text size, reduce brightness, and use night mode or blue light filters</li>
+                    <li><strong>Improve your posture:</strong> Hold your phone at eye level to avoid bending your neck</li>
+                    <li><strong>Blink more often:</strong> People blink less when staring at screens, which can dry out eyes</li>
+                    <li><strong>Use proper lighting:</strong> Avoid using your phone in dark rooms or in direct sunlight</li>
+                </ul>
+
+                <p><strong>If you already have a headache from phone use, try these remedies:</strong></p>
+                <ul>
+                    <li>Rest your eyes in a darkened room</li>
+                    <li>Apply a cool compress to your forehead or the back of your neck</li>
+                    <li>Gently massage your temples, neck, and shoulders</li>
+                    <li>Stay hydrated - dehydration can worsen headaches</li>
+                    <li>Consider over-the-counter pain relief if needed</li>
+                </ul>
+
+                <p><strong>When to see a doctor:</strong> While occasional smartphone-related headaches are common, you should consult a healthcare professional if you experience frequent or severe headaches, vision changes, or headaches that don't respond to simple remedies. These could indicate underlying issues that need medical attention.</p>
+
+                <p>Remember that moderation is key when it comes to smartphone use. Being mindful of your screen time and implementing these preventive measures can help you enjoy the benefits of technology without the painful side effects.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+
+        <!-- Education Article 3 -->
+        <article class="article" data-category="education" id="article-8">
+            <div class="category-label">EDUCATION</div>
+            <h1 class="article-title">The importance of mandating elementary education in kids</h1>
+            <div class="featured-image">
+                <img src="images/education-elementary" alt="Elementary education">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Dec 28, 2024</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="The importance of mandating elementary education in kids">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="The importance of mandating elementary education in kids">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="The importance of mandating elementary education in kids">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="The importance of mandating elementary education in kids">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="The importance of mandating elementary education in kids">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>Elementary education forms the critical foundation upon which all future learning is built. Making this early education mandatory for all children is one of the most important investments a society can make in its future. The benefits extend far beyond basic literacy and numeracy, shaping individuals and communities for generations.</p>
+
+                <p><strong>Early childhood is a unique window of opportunity for brain development.</strong> Between ages 5 and 12, children's brains are exceptionally receptive to learning. During this period, neural connections form at a rapid pace, creating the architecture that will support all future cognitive abilities. Quality elementary education maximizes this natural potential by providing structured learning experiences that develop critical thinking, problem-solving, and social skills.</p>
+
+                <p><strong>Mandatory elementary education helps break cycles of poverty.</strong> Education is consistently identified as the most powerful tool for social mobility. When all children receive a solid educational foundation, regardless of their family's economic status, they gain the tools to create better lives for themselves. This benefits not only individuals but entire communities as educated citizens contribute more to economic development and social stability.</p>
+
+                <p><strong>Elementary education develops essential social skills.</strong> Beyond academic learning, school provides children with their first sustained experience in a structured social environment. They learn to cooperate with peers, respect authority figures other than parents, follow rules, and navigate complex social dynamics. These skills are crucial for success in all areas of life, from personal relationships to professional settings.</p>
+
+                <p><strong>Early identification of learning challenges is another critical benefit.</strong> When children attend school regularly, teachers can identify learning disabilities, developmental delays, or other challenges early. Early intervention for these issues is far more effective than addressing them later in life. Without mandatory schooling, many children with special needs might never receive the support they require.</p>
+
+                <p><strong>Society as a whole benefits from an educated population.</strong> Countries with high rates of elementary education completion typically experience:</p>
+                <ul>
+                    <li>Lower crime rates</li>
+                    <li>Better public health outcomes</li>
+                    <li>Stronger economic growth</li>
+                    <li>More stable political systems</li>
+                    <li>Greater civic participation</li>
+                </ul>
+
+                <p><strong>Implementing mandatory elementary education does present challenges,</strong> particularly in resource-limited settings. However, the long-term benefits far outweigh the costs. Solutions include:</p>
+                <ul>
+                    <li>Building more schools in underserved areas</li>
+                    <li>Training and supporting qualified teachers</li>
+                    <li>Providing materials and resources</li>
+                    <li>Addressing barriers like child labor or early marriage</li>
+                    <li>Engaging communities to value education</li>
+                </ul>
+
+                <p>While the specific implementation may vary across cultures and countries, the principle remains universal: every child deserves access to quality elementary education. This fundamental right prepares children not just for further education, but for life itself. By mandating elementary education, societies invest in their most valuable resource - their children - and build a stronger foundation for collective prosperity and wellbeing.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+
+        <!-- Education Article 4 -->
+        <article class="article" data-category="education" id="article-9">
+            <div class="category-label">EDUCATION</div>
+            <h1 class="article-title">Extra mural classes: the key to faster understanding as a student</h1>
+            <div class="featured-image">
+                <img src="images/education-extramural" alt="Extra mural classes">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Dec 25, 2024</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Extra mural classes: the key to faster understanding as a student">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Extra mural classes: the key to faster understanding as a student">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Extra mural classes: the key to faster understanding as a student">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Extra mural classes: the key to faster understanding as a student">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Extra mural classes: the key to faster understanding as a student">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>Extra mural classes, also known as extracurricular activities or supplementary lessons, can significantly accelerate a student's learning and understanding. These additional educational opportunities outside regular school hours provide benefits that extend far beyond simple academic reinforcement.</p>
+
+                <p><strong>Extra mural classes offer personalized learning experiences</strong> that are often impossible in crowded classrooms. With smaller student-to-teacher ratios, instructors can identify individual learning styles and tailor their teaching methods accordingly. This personalized approach helps students grasp concepts more quickly and overcome specific challenges they might face with particular subjects.</p>
+
+                <p><strong>These classes provide opportunities for deeper exploration</strong> of subjects that capture a student's interest. While regular school curricula must cover broad topics, extra mural classes can focus intensively on specific areas. This concentrated attention allows students to develop expertise and understanding that goes beyond surface-level knowledge, creating stronger neural connections and better long-term retention.</p>
+
+                <p><strong>Different teaching approaches in extra mural classes can unlock understanding.</strong> Sometimes a concept that seems confusing in the classroom becomes clear when presented from a different angle or using alternative teaching methods. Extra mural instructors often employ innovative techniques, hands-on activities, or real-world applications that make abstract concepts more tangible and understandable.</p>
+
+                <p><strong>Building confidence is another significant benefit.</strong> Students who struggle in regular classes often develop anxiety about certain subjects. The supportive environment of extra mural classes, where mistakes are expected and questions are encouraged, can rebuild this confidence. As students experience small successes, their belief in their own abilities grows, creating a positive cycle of learning and achievement.</p>
+
+                <p><strong>Types of extra mural classes that can boost understanding:</strong></p>
+                <ul>
+                    <li><strong>Subject-specific tutoring:</strong> Focused help in challenging areas like mathematics, science, or languages</li>
+                    <li><strong>Study skills workshops:</strong> Teaching effective learning techniques, time management, and exam preparation</li>
+                    <li><strong>Enrichment programs:</strong> Advanced topics beyond the standard curriculum for gifted students</li>
+                    <li><strong>Project-based learning:</strong> Hands-on activities that apply academic concepts to real-world problems</li>
+                    <li><strong>Peer tutoring:</strong> Learning from slightly older students who recently mastered the same material</li>
+                </ul>
+
+                <p><strong>To maximize the benefits of extra mural classes, consider these tips:</strong></p>
+                <ul>
+                    <li>Choose classes that align with the student's interests and learning style</li>
+                    <li>Ensure the schedule allows for adequate rest and free time</li>
+                    <li>Look for qualified instructors with experience in their subject area</li>
+                    <li>Maintain open communication between school teachers and extra mural instructors</li>
+                    <li>Focus on understanding rather than just memorization or test scores</li>
+                </ul>
+
+                <p>While extra mural classes require additional time and resources, their potential to accelerate learning and deepen understanding makes them a valuable supplement to traditional education. When selected thoughtfully and balanced with other activities, these classes can transform a student's educational experience, turning challenges into opportunities and fostering a genuine love of learning.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+
+        <!-- News Article 2 -->
+        <article class="article" data-category="news" id="article-10">
+            <div class="category-label">NEWS</div>
+            <h1 class="article-title">Top most planted cash crops in Africa</h1>
+            <div class="featured-image">
+                <img src="images/news-crops" alt="African cash crops">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Dec 22, 2024</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Top most planted cash crops in Africa">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Top most planted cash crops in Africa">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Top most planted cash crops in Africa">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Top most planted cash crops in Africa">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Top most planted cash crops in Africa">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>Agriculture remains the backbone of many African economies, with cash crops playing a vital role in both local sustenance and international trade. These crops not only provide food security but also generate significant income for millions of farmers across the continent.</p>
+
+                <p><strong>Cassava leads as one of Africa's most important staple and cash crops.</strong> This drought-resistant root vegetable thrives in various African climates and serves as a primary food source for over 500 million people. Beyond local consumption, cassava has growing industrial applications in starch production, animal feed, and biofuel, making it an increasingly valuable cash crop.</p>
+
+                <p><strong>Maize (corn) is another crucial crop across the continent.</strong> As a dietary staple in many African countries, maize cultivation supports both subsistence farming and commercial agriculture. Countries like South Africa, Nigeria, and Ethiopia are major producers, with maize serving as a key ingredient in numerous traditional dishes and as livestock feed.</p>
+
+                <p><strong>Cocoa remains Africa's most famous export crop,</strong> with Côte d'Ivoire and Ghana together producing nearly 60% of the world's supply. The chocolate industry depends heavily on West African cocoa, which provides income for approximately two million smallholder farmers in the region. Despite challenges like price volatility and sustainability concerns, cocoa continues to be a vital economic driver.</p>
+
+                <p><strong>Coffee cultivation spans several African nations,</strong> with Ethiopia, Uganda, and Ivory Coast among the top producers. African coffee is renowned for its distinctive flavors, with Ethiopian varieties particularly prized by specialty coffee enthusiasts. The coffee sector supports millions of small-scale farmers and represents a significant source of foreign exchange for producing countries.</p>
+
+                <p><strong>Tea production has grown substantially in East Africa,</strong> with Kenya ranking as the world's third-largest tea exporter. The high-altitude regions of Kenya, Malawi, and Rwanda provide ideal conditions for quality tea cultivation. This labor-intensive crop provides employment for large numbers of workers, particularly women, in rural areas.</p>
+
+                <p><strong>Palm oil has emerged as an important cash crop,</strong> especially in West and Central Africa. Nigeria is Africa's largest producer, followed by Ghana and Côte d'Ivoire. While palm oil cultivation raises environmental concerns, it remains a lucrative crop with diverse applications in food, cosmetics, and biofuels.</p>
+
+                <p><strong>Cotton continues to be a significant cash crop</strong> in several African nations, particularly in West Africa. Countries like Burkina Faso, Mali, and Benin rely heavily on cotton exports, which provide income for millions of smallholder farmers. The African cotton industry faces challenges from subsidies in developed countries but remains competitive due to favorable growing conditions.</p>
+
+                <p><strong>Other notable cash crops include:</strong></p>
+                <ul>
+                    <li><strong>Sugarcane:</strong> Grown extensively in countries like South Africa, Egypt, and Sudan</li>
+                    <li><strong>Rubber:</strong> Important in Liberia, Nigeria, and Côte d'Ivoire</li>
+                    <li><strong>Bananas:</strong> Significant export crop for countries like Cameroon and Côte d'Ivoire</li>
+                    <li><strong>Cashew nuts:</strong> West Africa, particularly Côte d'Ivoire, is a major global producer</li>
+                    <li><strong>Shea nuts:</strong> Valuable export from West Africa for cosmetics and food products</li>
+                </ul>
+
+                <p>The future of Africa's cash crop sector involves addressing challenges like climate change, market access, and value addition. By processing more crops locally rather than exporting raw materials, African nations can capture more value from their agricultural resources. Sustainable farming practices and fair trade initiatives also offer pathways to more equitable and environmentally responsible agricultural development.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+
+        <!-- News Article 3 -->
+        <article class="article" data-category="news" id="article-11">
+            <div class="category-label">NEWS</div>
+            <h1 class="article-title">Top five countries in Africa leading the tech world</h1>
+            <div class="featured-image">
+                <img src="images/news-tech" alt="African tech innovation">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/00141" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="#" class="author-name">Henry Xavier</a>
+                    <div class="date">Dec 20, 2024</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Top five countries in Africa leading the tech world">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Top five countries in Africa leading the tech world">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Top five countries in Africa leading the tech world">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Top five countries in Africa leading the tech world">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Top five countries in Africa leading the tech world">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>Africa's technology sector is experiencing remarkable growth, with several countries emerging as innovation hubs that are gaining global recognition. These nations are not only adapting technology but are creating original solutions to local and global challenges.</p>
+
+                <p><strong>Nigeria stands as Africa's undeniable tech giant,</strong> with Lagos often called the "Silicon Valley of Africa." The country's tech ecosystem benefits from a large English-speaking population, a growing middle class, and significant venture capital investment. Nigerian startups have pioneered innovations in fintech, with companies like Paystack and Flutterwave achieving international success. The country's tech sector continues to expand into areas like e-commerce, healthtech, and edtech, driven by a young, tech-savvy population.</p>
+
+                <p><strong>Kenya has earned its reputation as a tech innovation leader,</strong> most famously through the mobile money revolution sparked by M-Pesa. This groundbreaking mobile payment system transformed financial inclusion not just in Kenya but across the developing world. Nairobi's "Silicon Savannah" continues to produce innovative startups in sectors ranging from agriculture technology to renewable energy. Kenya's supportive government policies and strong telecommunications infrastructure have created an environment where tech innovation can thrive.</p>
+
+                <p><strong>South Africa boasts the most mature tech ecosystem on the continent,</strong> with well-developed financial services, infrastructure, and higher education institutions. Cape Town and Johannesburg have vibrant startup scenes, with successful companies in fields like fintech, e-commerce, and health technology. South Africa's advantage lies in its established corporate sector, which provides both funding and mentorship opportunities for startups. The country also leads in deep technology fields like artificial intelligence and blockchain.</p>
+
+                <p><strong>Egypt has emerged as a major tech hub in North Africa,</strong> leveraging its large population and strategic location. Cairo's tech scene has grown rapidly, with particular strength in e-commerce, fintech, and transport technology. Egyptian startups benefit from a large local market and proximity to Middle Eastern markets. Government initiatives to support entrepreneurship and digital transformation have further accelerated tech sector growth. The country's well-established outsourcing industry has also created a strong talent pool for the tech sector.</p>
+
+                <p><strong>Ghana is establishing itself as an important West African tech hub,</strong> with Accra developing a vibrant startup ecosystem. The country's political stability and business-friendly environment have attracted both local and international tech investment. Ghanaian innovators have made significant contributions in mobile technology, agricultural tech, and renewable energy. The country's "Year of Return" initiative has also helped attract diaspora Ghanaian tech talent back to the country, further strengthening the sector.</p>
+
+                <p><strong>These leading tech nations share several common success factors:</strong></p>
+                <ul>
+                    <li><strong>Youthful populations:</strong> A large percentage of young people who are digital natives</li>
+                    <li><strong>Mobile-first approach:</strong> Leveraging high mobile phone penetration to reach users</li>
+                    <li><strong>Local problem-solving:</strong> Creating solutions for specific African challenges</li>
+                    <li><strong>Growing investment:</strong> Increasing venture capital and angel investment</li>
+                    <li><strong>Supportive policies:</strong> Government initiatives to encourage tech innovation</li>
+                </ul>
+
+                <p>While these five countries currently lead Africa's tech revolution, other nations like Rwanda, Uganda, and Tunisia are rapidly developing their own tech ecosystems. As digital infrastructure continues to improve across the continent and more Africans come online, the potential for tech-driven growth and innovation appears limitless. The success of Africa's tech sector demonstrates how the continent is not just catching up with global technology trends but is increasingly setting them.</p>
             </div>
             <a href="#" class="comments-link">Comments</a>
         </article>
@@ -902,10 +1574,11 @@
             <div class="footer-content">
                 <div class="subscribe-section">
                     <h3 class="subscribe-title">Subscribe to our newsletter</h3>
-                    <form class="subscribe-form">
-                        <input type="email" class="email-input" placeholder="Your email address" required>
+                    <form class="subscribe-form" id="footer-subscribe-form">
+                        <input type="email" class="email-input" id="footer-subscribe-email" placeholder="Your email address" required>
                         <button type="submit" class="subscribe-btn">Subscribe</button>
                     </form>
+                    <div id="footer-subscribe-message" class="subscription-message"></div>
                 </div>
                 <div class="footer-links">
                     <a href="#" class="footer-link">Having any issues? Reach us</a>
@@ -922,6 +1595,31 @@
     </footer>
 
     <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXqNe_BDdh9WIJ9lyrFPeQ_-733qbXW4s",
+            authDomain: "realinsightreport.firebaseapp.com",
+            projectId: "realinsightreport",
+            storageBucket: "realinsightreport.firebasestorage.app",
+            messagingSenderId: "1083096764833",
+            appId: "1:1083096764833:web:4b526f278471212ba43be0",
+            measurementId: "G-6LHBN68HMH"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // DOM elements for footer subscription
+        const footerSubscribeForm = document.getElementById('footer-subscribe-form');
+        const footerSubscribeEmail = document.getElementById('footer-subscribe-email');
+        const footerSubscribeMessage = document.getElementById('footer-subscribe-message');
+        
+        // User data
+        let userCountry = "Unknown";
+        
         // Sample article data for search functionality
         const articlesData = [
             {
@@ -940,286 +1638,428 @@
             },
             {
                 id: 3,
-                title: "The future of renewable energy in developing nations",
-                category: "news",
-                snippet: "Renewable energy adoption is accelerating across developing countries, with solar and wind leading the transition...",
-                content: "Renewable energy adoption is accelerating across developing countries, with solar and wind leading the transition away from fossil fuels. Government incentives and decreasing technology costs are making clean energy more accessible than ever before."
+                title: "Signs you're in sleep debt: hidden damage you ignore at night",
+                category: "health",
+                snippet: "Sleep debt is a growing epidemic in our fast-paced society, with millions of people accumulating a significant sleep deficit...",
+                content: "Sleep debt is a growing epidemic in our fast-paced society, with millions of people accumulating a significant sleep deficit without even realizing it. This hidden health crisis can have profound effects on both physical and mental well-being..."
             },
             {
                 id: 4,
-                title: "AI in healthcare: revolutionizing patient diagnosis",
-                category: "health",
-                snippet: "Artificial intelligence is transforming healthcare by improving diagnostic accuracy and personalizing treatment plans...",
-                content: "Artificial intelligence is transforming healthcare by improving diagnostic accuracy and personalizing treatment plans. Machine learning algorithms can analyze medical images with precision that sometimes exceeds human capabilities."
+                title: "Online learning vs Physical learning: The future of education",
+                category: "education",
+                snippet: "The education landscape has undergone a dramatic transformation in recent years, with online learning emerging as a powerful alternative...",
+                content: "The education landscape has undergone a dramatic transformation in recent years, with online learning emerging as a powerful alternative to traditional physical classrooms. As we look toward the future of education, it's becoming increasingly clear that the most effective approach may not be an either/or choice..."
             },
             {
                 id: 5,
-                title: "Online learning platforms compared: which is best for you?",
+                title: "Skilled or Degree Certification: find out what big companies are looking for",
                 category: "education",
-                snippet: "With the rise of digital education, we compare the top online learning platforms to help you choose the right one...",
-                content: "With the rise of digital education, we compare the top online learning platforms to help you choose the right one for your educational goals. Factors like course variety, pricing, and certification options vary significantly between platforms."
+                snippet: "The traditional hiring landscape is undergoing a significant transformation as major corporations reevaluate what they truly value in candidates...",
+                content: "The traditional hiring landscape is undergoing a significant transformation as major corporations reevaluate what they truly value in candidates. The long-standing preference for degree credentials is being challenged by a growing emphasis on practical skills and demonstrated capabilities."
+            },
+            {
+                id: 6,
+                title: "Why you should make drinking water a habit: avoiding kidney stones",
+                category: "health",
+                snippet: "Water is essential for life, yet many people don't drink enough of it. Making water consumption a daily habit is one of the simplest...",
+                content: "Water is essential for life, yet many people don't drink enough of it. Making water consumption a daily habit is one of the simplest and most effective ways to protect your health, particularly when it comes to preventing painful kidney stones."
+            },
+            {
+                id: 7,
+                title: "Why you have headache after using your smartphone too long",
+                category: "health",
+                snippet: "If you've ever experienced a headache after spending too much time on your smartphone, you're not alone. This common phenomenon...",
+                content: "If you've ever experienced a headache after spending too much time on your smartphone, you're not alone. This common phenomenon, sometimes called 'tech neck' or 'digital eye strain,' affects millions of people worldwide."
+            },
+            {
+                id: 8,
+                title: "The importance of mandating elementary education in kids",
+                category: "education",
+                snippet: "Elementary education forms the critical foundation upon which all future learning is built. Making this early education mandatory...",
+                content: "Elementary education forms the critical foundation upon which all future learning is built. Making this early education mandatory for all children is one of the most important investments a society can make in its future."
+            },
+            {
+                id: 9,
+                title: "Extra mural classes: the key to faster understanding as a student",
+                category: "education",
+                snippet: "Extra mural classes, also known as extracurricular activities or supplementary lessons, can significantly accelerate a student's learning...",
+                content: "Extra mural classes, also known as extracurricular activities or supplementary lessons, can significantly accelerate a student's learning and understanding. These additional educational opportunities outside regular school hours provide benefits that extend far beyond simple academic reinforcement."
+            },
+            {
+                id: 10,
+                title: "Top most planted cash crops in Africa",
+                category: "news",
+                snippet: "Agriculture remains the backbone of many African economies, with cash crops playing a vital role in both local sustenance and international trade...",
+                content: "Agriculture remains the backbone of many African economies, with cash crops playing a vital role in both local sustenance and international trade. These crops not only provide food security but also generate significant income for millions of farmers across the continent."
+            },
+            {
+                id: 11,
+                title: "Top five countries in Africa leading the tech world",
+                category: "news",
+                snippet: "Africa's technology sector is experiencing remarkable growth, with several countries emerging as innovation hubs that are gaining global recognition...",
+                content: "Africa's technology sector is experiencing remarkable growth, with several countries emerging as innovation hubs that are gaining global recognition. These nations are not only adapting technology but are creating original solutions to local and global challenges."
             }
         ];
 
-        // Share functionality
-        function shareArticle(title, platform) {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent(`Check out this article: ${title}`);
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Detect user's country
+            detectCountry();
             
-            let shareUrl;
+            // Set up event listeners for footer subscription
+            footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
             
-            switch(platform) {
-                case 'facebook':
-                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
-                    break;
-                case 'twitter':
-                    shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-                    break;
-                case 'whatsapp':
-                    shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
-                    break;
-                case 'telegram':
-                    shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
-                    break;
-                case 'share':
-                default:
-                    if (navigator.share) {
-                        navigator.share({
-                            title: title,
-                            text: text,
-                            url: window.location.href,
+            // Set up other event listeners from original code
+            setupEventListeners();
+        });
+        
+        // Detect user's country using IP
+        function detectCountry() {
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    userCountry = data.country_name;
+                })
+                .catch(error => {
+                    console.error('Error detecting country:', error);
+                    // Fallback to a free API if the first one fails
+                    fetch('https://api.country.is/')
+                        .then(response => response.json())
+                        .then(data => {
+                            userCountry = data.country;
                         })
-                        .then(() => console.log('Successful share'))
-                        .catch((error) => console.log('Error sharing:', error));
-                        return;
-                    } else {
-                        // Fallback for browsers that don't support the Web Share API
-                        shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-                    }
-                    break;
-            }
-            
-            if (shareUrl) {
-                window.open(shareUrl, '_blank', 'width=600,height=400');
-            }
-        }
-
-        // Latest Report functionality
-        const latestReportLink = document.getElementById('latest-report-link');
-        const recentlyAddedSection = document.getElementById('recently-added');
-        
-        latestReportLink.addEventListener('click', function() {
-            recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // Go Up Button functionality
-        const goUpButton = document.getElementById('go-up');
-        
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 500) {
-                goUpButton.classList.add('active');
-            } else {
-                goUpButton.classList.remove('active');
-            }
-        });
-        
-        goUpButton.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Mobile menu functionality
-        const hamburgerMenu = document.querySelector('.hamburger-menu');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const menuOverlay = document.querySelector('.menu-overlay');
-        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
-        
-        hamburgerMenu.addEventListener('click', function() {
-            mobileMenu.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-        });
-        
-        menuOverlay.addEventListener('click', function() {
-            mobileMenu.classList.remove('active');
-            menuOverlay.classList.remove('active');
-        });
-        
-        // Close menu when a category link is clicked
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                mobileMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-                
-                // If it's a category link, filter articles
-                const category = this.getAttribute('data-category');
-                if (category) {
-                    filterArticlesByCategory(category);
-                    
-                    // Update category buttons
-                    document.querySelectorAll('.category-btn').forEach(btn => {
-                        btn.classList.remove('active');
-                        if (btn.getAttribute('data-category') === category) {
-                            btn.classList.add('active');
-                        }
-                    });
-                }
-            });
-        });
-
-        // Search functionality
-        const searchIcon = document.querySelector('.search-icon');
-        const searchModal = document.querySelector('.search-modal');
-        const closeSearch = document.querySelector('.close-search');
-        const searchInput = document.querySelector('.search-input');
-        const searchButton = document.querySelector('.search-button');
-        const searchFilters = document.querySelectorAll('.search-filter');
-        const searchResults = document.querySelector('.search-results');
-        
-        searchIcon.addEventListener('click', function() {
-            searchModal.classList.add('active');
-            searchInput.focus();
-        });
-        
-        closeSearch.addEventListener('click', function() {
-            searchModal.classList.remove('active');
-        });
-        
-        // Close search modal when clicking outside
-        searchModal.addEventListener('click', function(e) {
-            if (e.target === searchModal) {
-                searchModal.classList.remove('active');
-            }
-        });
-        
-        // Search filter functionality
-        searchFilters.forEach(filter => {
-            filter.addEventListener('click', function() {
-                searchFilters.forEach(f => f.classList.remove('active'));
-                this.classList.add('active');
-                performSearch();
-            });
-        });
-        
-        // Perform search when typing or clicking search button
-        searchInput.addEventListener('input', performSearch);
-        searchButton.addEventListener('click', performSearch);
-        
-        function performSearch() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const activeFilter = document.querySelector('.search-filter.active').getAttribute('data-filter');
-            
-            // Filter articles based on search term and category
-            const filteredArticles = articlesData.filter(article => {
-                const matchesSearch = searchTerm === '' || 
-                    article.title.toLowerCase().includes(searchTerm) ||
-                    article.snippet.toLowerCase().includes(searchTerm) ||
-                    article.content.toLowerCase().includes(searchTerm);
-                
-                const matchesCategory = activeFilter === 'all' || article.category === activeFilter;
-                
-                return matchesSearch && matchesCategory;
-            });
-            
-            // Display results
-            displaySearchResults(filteredArticles);
+                        .catch(error2 => {
+                            console.error('Error detecting country with fallback:', error2);
+                        });
+                });
         }
         
-        function displaySearchResults(results) {
-            if (results.length === 0) {
-                searchResults.innerHTML = '<div class="search-result-item">No articles found matching your search criteria.</div>';
+        // Handle footer email subscription
+        function handleFooterSubscription(e) {
+            e.preventDefault();
+            
+            const email = footerSubscribeEmail.value.trim();
+            
+            if (!email) {
+                showFooterSubscribeMessage("Please enter a valid email address.", "error");
                 return;
             }
             
-            searchResults.innerHTML = results.map(article => `
-                <div class="search-result-item" data-article-id="${article.id}">
-                    <div class="search-result-category">${article.category.toUpperCase()}</div>
-                    <div class="search-result-title">${article.title}</div>
-                    <div class="search-result-snippet">${article.snippet}</div>
-                </div>
-            `).join('');
+            if (!validateEmail(email)) {
+                showFooterSubscribeMessage("Please enter a valid email address.", "error");
+                return;
+            }
             
-            // Add click event to result items
-            document.querySelectorAll('.search-result-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const articleId = this.getAttribute('data-article-id');
+            // Check if email already exists
+            db.collection("subscribers")
+                .where("email", "==", email)
+                .get()
+                .then((querySnapshot) => {
+                    if (!querySnapshot.empty) {
+                        showFooterSubscribeMessage("✓ You're already subscribed! Thank you for being part of our exclusive newsletter community. You'll continue receiving our premium insights and early access to all content.", "info");
+                        footerSubscribeEmail.value = "";
+                        return;
+                    }
                     
-                    // Close search modal
-                    searchModal.classList.remove('active');
-                    
-                    // Show all articles first
-                    document.querySelectorAll('.article').forEach(article => {
-                        article.style.display = 'block';
+                    // Save to Firebase
+                    return db.collection("subscribers").add({
+                        email: email,
+                        country: userCountry,
+                        subscribedAt: new Date().toISOString(),
+                        subscriptionType: "premium",
+                        newsletterAccess: true
                     });
-                    
-                    // Hide all articles except the selected one
-                    if (articleId) {
-                        document.querySelectorAll('.article').forEach(article => {
-                            if (article.id !== `article-${articleId}`) {
-                                article.style.display = 'none';
-                            }
-                        });
-                        
-                        // Scroll to the selected article
-                        const selectedArticle = document.getElementById(`article-${articleId}`);
-                        if (selectedArticle) {
-                            selectedArticle.scrollIntoView({ behavior: 'smooth' });
+                })
+                .then(() => {
+                    showFooterSubscribeMessage("🎉 Welcome to our exclusive newsletter community! You'll now receive premium insights, early access to all research reports, and exclusive analytical briefings directly to your inbox.", "success");
+                    footerSubscribeEmail.value = "";
+                })
+                .catch((error) => {
+                    console.error("Error subscribing: ", error);
+                    showFooterSubscribeMessage("There was an error processing your subscription. Please try again.", "error");
+                });
+        }
+        
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Show footer subscription message
+        function showFooterSubscribeMessage(message, type) {
+            footerSubscribeMessage.textContent = message;
+            footerSubscribeMessage.className = `subscription-message ${type}`;
+            footerSubscribeMessage.style.display = 'block';
+            
+            // Hide message after 8 seconds for success, 5 for error
+            setTimeout(() => {
+                footerSubscribeMessage.style.display = 'none';
+            }, type === 'success' ? 8000 : 5000);
+        }
+
+        // Original functionality from the first code
+        function setupEventListeners() {
+            // Share functionality - only share the title
+            function shareArticle(title, platform) {
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(`${title} - Check out this article on Modern News Blog`);
+                
+                let shareUrl;
+                
+                switch(platform) {
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                        break;
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                        break;
+                    case 'whatsapp':
+                        shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                        break;
+                    case 'telegram':
+                        shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+                        break;
+                    case 'share':
+                    default:
+                        if (navigator.share) {
+                            navigator.share({
+                                title: title,
+                                text: `${title} - Modern News Blog`,
+                                url: window.location.href,
+                            })
+                            .then(() => console.log('Successful share'))
+                            .catch((error) => console.log('Error sharing:', error));
+                            return;
+                        } else {
+                            // Fallback for browsers that don't support the Web Share API
+                            shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
                         }
+                        break;
+                }
+                
+                if (shareUrl) {
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                }
+            }
+
+            // Latest Report functionality
+            const latestReportLink = document.getElementById('latest-report-link');
+            const recentlyAddedSection = document.getElementById('recently-added');
+            
+            latestReportLink.addEventListener('click', function() {
+                recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Go Up Button functionality
+            const goUpButton = document.getElementById('go-up');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    goUpButton.classList.add('active');
+                } else {
+                    goUpButton.classList.remove('active');
+                }
+            });
+            
+            goUpButton.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Mobile menu functionality
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const menuOverlay = document.querySelector('.menu-overlay');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+            
+            hamburgerMenu.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+            });
+            
+            menuOverlay.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            });
+            
+            // Close menu when a category link is clicked
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                    
+                    // If it's a category link, filter articles
+                    const category = this.getAttribute('data-category');
+                    if (category) {
+                        filterArticlesByCategory(category);
                         
-                        // Update category buttons to show "All" as active
+                        // Update category buttons
                         document.querySelectorAll('.category-btn').forEach(btn => {
                             btn.classList.remove('active');
-                            if (btn.getAttribute('data-category') === 'all') {
+                            if (btn.getAttribute('data-category') === category) {
                                 btn.classList.add('active');
                             }
                         });
                     }
                 });
             });
-        }
-        
-        // Category filtering functionality
-        const categoryButtons = document.querySelectorAll('.category-btn');
-        const articles = document.querySelectorAll('.article');
-        
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const category = this.getAttribute('data-category');
-                filterArticlesByCategory(category);
-                
-                // Update active button
-                categoryButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
+
+            // Search functionality
+            const searchIcon = document.querySelector('.search-icon');
+            const searchModal = document.querySelector('.search-modal');
+            const closeSearch = document.querySelector('.close-search');
+            const searchInput = document.querySelector('.search-input');
+            const searchButton = document.querySelector('.search-button');
+            const searchFilters = document.querySelectorAll('.search-filter');
+            const searchResults = document.querySelector('.search-results');
+            
+            searchIcon.addEventListener('click', function() {
+                searchModal.classList.add('active');
+                searchInput.focus();
             });
-        });
-        
-        function filterArticlesByCategory(category) {
-            articles.forEach(article => {
-                if (category === 'all' || article.getAttribute('data-category') === category) {
-                    article.style.display = 'block';
-                } else {
-                    article.style.display = 'none';
+            
+            closeSearch.addEventListener('click', function() {
+                searchModal.classList.remove('active');
+            });
+            
+            // Close search modal when clicking outside
+            searchModal.addEventListener('click', function(e) {
+                if (e.target === searchModal) {
+                    searchModal.classList.remove('active');
                 }
             });
+            
+            // Search filter functionality
+            searchFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    searchFilters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                    performSearch();
+                });
+            });
+            
+            // Perform search when typing or clicking search button
+            searchInput.addEventListener('input', performSearch);
+            searchButton.addEventListener('click', performSearch);
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const activeFilter = document.querySelector('.search-filter.active').getAttribute('data-filter');
+                
+                // Filter articles based on search term and category
+                const filteredArticles = articlesData.filter(article => {
+                    const matchesSearch = searchTerm === '' || 
+                        article.title.toLowerCase().includes(searchTerm) ||
+                        article.snippet.toLowerCase().includes(searchTerm) ||
+                        article.content.toLowerCase().includes(searchTerm);
+                    
+                    const matchesCategory = activeFilter === 'all' || article.category === activeFilter;
+                    
+                    return matchesSearch && matchesCategory;
+                });
+                
+                // Display results
+                displaySearchResults(filteredArticles);
+            }
+            
+            function displaySearchResults(results) {
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div class="search-result-item">No articles found matching your search criteria.</div>';
+                    return;
+                }
+                
+                searchResults.innerHTML = results.map(article => `
+                    <div class="search-result-item" data-article-id="${article.id}">
+                        <div class="search-result-category">${article.category.toUpperCase()}</div>
+                        <div class="search-result-title">${article.title}</div>
+                        <div class="search-result-snippet">${article.snippet}</div>
+                    </div>
+                `).join('');
+                
+                // Add click event to result items
+                document.querySelectorAll('.search-result-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const articleId = this.getAttribute('data-article-id');
+                        
+                        // Close search modal
+                        searchModal.classList.remove('active');
+                        
+                        // Show all articles first
+                        document.querySelectorAll('.article').forEach(article => {
+                            article.style.display = 'block';
+                        });
+                        
+                        // Hide all articles except the selected one
+                        if (articleId) {
+                            document.querySelectorAll('.article').forEach(article => {
+                                if (article.id !== `article-${articleId}`) {
+                                    article.style.display = 'none';
+                                }
+                            });
+                            
+                            // Scroll to the selected article
+                            const selectedArticle = document.getElementById(`article-${articleId}`);
+                            if (selectedArticle) {
+                                selectedArticle.scrollIntoView({ behavior: 'smooth' });
+                            }
+                            
+                            // Update category buttons to show "All" as active
+                            document.querySelectorAll('.category-btn').forEach(btn => {
+                                btn.classList.remove('active');
+                                if (btn.getAttribute('data-category') === 'all') {
+                                    btn.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+            
+            // Category filtering functionality
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const articles = document.querySelectorAll('.article');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    filterArticlesByCategory(category);
+                    
+                    // Update active button
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            function filterArticlesByCategory(category) {
+                articles.forEach(article => {
+                    if (category === 'all' || article.getAttribute('data-category') === category) {
+                        article.style.display = 'block';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Add share functionality to all share buttons
+            document.querySelectorAll('.share-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const title = this.getAttribute('data-title');
+                    const platform = this.getAttribute('data-platform');
+                    shareArticle(title, platform);
+                });
+            });
+            
+            // Add share functionality to recent article share icons
+            document.querySelectorAll('.recent-share').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation(); // Prevent navigation when clicking share icon
+                    const title = this.getAttribute('data-title');
+                    shareArticle(title, 'share');
+                });
+            });
         }
-        
-        // Add share functionality to all share buttons
-        document.querySelectorAll('.share-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const title = this.getAttribute('data-title');
-                const platform = this.getAttribute('data-platform');
-                shareArticle(title, platform);
-            });
-        });
-        
-        // Add share functionality to recent article share icons
-        document.querySelectorAll('.recent-share').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation(); // Prevent navigation when clicking share icon
-                const title = this.getAttribute('data-title');
-                shareArticle(title, 'share');
-            });
-        });
     </script>
 </body>
 </html>
