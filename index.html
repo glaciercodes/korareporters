@@ -2130,7 +2130,7 @@
             // Share functionality - only share the title
             function shareArticle(title, platform) {
                 const url = encodeURIComponent(window.location.href);
-                const text = encodeURIComponent(`${title} - Check out this article on Modern News Blog`);
+                const text = encodeURIComponent(`${title} - Check out this write up on kora reporters`);
                 
                 let shareUrl;
                 
@@ -2152,7 +2152,7 @@
                         if (navigator.share) {
                             navigator.share({
                                 title: title,
-                                text: `${title} - Modern News Blog`,
+                                text: `${title} - kora reporters`,
                                 url: window.location.href,
                             })
                             .then(() => console.log('Successful share'))
