@@ -330,15 +330,19 @@
             font-weight: 700;
         }
         
+        /* FIXED: Featured image styling */
         .featured-image {
             width: 100%;
-            height: 100%;
-            background-color: #333;
-            margin-bottom: 1px;
-            display: flex;
-            align-items: center;
-            justify-content: fixed;
-            color: #999;
+            margin: 20px 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
         }
         
         .article-meta {
@@ -479,11 +483,22 @@
             justify-content: center;
             color: #999;
             font-size: 10px;
+            flex-shrink: 0;
+        }
+        
+        .recent-content {
+            flex: 1;
         }
         
         .recent-title {
-            flex: 1;
             font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        /* ADDED: Time styling for recently added articles */
+        .recent-time {
+            color: #999;
+            font-size: 12px;
         }
         
         .recent-share {
@@ -493,6 +508,7 @@
             flex-direction: column;
             align-items: center;
             gap: 2px;
+            flex-shrink: 0;
         }
         
         .recent-share-text {
@@ -730,6 +746,10 @@
             }
             
             .featured-image {
+                height: 350px;
+            }
+            
+            .featured-image img {
                 height: 350px;
             }
             
@@ -1765,7 +1785,11 @@
                 <div class="recent-img">
                     <img src="images/010" alt="Christmas destinations">
                 </div>
-                <div class="recent-title">Five best places to celebrate christmas: exploring lively countries</div>
+                <div class="recent-content">
+                    <div class="recent-title">Five best places to celebrate christmas: exploring lively countries</div>
+                    <!-- ADDED: Time for recently added articles -->
+                    <div class="recent-time">2 hours ago</div>
+                </div>
                 <div class="recent-share" data-title="Five best places to celebrate christmas: exploring lively countries">
                     <i class="fas fa-share-alt"></i>
                     <span class="recent-share-text">Share</span>
@@ -1775,7 +1799,11 @@
                 <div class="recent-img">
                     <img src="images/012" alt="Wonders of the world">
                 </div>
-                <div class="recent-title">Eight wonders of the world: which was recently added</div>
+                <div class="recent-content">
+                    <div class="recent-title">Eight wonders of the world: which was recently added</div>
+                    <!-- ADDED: Time for recently added articles -->
+                    <div class="recent-time">5 hours ago</div>
+                </div>
                 <div class="recent-share" data-title="Eight wonders of the world: which was recently added">
                     <i class="fas fa-share-alt"></i>
                     <span class="recent-share-text">Share</span>
@@ -1785,7 +1813,11 @@
                 <div class="recent-img">
                     <img src="images/013" alt="Early snow">
                 </div>
-                <div class="recent-title">Countries who experienced snow too early in 2025: minimal Climate change</div>
+                <div class="recent-content">
+                    <div class="recent-title">Countries who experienced snow too early in 2025: minimal Climate change</div>
+                    <!-- ADDED: Time for recently added articles -->
+                    <div class="recent-time">Yesterday</div>
+                </div>
                 <div class="recent-share" data-title="Countries who experienced snow too early in 2025: minimal Climate change">
                     <i class="fas fa-share-alt"></i>
                     <span class="recent-share-text">Share</span>
@@ -1795,7 +1827,11 @@
                 <div class="recent-img">
                     <img src="images/014" alt="Scholarship programs">
                 </div>
-                <div class="recent-title">Upcoming schorlarship programmes in 2026: starting and deadlines</div>
+                <div class="recent-content">
+                    <div class="recent-title">Upcoming schorlarship programmes in 2026: starting and deadlines</div>
+                    <!-- ADDED: Time for recently added articles -->
+                    <div class="recent-time">2 days ago</div>
+                </div>
                 <div class="recent-share" data-title="Upcoming schorlarship programmes in 2026: starting and deadlines">
                     <i class="fas fa-share-alt"></i>
                     <span class="recent-share-text">Share</span>
