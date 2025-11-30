@@ -2180,16 +2180,19 @@
                 });
             });
 
-            // Add click functionality to horizontal section cards
-            document.querySelectorAll('.scroll-card').forEach(card => {
-                card.addEventListener('click', function(e) {
-                    // Only redirect if not clicking on share button or read more link
-                    if (!e.target.closest('.scroll-share') && !e.target.closest('.read-more')) {
-                        window.location.href = 'text.html';
-                    }
-                });
-            });
-
+// Add click functionality to horizontal section cards
+document.querySelectorAll('.scroll-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+        // Only redirect if not clicking on share button or read more link
+        if (!e.target.closest('.scroll-share') && !e.target.closest('.read-more')) {
+            // Get the read more link from this card
+            const readMoreLink = this.querySelector('.read-more');
+            if (readMoreLink && readMoreLink.href) {
+                window.location.href = readMoreLink.href;
+            }
+        }
+    });
+});
             // Latest Report functionality
             const latestReportLink = document.getElementById('latest-report-link');
             const recentlyAddedSection = document.getElementById('recently-added');
