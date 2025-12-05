@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kora Reporters - Christmas Travel Guide</title>
+    <title>Five Best Places to Celebrate Christmas - Kora Reporters</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -19,7 +19,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #000;
             color: #fff;
-            line-height: 1.7;
+            line-height: 1.6;
         }
         
         a {
@@ -30,11 +30,6 @@
         img {
             max-width: 100%;
             display: block;
-        }
-        
-        video {
-            max-width: 100%;
-            border-radius: 8px;
         }
         
         .container {
@@ -91,20 +86,19 @@
             font-size: 14px;
         }
         
-        /* Home Link Section */
+        /* Home Link Below Header */
         .home-link-section {
             background-color: #111;
             padding: 10px 0;
-            border-bottom: 1px solid #222;
+            border-bottom: 1px solid #333;
         }
         
         .home-link {
-            color: #ff6600;
-            font-size: 16px;
-            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
+            color: #ff6600;
+            font-size: 16px;
             transition: color 0.3s;
         }
         
@@ -169,29 +163,21 @@
         }
         
         .article {
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             padding-bottom: 30px;
             border-bottom: 1px solid #333;
         }
         
         .article-title {
-            font-size: 36px;
-            margin-bottom: 25px;
+            font-size: 32px;
+            margin-bottom: 20px;
             font-weight: 700;
-            color: #fff;
             line-height: 1.3;
-        }
-        
-        .article-subtitle {
-            font-size: 20px;
-            color: #ff6600;
-            margin-bottom: 30px;
-            font-weight: 600;
         }
         
         .featured-image {
             width: 100%;
-            margin: 30px 0;
+            margin: 20px 0;
             overflow: hidden;
             border-radius: 8px;
         }
@@ -207,16 +193,17 @@
             display: flex;
             align-items: center;
             margin-bottom: 30px;
-            gap: 15px;
-            padding: 20px 0;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
+            gap: 10px;
         }
         
         .author-img {
-            width: 60px;
-            height: 60px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
         
@@ -230,40 +217,44 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
-            flex: 1;
         }
         
         .author-name {
-            font-weight: 700;
-            font-size: 18px;
+            font-weight: 600;
+            color: #ff6600;
         }
         
         .date {
             color: #999;
-            font-size: 16px;
+            font-size: 14px;
         }
         
         .share-section {
+            margin-left: auto;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
         }
         
         .share-label {
-            font-size: 14px;
+            font-size: 12px;
             color: #999;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         
         .share-buttons {
             display: flex;
-            gap: 15px;
+            gap: 10px;
         }
         
         .share-btn {
             color: #ff6600;
-            font-size: 22px;
+            font-size: 18px;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
             transition: color 0.3s;
         }
         
@@ -271,183 +262,172 @@
             color: #ff8533;
         }
         
+        .share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
         /* Article Content Styling */
         .article-content {
-            margin-bottom: 40px;
+            font-size: 18px;
+            line-height: 1.8;
         }
         
         .article-content p {
-            margin-bottom: 25px;
-            font-size: 18px;
-            line-height: 1.8;
-            color: #ddd;
+            margin-bottom: 20px;
+            color: #eee;
+        }
+        
+        .article-content strong {
+            font-weight: 700;
+            color: #ff6600;
         }
         
         .article-content h2 {
             font-size: 28px;
             margin: 40px 0 20px;
             color: #ff6600;
-            font-weight: 700;
+            border-left: 4px solid #ff6600;
+            padding-left: 15px;
         }
         
         .article-content h3 {
-            font-size: 22px;
+            font-size: 24px;
             margin: 30px 0 15px;
             color: #fff;
-            font-weight: 600;
         }
         
         .article-content ul {
-            margin: 20px 0 25px 30px;
-            color: #ddd;
+            margin: 20px 0;
+            padding-left: 20px;
         }
         
         .article-content li {
             margin-bottom: 10px;
-            font-size: 18px;
-            line-height: 1.6;
+            color: #eee;
         }
         
-        .article-content strong {
-            color: #ff6600;
-            font-weight: 600;
-        }
-        
-        .article-content em {
-            color: #aaa;
-            font-style: italic;
-        }
-        
-        /* Country Video Section */
         .country-video {
+            width: 100%;
             margin: 40px 0;
-            text-align: center;
-        }
-        
-        .video-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #ff6600;
-            font-weight: 600;
-        }
-        
-        .video-description {
-            color: #ccc;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-        
-        /* Reading Guide Section */
-        .reading-guide {
-            background-color: #111;
-            border: 1px solid #333;
             border-radius: 8px;
-            padding: 40px;
-            margin: 60px 0;
+            overflow: hidden;
         }
         
-        .reading-guide-title {
-            font-size: 28px;
-            color: #ff6600;
-            margin-bottom: 25px;
-            font-weight: 700;
+        .country-video video {
+            width: 100%;
+            height: auto;
+            display: block;
         }
         
-        .guide-step {
-            margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid #222;
-        }
-        
-        .guide-step:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        
-        .step-number {
-            display: inline-block;
-            width: 36px;
-            height: 36px;
-            background-color: #ff6600;
-            color: #000;
-            border-radius: 50%;
+        .video-caption {
             text-align: center;
-            line-height: 36px;
-            font-weight: bold;
-            margin-right: 15px;
+            font-style: italic;
+            color: #999;
+            margin-top: 10px;
+            font-size: 14px;
         }
         
-        .step-title {
-            display: inline-block;
-            font-size: 20px;
-            font-weight: 600;
-            color: #fff;
+        .country-section {
+            background-color: #111;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 40px 0;
+            border-left: 4px solid #ff6600;
+        }
+        
+        .country-title {
+            color: #ff6600;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        
+        .highlight-title {
+            color: #ff6600;
+            font-size: 18px;
             margin-bottom: 10px;
         }
         
-        .step-content {
-            color: #ddd;
-            font-size: 17px;
-            line-height: 1.7;
-            margin-left: 50px;
+        .comments-link {
+            display: inline-block;
+            color: #ff6600;
+            font-weight: 600;
+            margin-top: 30px;
+            padding: 10px 20px;
+            border: 1px solid #ff6600;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .comments-link:hover {
+            background-color: #ff6600;
+            color: #000;
         }
         
         /* Contact Email Section */
         .contact-section {
-            padding: 40px 0;
+            padding: 30px 0;
             border-top: 1px solid #333;
             text-align: center;
         }
         
         .contact-title {
-            font-size: 26px;
-            margin-bottom: 20px;
+            font-size: 22px;
+            margin-bottom: 15px;
             font-weight: 700;
         }
         
         .contact-email {
             color: #ff6600;
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 18px;
         }
         
         /* Recently Added Section */
         .recently-added {
-            padding: 40px 0;
+            padding: 30px 0;
             border-top: 1px solid #333;
         }
         
         .section-title {
-            font-size: 26px;
-            margin-bottom: 25px;
+            font-size: 22px;
+            margin-bottom: 20px;
             font-weight: 700;
         }
         
         .recent-articles {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
         
         .recent-article {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             align-items: center;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #222;
         }
         
-        .recent-article:last-child {
-            border-bottom: none;
-        }
-        
         .recent-img {
-            width: 100px;
-            height: 80px;
-            border-radius: 6px;
-            overflow: hidden;
+            width: 80px;
+            height: 60px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 10px;
             flex-shrink: 0;
+            overflow: hidden;
+            border-radius: 4px;
         }
         
         .recent-img img {
@@ -461,14 +441,13 @@
         }
         
         .recent-title {
-            font-size: 16px;
-            margin-bottom: 8px;
-            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 5px;
         }
         
         .recent-time {
             color: #999;
-            font-size: 14px;
+            font-size: 12px;
         }
         
         .recent-share {
@@ -477,12 +456,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            gap: 2px;
             flex-shrink: 0;
         }
         
         .recent-share-text {
-            font-size: 12px;
+            font-size: 10px;
             color: #999;
         }
         
@@ -518,14 +497,14 @@
         /* Footer */
         footer {
             background-color: #111;
-            padding: 50px 0 20px;
+            padding: 40px 0 20px;
             border-top: 1px solid #333;
         }
         
         .footer-content {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 30px;
         }
         
         .subscribe-section {
@@ -533,51 +512,49 @@
         }
         
         .subscribe-title {
-            font-size: 20px;
-            margin-bottom: 20px;
+            font-size: 18px;
+            margin-bottom: 15px;
         }
         
         .subscribe-form {
             display: flex;
-            max-width: 500px;
+            max-width: 400px;
             margin: 0 auto;
         }
         
         .email-input {
             flex: 1;
-            padding: 14px 20px;
+            padding: 12px 15px;
             border: 1px solid #333;
             background-color: #000;
             color: #fff;
             font-size: 16px;
-            border-right: none;
         }
         
         .subscribe-btn {
             background-color: #ff6600;
             color: #fff;
             border: none;
-            padding: 0 25px;
+            padding: 0 20px;
             cursor: pointer;
+            height: 46px;
             font-size: 16px;
-            font-weight: 600;
         }
         
         .footer-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 25px;
+            gap: 20px;
         }
         
         .footer-link {
             color: #ff6600;
-            font-weight: 500;
         }
         
         .copyright {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 30px;
             color: #666;
             font-size: 14px;
         }
@@ -589,7 +566,7 @@
             margin-top: 20px;
             text-align: center;
             display: none;
-            max-width: 500px;
+            max-width: 400px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -615,7 +592,7 @@
         /* Mobile Responsive */
         @media (min-width: 768px) {
             .article-title {
-                font-size: 42px;
+                font-size: 40px;
             }
             
             .featured-image {
@@ -629,7 +606,7 @@
             .recent-articles {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                gap: 25px;
+                gap: 20px;
             }
             
             .footer-content {
@@ -643,7 +620,7 @@
             
             .footer-links {
                 flex-direction: column;
-                gap: 12px;
+                gap: 10px;
             }
             
             .latest-report {
@@ -660,32 +637,36 @@
                 font-size: 12px;
             }
             
-            .article-title {
-                font-size: 28px;
-            }
-            
             .subscribe-form {
                 flex-direction: column;
             }
             
-            .email-input {
-                border-right: 1px solid #333;
-                border-bottom: none;
+            .article-title {
+                font-size: 28px;
             }
             
-            .reading-guide {
-                padding: 25px;
+            .featured-image {
+                height: 300px;
             }
             
-            .article-meta {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 20px;
+            .featured-image img {
+                height: 300px;
             }
             
-            .share-section {
-                align-items: flex-start;
-                width: 100%;
+            .article-content {
+                font-size: 16px;
+            }
+            
+            .article-content h2 {
+                font-size: 24px;
+            }
+            
+            .article-content h3 {
+                font-size: 20px;
+            }
+            
+            .country-title {
+                font-size: 22px;
             }
         }
     </style>
@@ -708,7 +689,7 @@
         </div>
     </header>
 
-    <!-- Home Link -->
+    <!-- Home Link Section -->
     <div class="home-link-section">
         <div class="container">
             <a href="index.html" class="home-link">
@@ -725,21 +706,17 @@
             <a href="contact.html" class="mobile-menu-link">Contact Us</a>
             <a href="termsp.html" class="mobile-menu-link">Terms and Privacy</a>
             <a href="termss.html" class="mobile-menu-link">Terms of Service</a>
-            <a href="xavier.html" class="mobile-menu-link">Henry Xavier</a>
         </div>
     </div>
     <div class="menu-overlay"></div>
 
     <!-- Content -->
     <div class="container content">
-        <!-- Main Article -->
         <article class="article">
-            <h1 class="article-title">Five Best Places to Celebrate Christmas: Exploring Lively Countries</h1>
-            
-            <p class="article-subtitle">Discover the most magical destinations to experience the festive season around the world</p>
+            <h1 class="article-title">Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World</h1>
             
             <div class="featured-image">
-                <img src="images/0022.jpg" alt="Christmas Celebrations Around the World">
+                <img src="images/0022.jpg" alt="Christmas celebration around the world">
             </div>
             
             <div class="article-meta">
@@ -751,202 +728,224 @@
                     <div class="date">December 15, 2024</div>
                 </div>
                 <div class="share-section">
-                    <div class="share-label">Share This Article</div>
+                    <div class="share-label">Share</div>
                     <div class="share-buttons">
-                        <a href="#" class="share-btn" data-platform="share" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World">
                             <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
                         </a>
-                        <a href="#" class="share-btn" data-platform="facebook" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries">
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World">
                             <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
                         </a>
-                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries">
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World">
                             <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
                         </a>
-                        <a href="#" class="share-btn" data-platform="telegram" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries">
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World">
                             <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
                         </a>
-                        <a href="#" class="share-btn" data-platform="twitter" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries">
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World">
                             <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
                         </a>
                     </div>
                 </div>
             </div>
             
             <div class="article-content">
-                <p>Christmas is a special time of year when people around the world come together to celebrate with family, friends, and communities. While many enjoy cozy celebrations at home, others seek unique experiences in different countries. If you're looking to create unforgettable Christmas memories, we've compiled a list of the five best places to celebrate Christmas around the world.</p>
+                <p>Christmas is a magical time of year when cities around the world transform into winter wonderlands, each offering unique traditions, festive decorations, and joyful celebrations. If you're looking for the ultimate Christmas experience, certain countries stand out for their extraordinary holiday spirit. From traditional European markets to sunny beach celebrations, here are the five best places to celebrate Christmas around the globe.</p>
 
-                <p>Each destination offers something special – from traditional celebrations that have continued for centuries to modern festivities that light up entire cities. These places understand how to make Christmas magical, with decorations, food, music, and traditions that will warm your heart. Whether you want snow-covered landscapes, warm beach celebrations, or cultural experiences unlike any other, there's a perfect Christmas destination waiting for you.</p>
-
-                <p>Traveling during Christmas can be one of the most rewarding experiences of the year. You get to see how different cultures celebrate the same holiday, try new foods, meet new people, and create memories that will last a lifetime. The key is choosing a destination that matches what you want from your Christmas celebration.</p>
-
-                <p>In this guide, we'll take you through five incredible countries that know how to celebrate Christmas in style. We'll explore what makes each destination unique, what you can expect during your visit, and practical tips for making the most of your Christmas vacation. Let's begin our journey around the world to discover the best Christmas celebrations.</p>
-
-                <h2>1. Germany – The Heart of Christmas Traditions</h2>
-
-                <p>Germany is often called the birthplace of many Christmas traditions we know today. If you love classic Christmas celebrations with deep historical roots, Germany should be at the top of your list. The country transforms into a winter wonderland during December, with Christmas markets popping up in every town and city.</p>
-
-                <p>The German Christmas markets, known as Christkindlesmarkt, are world-famous. These markets date back to the Middle Ages and offer handmade crafts, delicious food, and warm drinks. The smell of roasted almonds, gingerbread, and mulled wine fills the air as people browse wooden stalls decorated with lights and ornaments. Each market has its own character, from the massive Nuremberg market to the charming smaller markets in towns like Rothenburg.</p>
-
-                <p>Beyond the markets, German Christmas traditions are rich and varied. Families celebrate Advent with calendars and wreaths, children write letters to Christkind (the Christmas gift-bringer), and Christmas Eve is the main celebration with gift exchange and special meals. The food is incredible – think roasted goose, potato dumplings, red cabbage, and stollen (a traditional fruit bread).</p>
-
-                <p>One of the best things about celebrating Christmas in Germany is the atmosphere. Even small villages go all out with decorations, lights, and community events. The sense of tradition is strong, and you'll feel the warmth and joy everywhere you go. If you want a traditional European Christmas experience, Germany delivers in every way.</p>
-
-                <div class="country-video">
-                    <h3 class="video-title">Christmas in Germany</h3>
-                    <p class="video-description">Experience the magic of German Christmas markets and traditions</p>
-                    <video controls>
-                        <source src="videos/0014.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                <div class="country-section">
+                    <h2 class="country-title">1. Germany - The Heart of Christmas Traditions</h2>
+                    
+                    <p>Germany is often considered the birthplace of many Christmas traditions we know and love today. When you visit Germany during December, you step into a storybook world of festive markets, warm glühwein (mulled wine), and centuries-old customs.</p>
+                    
+                    <p>The <strong>Christkindlesmarkt in Nuremberg</strong> is perhaps the most famous Christmas market in the world. Dating back to 1628, this market features hundreds of wooden stalls selling traditional crafts, gingerbread cookies shaped like hearts, and the famous Nuremberg plum people figurines. The air fills with the scent of roasted almonds, cinnamon, and pine as families browse handmade ornaments and wooden toys.</p>
+                    
+                    <p>In Dresden, the <strong>Striezelmarkt</strong> has been operating since 1434, making it one of Germany's oldest Christmas markets. Here you can taste traditional stollen, a delicious fruit bread dusted with powdered sugar that symbolizes the baby Jesus wrapped in swaddling clothes.</p>
+                    
+                    <div class="country-video">
+                        <video src="videos/0014" controls></video>
+                        <div class="video-caption">Christmas markets in Germany come alive with lights, music, and festive cheer</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">What Makes Germany Special:</div>
+                        <ul>
+                            <li>World-famous Christmas markets in nearly every town</li>
+                            <li>Traditional Advent calendars and wreaths</li>
+                            <li>Delicious seasonal treats like lebkuchen and marzipan</li>
+                            <li>The Christkind (Christmas angel) delivers gifts on Christmas Eve</li>
+                            <li>Beautiful medieval town squares decorated with thousands of lights</li>
+                        </ul>
+                    </div>
+                    
+                    <p>German Christmas celebrations focus heavily on family. On December 6th, children clean their boots and leave them out for <strong>Saint Nicholas</strong> to fill with small gifts and treats. Christmas Eve is the main gift-giving time, followed by a family meal that often includes roast goose, red cabbage, and potato dumplings.</p>
+                    
+                    <p>Beyond the markets, Germany offers stunning Christmas displays. The <strong>Cologne Cathedral</strong> hosts magnificent Christmas concerts, while the <strong>Berlin Christmas Garden</strong> at the Botanical Garden features light installations that transform the space into a magical winter landscape.</p>
                 </div>
 
-                <h2>2. Finland – The Official Home of Santa Claus</h2>
-
-                <p>For anyone who believes in the magic of Christmas, Finland offers an experience like no other. This is the official home of Santa Claus, located in Rovaniemi in Finnish Lapland. Visiting Santa's village is a dream come true for children and adults alike, making Finland one of the most magical Christmas destinations in the world.</p>
-
-                <p>In Finnish Lapland, Christmas isn't just a holiday – it's a way of life during the winter months. The region is covered in snow, creating a perfect white Christmas setting. You can meet Santa Claus at his official office, cross the Arctic Circle, and see the Northern Lights dancing in the sky. The combination of these experiences creates Christmas memories that last forever.</p>
-
-                <p>Finnish Christmas traditions are cozy and heartwarming. Families gather for sauna sessions on Christmas Eve, followed by a feast that typically includes ham, fish dishes, and root vegetable casseroles. The Christmas peace declaration is read in Turku, a tradition dating back to the 13th century. Homes are decorated with stars, candles, and homemade decorations.</p>
-
-                <p>What makes Finland special is the authentic Arctic experience. You can go husky sledding, reindeer sleigh rides, ice fishing, and stay in glass igloos to watch the Northern Lights from your bed. The Finnish people embrace the darkness of winter with warmth and light, creating a Christmas atmosphere that's both magical and peaceful.</p>
-
-                <div class="country-video">
-                    <h3 class="video-title">Christmas in Finland</h3>
-                    <p class="video-description">Visit Santa's official home and experience Arctic Christmas magic</p>
-                    <video controls>
-                        <source src="videos/003i.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                <div class="country-section">
+                    <h2 class="country-title">2. Austria - Classical Music and Alpine Charm</h2>
+                    
+                    <p>Austria combines stunning Alpine scenery with sophisticated cultural celebrations. Vienna, the city of music, transforms into a winter paradise during December, with Christmas markets set against the backdrop of imperial palaces and historic buildings.</p>
+                    
+                    <p>The <strong>Vienna Christmas Dream at Rathausplatz</strong> is the city's largest market, featuring over 150 stalls surrounding the beautiful City Hall. Children can enjoy carousel rides and workshops, while adults savor warm punch and traditional Austrian pastries. The market's giant Advent calendar features different windows opening each day with special performances.</p>
+                    
+                    <p>In Salzburg, the hometown of Mozart, Christmas takes on a particularly musical quality. The <strong>Salzburg Christmas Market</strong> dates back to the 15th century and offers breathtaking views of Hohensalzburg Fortress. Visitors can attend Christmas concerts featuring Mozart's music in historic churches throughout the city.</p>
+                    
+                    <div class="country-video">
+                        <video src="videos/003i" controls></video>
+                        <div class="video-caption">Austrian Christmas celebrations blend music, mountains, and magical markets</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Austrian Christmas Highlights:</div>
+                        <ul>
+                            <li>Classical Christmas concerts in historic venues</li>
+                            <li>Traditional Krampus parades in early December</li>
+                            <li>Beautiful Alpine villages with candlelit windows</li>
+                            <li>Delicious treats like vanillekipferl (vanilla crescent cookies)</li>
+                            <li>Ice skating in front of imperial palaces</li>
+                        </ul>
+                    </div>
+                    
+                    <p>A unique Austrian tradition is <strong>Krampusnacht</strong> on December 5th, when people dressed as Krampus (a horned creature who punishes naughty children) parade through the streets. This contrasts with the arrival of Saint Nicholas the next day, who rewards good children with gifts.</p>
+                    
+                    <p>In the Austrian Alps, Christmas becomes even more magical. Small villages like <strong>Hallstatt</strong> and <strong>Innsbruck</strong> offer cozy celebrations with fewer tourists. Here, you can experience authentic Austrian hospitality, complete with traditional folk music, handcrafted decorations, and warm hospitality in family-run guesthouses.</p>
                 </div>
 
-                <h2>3. Mexico – Vibrant Festivities and Unique Traditions</h2>
-
-                <p>If you're looking for a Christmas celebration filled with color, music, and cultural richness, Mexico offers an unforgettable experience. Mexican Christmas traditions blend indigenous customs with Spanish influences, creating celebrations that last for weeks and involve the entire community.</p>
-
-                <p>The Christmas season in Mexico begins on December 12th with the feast of Our Lady of Guadalupe and continues until February 2nd. During this time, you'll witness posadas – processions reenacting Mary and Joseph's search for shelter. These involve singing, candlelight, and eventually breaking piñatas filled with treats. The sense of community during these events is incredibly strong.</p>
-
-                <p>Mexican Christmas decorations are vibrant and beautiful. You'll see nativity scenes (nacimientos) in homes and public spaces, poinsettias everywhere (the flower is native to Mexico), and farolitos (paper lanterns) lighting up streets. The food is a highlight – tamales, bacalao (salted cod), ponche (fruit punch), and buñuelos (fried dough with syrup) are Christmas favorites.</p>
-
-                <p>What makes Mexico stand out is the joyful, communal approach to Christmas. Unlike some places where Christmas is primarily a private family celebration, in Mexico it's very much a public, community event. There are fireworks, parades, dancing, and music everywhere. The warmth of the people combined with the rich traditions creates a Christmas experience full of life and color.</p>
-
-                <div class="country-video">
-                    <h3 class="video-title">Christmas in Mexico</h3>
-                    <p class="video-description">Experience the colorful and vibrant Christmas traditions of Mexico</p>
-                    <video controls>
-                        <source src="videos/0014.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                <div class="country-section">
+                    <h2 class="country-title">3. United States - Big City Glamour and Small-Town Charm</h2>
+                    
+                    <p>Christmas in the United States offers something for everyone, from the dazzling displays of New York City to the cozy celebrations of small towns. Each region has its own unique traditions, making America a diverse Christmas destination.</p>
+                    
+                    <p><strong>New York City</strong> is perhaps the most famous Christmas destination in America. The lighting of the Rockefeller Center Christmas Tree draws thousands of spectators, while the store windows along Fifth Avenue feature elaborate animated displays. Ice skating at Rockefeller Center or Wollman Rink in Central Park provides the perfect romantic winter activity.</p>
+                    
+                    <p>Meanwhile, <strong>Williamsburg, Virginia</strong> offers a completely different experience with its Colonial Christmas celebrations. Historic buildings are decorated with natural materials like pinecones, holly, and candles, recreating how early American settlers would have celebrated the holiday. Costumed interpreters demonstrate traditional crafts and share stories of 18th-century Christmas customs.</p>
+                    
+                    <div class="country-video">
+                        <video src="videos/0014" controls></video>
+                        <div class="video-caption">Christmas in America ranges from big city spectacles to heartwarming small-town traditions</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">American Christmas Experiences:</div>
+                        <ul>
+                            <li>Rockefeller Center Christmas Tree and ice skating</li>
+                            <li>Macy's Thanksgiving Day Parade kicks off the season</li>
+                            <li>Christmas lights tours in residential neighborhoods</li>
+                            <li>Traditional cookie baking and decorating parties</li>
+                            <li>Christmas parades and community events nationwide</li>
+                        </ul>
+                    </div>
+                    
+                    <p>For a warmer Christmas experience, <strong>Florida</strong> offers unique celebrations. Disney World's Christmas parties feature special parades, fireworks, and character meet-ups in holiday attire. Meanwhile, <strong>San Antonio, Texas</strong> celebrates with the River Walk's thousands of lights reflected in the water, creating a magical atmosphere perfect for evening strolls.</p>
+                    
+                    <p>Small towns across America have their own charming traditions. <strong>Leavenworth, Washington</strong> transforms its Bavarian-style village into a Christmas wonderland with millions of lights. <strong>McAdenville, North Carolina</strong>, known as "Christmas Town USA," decorates nearly every home with coordinated light displays that draw visitors from across the region.</p>
                 </div>
 
-                <h2>4. Australia – Summer Christmas by the Beach</h2>
-
-                <p>For those who prefer warm weather during Christmas, Australia offers a unique twist on traditional celebrations. Christmas falls during summer in the Southern Hemisphere, creating a completely different but equally wonderful Christmas experience centered around beaches, barbecues, and outdoor festivities.</p>
-
-                <p>Australian Christmas traditions have evolved to suit the warm climate. Instead of cozying up by the fire, Australians head to beaches for Christmas Day. Many families enjoy Christmas barbecues with seafood, cold meats, and salads. Carols by Candlelight events are held in parks where people bring picnic blankets and sing Christmas songs under the stars.</p>
-
-                <p>The decorations have an Australian flair too. You'll see Christmas trees decorated with native flowers, Santa wearing board shorts, and references to Australian wildlife in Christmas displays. Some families even have "Christmas bush" – a native Australian plant with red flowers that bloom at Christmas time.</p>
-
-                <p>What makes Christmas in Australia special is the relaxed, outdoor lifestyle. The festive season coincides with summer holidays, so there's a vacation atmosphere everywhere. From Sydney's famous Bondi Beach to Melbourne's Federation Square celebrations, you can experience Christmas in a way that's completely different from the traditional winter imagery.</p>
-
-                <p>Major cities put on impressive displays – Sydney has Christmas projections on the Opera House, Melbourne has a giant tree in Federation Square, and Perth has Christmas lights along the river. The combination of traditional Christmas spirit with summer activities creates a unique celebration that many travelers love.</p>
-
-                <div class="country-video">
-                    <h3 class="video-title">Christmas in Australia</h3>
-                    <p class="video-description">Experience a warm, beachside Christmas down under</p>
-                    <video controls>
-                        <source src="videos/003i.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                <div class="country-section">
+                    <h2 class="country-title">4. United Kingdom - Royal Traditions and Cozy Celebrations</h2>
+                    
+                    <p>Christmas in the United Kingdom blends royal pageantry with cozy domestic traditions. From the Queen's Christmas message to Christmas crackers at the dinner table, British celebrations have a unique character that combines formality with family warmth.</p>
+                    
+                    <p><strong>London</strong> shines during the Christmas season with spectacular light displays on Oxford Street, Regent Street, and Carnaby Street. The department stores - particularly Harrods, Selfridges, and Fortnum & Mason - create breathtaking window displays that have become annual traditions. Ice skating at the Natural History Museum or Somerset House provides elegant outdoor fun.</p>
+                    
+                    <p>For a more traditional experience, visit <strong>Bath</strong> for its historic Christmas market set against the Roman baths and Georgian architecture. Or travel to <strong>Edinburgh</strong> for its European-style market with the castle as a stunning backdrop. Scotland celebrates Hogmanay (New Year's Eve) with particular enthusiasm, making it perfect for extended holiday visits.</p>
+                    
+                    <div class="country-video">
+                        <video src="videos/003i" controls></video>
+                        <div class="video-caption">British Christmas blends royal traditions with cozy family celebrations</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">British Christmas Traditions:</div>
+                        <ul>
+                            <li>Christmas crackers with paper crowns and small gifts</li>
+                            <li>Roast turkey with all the trimmings on Christmas Day</li>
+                            <li>Pantomime theater performances for families</li>
+                            <li>The Queen's (now King's) Christmas Day broadcast</li>
+                            <li>Boxing Day sales and football matches</li>
+                        </ul>
+                    </div>
+                    
+                    <p>Beyond London, the UK offers charming Christmas experiences. <strong>York</strong> hosts a traditional Christmas market in its medieval streets, while <strong>Cambridge</strong> offers carol services in its ancient colleges. In Wales, <strong>Cardiff</strong> features a winter wonderland with ice skating and fairground rides.</p>
+                    
+                    <p>A particularly British tradition is the <strong>pantomime</strong> - a comedic musical theater production based on fairy tales, performed between December and January. These family-friendly shows encourage audience participation with shouts of "He's behind you!" and "Oh no he isn't!" - creating memorable holiday entertainment for all ages.</p>
                 </div>
 
-                <h2>5. Philippines – The World's Longest Christmas Celebration</h2>
-
-                <p>The Philippines holds the record for the longest Christmas celebration in the world, starting as early as September and continuing until January. If you love Christmas and want to experience it on a grand scale, the Philippines offers an unparalleled festive experience filled with lights, music, and community spirit.</p>
-
-                <p>Filipino Christmas traditions are deeply rooted in faith and family. The Simbang Gabi (night mass) tradition involves attending nine days of dawn masses leading up to Christmas Eve. After each mass, families enjoy traditional breakfast foods like puto bumbong (purple rice cake) and bibingka (rice cake). The sense of community during these early morning gatherings is incredibly special.</p>
-
-                <p>Christmas decorations in the Philippines are spectacular. Homes, streets, and even entire villages are covered in parol (star-shaped lanterns) and Christmas lights. Some neighborhoods hold competitions for the best decorations, resulting in displays that attract visitors from all over. The city of San Fernando is particularly famous for its giant lantern festival.</p>
-
-                <p>What makes the Philippines unique is the sheer enthusiasm for Christmas. The extended celebration period means you can experience different aspects of Filipino Christmas over several weeks. From caroling groups visiting homes to midnight feasts on Christmas Eve (Noche Buena), every aspect of Christmas is celebrated with joy and generosity.</p>
-
-                <p>The food is a major highlight – lechon (roast pig), hamón (Christmas ham), queso de bola (edam cheese), and various rice cakes and sweets. Families gather for large celebrations that often include extended family, friends, and even neighbors. The Filipino concept of "utang na loob" (debt of gratitude) means Christmas is a time for giving back and strengthening relationships.</p>
-
-                <div class="country-video">
-                    <h3 class="video-title">Christmas in the Philippines</h3>
-                    <p class="video-description">Experience the world's longest and most festive Christmas celebration</p>
-                    <video controls>
-                        <source src="videos/0014.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                <div class="country-section">
+                    <h2 class="country-title">5. Philippines - The World's Longest Christmas Season</h2>
+                    
+                    <p>The Philippines celebrates the world's longest Christmas season, starting as early as September and continuing until January. This predominantly Catholic country combines religious devotion with joyful celebrations, creating a uniquely festive atmosphere that lasts for months.</p>
+                    
+                    <p>The celebration begins with the <strong>"Ber Months"</strong> (September, October, November, December) when radio stations start playing Christmas carols and stores begin their holiday displays. By December 16, the <strong>Simbang Gabi</strong> (Night Mass) tradition begins - nine days of early morning masses that culminate on Christmas Eve with the Misa de Gallo (Rooster's Mass).</p>
+                    
+                    <p>Manila transforms into a city of lights, with the most spectacular display at the <strong>Ayala Triangle Gardens</strong>, where dancing light shows synchronized to music draw huge crowds. In the province of <strong>Pampanga</strong>, the Giant Lantern Festival features massive, intricately designed lanterns that light up the night sky in a competition of craftsmanship and creativity.</p>
+                    
+                    <div class="country-video">
+                        <video src="videos/0014" controls></video>
+                        <div class="video-caption">Filipino Christmas blends religious traditions with month-long festive celebrations</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Filipino Christmas Features:</div>
+                        <ul>
+                            <li>The world's longest Christmas season (September to January)</li>
+                            <li>Giant parol (star-shaped lantern) displays</li>
+                            <li>Family-focused Noche Buena feasts on Christmas Eve</li>
+                            <li>Carolers going house-to-house for donations</li>
+                            <li>Monito/Monita gift exchange tradition</li>
+                        </ul>
+                    </div>
+                    
+                    <p>Christmas Eve features the <strong>Noche Buena</strong> - a midnight feast enjoyed after Misa de Gallo. Families gather for traditional dishes like lechon (roast pig), queso de bola (edam cheese), hamon (Christmas ham), and various rice cakes. Gift-giving happens on Christmas Day, with godparents presenting gifts to their godchildren in a tradition called "Aguinaldo."</p>
+                    
+                    <p>Beyond the capital, each region adds its own flavor to Christmas celebrations. In the <strong>Bicol region</strong, residents create belens (nativity scenes) from local materials. In the <strong>Visayas</strong>, communities hold lantern-making competitions. Throughout the country, the spirit of bayanihan (community unity) shines as people come together to celebrate the season.</p>
                 </div>
 
                 <h2>Choosing Your Perfect Christmas Destination</h2>
-
-                <p>Now that we've explored five incredible Christmas destinations, how do you choose the right one for you? Consider what type of Christmas experience you're looking for. If you want traditional winter celebrations with snow and markets, Germany or Finland might be perfect. If you prefer warm weather and outdoor activities, Australia could be your choice. For cultural richness and community celebrations, Mexico or the Philippines offer unforgettable experiences.</p>
-
-                <p>Think about practical considerations too. Travel during Christmas can be busy and expensive, so booking early is essential. Consider the climate and pack appropriately – winter gear for cold destinations, summer clothes for warm ones. Research local customs so you can participate respectfully in traditions. Learning a few phrases in the local language can enhance your experience.</p>
-
-                <p>Remember that the best Christmas destination is one that matches your personal preferences and creates the memories you want. Some people love the novelty of a beach Christmas, while others crave the traditional winter experience. Some want quiet family time, while others enjoy large community celebrations.</p>
-
-                <p>No matter which destination you choose, traveling during Christmas offers a unique opportunity to see how different cultures celebrate the same holiday. It broadens your perspective, creates unforgettable memories, and often leads to a deeper appreciation of your own traditions. The world is full of beautiful ways to celebrate Christmas – all you need to do is choose your adventure.</p>
-
-                <h2>Making the Most of Your Christmas Travel</h2>
-
-                <p>To ensure your Christmas travel goes smoothly, here are some practical tips. Book accommodations and transportation early – Christmas is peak travel season in most places. Be prepared for businesses to have different hours, especially on Christmas Day and Eve. Research which attractions will be open during your visit.</p>
-
-                <p>Embrace local traditions – try the special Christmas foods, attend local events, and participate in customs when appropriate. This immersion is what makes Christmas travel so rewarding. Don't try to do everything – Christmas should be relaxing, so choose a few special experiences rather than rushing from place to place.</p>
-
-                <p>Remember that Christmas away from home can bring mixed emotions. It's normal to feel a bit homesick while also enjoying new experiences. Stay connected with loved ones through video calls, and consider bringing a small reminder of home with you. Many travelers find that celebrating Christmas in a new place creates special memories that become part of their own family traditions.</p>
-
-                <p>Finally, be flexible and patient. Travel during holidays can come with delays, crowds, and unexpected changes. Approach these with a positive attitude – they often lead to the best travel stories. The magic of Christmas travel isn't in perfect plans, but in the special moments that happen along the way.</p>
+                
+                <p>When selecting where to celebrate Christmas, consider what type of experience you're seeking:</p>
+                
+                <p><strong>For traditional Christmas markets:</strong> Germany and Austria offer authentic experiences with centuries-old traditions. The quality of crafts, food, and atmosphere in these countries is unmatched.</p>
+                
+                <p><strong>For spectacular city displays:</strong> New York City and London provide glamorous urban celebrations with world-famous light displays, shopping, and entertainment.</p>
+                
+                <p><strong>For warm-weather celebrations:</strong> The Philippines offers a unique tropical Christmas with month-long festivities that blend religious devotion with joyful community celebrations.</p>
+                
+                <p><strong>For family-friendly activities:</strong> The United States provides diverse options from theme park celebrations to small-town charm that children will love.</p>
+                
+                <p><strong>For cultural immersion:</strong> The United Kingdom's blend of royal traditions and cozy domestic celebrations offers insight into British culture during its most festive season.</p>
+                
+                <h2>Tips for Celebrating Christmas Abroad</h2>
+                
+                <p>If you're planning to celebrate Christmas in another country, here are some helpful tips:</p>
+                
+                <div class="highlight-box">
+                    <ul>
+                        <li><strong>Book early:</strong> Christmas is peak travel season in many destinations. Book accommodations and transportation several months in advance.</li>
+                        <li><strong>Research local customs:</strong> Each country has unique traditions. Learning basic phrases and customs shows respect and enhances your experience.</li>
+                        <li><strong>Check holiday hours:</strong> Many businesses close on Christmas Day and sometimes Christmas Eve. Plan meals and activities accordingly.</li>
+                        <li><strong>Embrace the local food:</strong> Try traditional Christmas dishes instead of seeking familiar foods from home.</li>
+                        <li><strong>Pack appropriately:</strong> Research the climate and pack suitable clothing, especially if traveling between hemispheres.</li>
+                        <li><strong>Be patient:</strong> Crowds are part of the Christmas experience in popular destinations. Maintain a festive spirit and enjoy the atmosphere.</li>
+                    </ul>
+                </div>
+                
+                <h2>The True Spirit of Christmas Travel</h2>
+                
+                <p>Ultimately, the best place to celebrate Christmas isn't about the destination itself, but about the experiences you share and the memories you create. Whether you're sipping glühwein at a German market, watching the Rockefeller tree lighting, or attending midnight mass in the Philippines, the Christmas spirit transcends borders.</p>
+                
+                <p>Each country offers its own interpretation of this beloved holiday, reflecting its culture, history, and values. By experiencing Christmas in different parts of the world, we gain not only wonderful memories but also a deeper appreciation for the diversity of human celebration and the universal themes of peace, joy, and goodwill that Christmas represents.</p>
+                
+                <p>This Christmas season, whether you travel abroad or celebrate at home, may you experience the warmth of community, the joy of giving, and the peace that comes from connecting with loved ones. The world is full of magical places to celebrate, but the truest magic of Christmas lives in our hearts and in how we share this special time with others.</p>
             </div>
-
-            <!-- Reading Guide Section -->
-            <div class="reading-guide">
-                <h2 class="reading-guide-title">Practical Guide to Daily Reading for Better Vocabulary</h2>
-                
-                <div class="guide-step">
-                    <span class="step-number">1</span>
-                    <span class="step-title">Start with What Interests You</span>
-                    <p class="step-content">Choose reading material that you actually enjoy. This could be news articles, fiction books, magazines, or even quality blogs. When you're interested in the subject, you're more likely to stick with daily reading. Start with just 15-20 minutes per day and gradually increase as it becomes a habit.</p>
-                </div>
-                
-                <div class="guide-step">
-                    <span class="step-number">2</span>
-                    <span class="step-title">Keep a Vocabulary Journal</span>
-                    <p class="step-content">Have a small notebook or use a notes app to write down new words you encounter. Don't just write the word – include the sentence you found it in, the definition in your own words, and maybe a personal example sentence. Review this journal weekly to reinforce what you've learned.</p>
-                </div>
-                
-                <guide-step>
-                    <span class="step-number">3</span>
-                    <span class="step-title">Use Context to Understand Meaning</span>
-                    <p class="step-content">Before looking up a word, try to guess its meaning from the surrounding sentences. This helps your brain make connections and improves retention. Then verify your guess with a dictionary. This active engagement makes vocabulary building more effective than passive reading.</p>
-                </guide-step>
-                
-                <div class="guide-step">
-                    <span class="step-number">4</span>
-                    <span class="step-title">Read Aloud Sometimes</span>
-                    <p class="step-content">Reading aloud helps you notice sentence structure, pronunciation, and word flow. It engages both visual and auditory learning, making new vocabulary more memorable. You don't need to do this for everything you read, but try it occasionally, especially with challenging passages.</p>
-                </div>
-                
-                <div class="guide-step">
-                    <span class="step-number">5</span>
-                    <span class="step-title">Mix Different Types of Reading</span>
-                    <p class="step-content">Don't stick to just one type of material. Read newspapers for formal language, novels for descriptive vocabulary, opinion pieces for persuasive language, and technical articles for specialized terms. This variety exposes you to different writing styles and vocabulary sets.</p>
-                </div>
-                
-                <div class="guide-step">
-                    <span class="step-number">6</span>
-                    <span class="step-title">Use New Words in Conversation</span>
-                    <p class="step-content">The best way to remember new words is to use them. Try to incorporate one or two new words into your conversations each day. This active use moves vocabulary from your passive knowledge (words you recognize) to active knowledge (words you can use).</p>
-                </div>
-                
-                <div class="guide-step">
-                    <span class="step-number">7</span>
-                    <span class="step-title">Be Patient and Consistent</span>
-                    <p class="step-content">Vocabulary building takes time. Don't get discouraged if you don't see immediate results. The key is consistency – reading daily, even for short periods, is more effective than occasional long sessions. Celebrate small progress and remember that every new word adds to your communication skills.</p>
-                </div>
-            </div>
+            
+            <a href="#" class="comments-link">Comments (42)</a>
         </article>
     </div>
 
@@ -1093,6 +1092,7 @@
                 })
                 .catch(error => {
                     console.error('Error detecting country:', error);
+                    // Fallback to a free API if the first one fails
                     fetch('https://api.country.is/')
                         .then(response => response.json())
                         .then(data => {
@@ -1162,17 +1162,18 @@
             footerSubscribeMessage.className = `subscription-message ${type}`;
             footerSubscribeMessage.style.display = 'block';
             
+            // Hide message after 8 seconds for success, 5 for error
             setTimeout(() => {
                 footerSubscribeMessage.style.display = 'none';
             }, type === 'success' ? 8000 : 5000);
         }
 
-        // Main functionality setup
+        // Setup other event listeners
         function setupEventListeners() {
             // Share functionality
             function shareArticle(title, platform) {
                 const url = encodeURIComponent(window.location.href);
-                const text = encodeURIComponent(`${title} - Check out this article on Kora Reporters`);
+                const text = encodeURIComponent(`${title} - Check out this write up on kora reporters`);
                 
                 let shareUrl;
                 
@@ -1194,13 +1195,14 @@
                         if (navigator.share) {
                             navigator.share({
                                 title: title,
-                                text: `${title} - Kora Reporters`,
+                                text: `${title} - kora reporters`,
                                 url: window.location.href,
                             })
-                            .then(() => console.log('Shared successfully'))
+                            .then(() => console.log('Successful share'))
                             .catch((error) => console.log('Error sharing:', error));
                             return;
                         } else {
+                            // Fallback for browsers that don't support the Web Share API
                             shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
                         }
                         break;
@@ -1215,11 +1217,9 @@
             const latestReportLink = document.getElementById('latest-report-link');
             const recentlyAddedSection = document.getElementById('recently-added');
             
-            if (latestReportLink && recentlyAddedSection) {
-                latestReportLink.addEventListener('click', function() {
-                    recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
-                });
-            }
+            latestReportLink.addEventListener('click', function() {
+                recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
+            });
 
             // Go Up Button functionality
             const goUpButton = document.getElementById('go-up');
@@ -1242,19 +1242,15 @@
             const menuOverlay = document.querySelector('.menu-overlay');
             const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
             
-            if (hamburgerMenu) {
-                hamburgerMenu.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('active');
-                    menuOverlay.classList.toggle('active');
-                });
-            }
+            hamburgerMenu.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+            });
             
-            if (menuOverlay) {
-                menuOverlay.addEventListener('click', function() {
-                    mobileMenu.classList.remove('active');
-                    menuOverlay.classList.remove('active');
-                });
-            }
+            menuOverlay.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            });
             
             // Close menu when a link is clicked
             mobileMenuLinks.forEach(link => {
@@ -1278,7 +1274,7 @@
             document.querySelectorAll('.recent-share').forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
-                    e.stopPropagation();
+                    e.stopPropagation(); // Prevent navigation when clicking share icon
                     const title = this.getAttribute('data-title');
                     shareArticle(title, 'share');
                 });
