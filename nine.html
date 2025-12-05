@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eight Wonders of the World: Which Was Recently Added - Kora Reporters</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #000;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hamburger-menu {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .logo {
+            width: 150px;
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .latest-report {
+            color: #ff6600;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* Home Link Section */
+        .home-link-section {
+            background-color: #111;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .home-link {
+            color: #ff6600;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        
+        .home-link:hover {
+            color: #fff;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            background-color: #111;
+            padding: 80px 20px 20px;
+            transition: left 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .mobile-menu-link {
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu-link:hover {
+            color: #ff6600;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 98;
+            display: none;
+        }
+        
+        .menu-overlay.active {
+            display: block;
+        }
+        
+        /* Content Styles */
+        .content {
+            padding: 30px 0;
+        }
+        
+        .article {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .category-label {
+            color: #ff6600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-label::before {
+            content: "●";
+            margin-right: 5px;
+        }
+        
+        .article-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .featured-image {
+            width: 100%;
+            margin: 25px 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 10px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            overflow: hidden;
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .author-name {
+            font-weight: 600;
+            color: #ff6600;
+        }
+        
+        .date {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .share-section {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .share-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .share-btn {
+            color: #ff6600;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            transition: color 0.3s;
+        }
+        
+        .share-btn:hover {
+            color: #fff;
+        }
+        
+        .share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        .article-content {
+            margin-bottom: 30px;
+            font-size: 17px;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .article-content strong {
+            font-weight: 700;
+            color: #ff6600;
+        }
+        
+        .article-content h2 {
+            font-size: 24px;
+            margin: 30px 0 15px;
+            color: #ff6600;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        .article-content h3 {
+            font-size: 20px;
+            margin: 25px 0 15px;
+            color: #fff;
+        }
+        
+        .article-content ul {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .wonder-section {
+            margin: 40px 0;
+            padding: 25px;
+            background-color: #111;
+            border-radius: 8px;
+            border-left: 4px solid #ff6600;
+        }
+        
+        .wonder-title {
+            font-size: 22px;
+            color: #ff6600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .wonder-image {
+            width: 100%;
+            margin: 20px 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .wonder-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .wonder-description {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .wonder-facts {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 3px solid #ff6600;
+        }
+        
+        .wonder-facts h4 {
+            color: #ff6600;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .wonder-facts ul {
+            margin-left: 20px;
+        }
+        
+        .wonder-facts li {
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        
+        .comments-link {
+            color: #ff6600;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .comments-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Contact Email Section */
+        .contact-section {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .contact-email {
+            color: #ff6600;
+            font-size: 18px;
+        }
+        
+        /* Recently Added Section */
+        .recently-added {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .recent-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .recent-article {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        
+        .recent-img {
+            width: 80px;
+            height: 60px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 10px;
+            flex-shrink: 0;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+        
+        .recent-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recent-content {
+            flex: 1;
+        }
+        
+        .recent-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .recent-time {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .recent-share {
+            color: #ff6600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+        
+        .recent-share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        /* Go Up Button */
+        .go-up {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff6600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .go-up.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .go-up i {
+            color: #000;
+            font-size: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 40px 0 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .subscribe-section {
+            text-align: center;
+        }
+        
+        .subscribe-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #333;
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .subscribe-btn {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            height: 40px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .footer-link {
+            color: #ff6600;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Subscription Message Styles */
+        .subscription-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .subscription-message.success {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        
+        .subscription-message.error {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        .subscription-message.info {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            border: 1px solid #3498db;
+        }
+        
+        /* Mobile Responsive */
+        @media (min-width: 768px) {
+            .article-title {
+                font-size: 32px;
+            }
+            
+            .featured-image {
+                height: 400px;
+            }
+            
+            .featured-image img {
+                height: 400px;
+            }
+            
+            .recent-articles {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .subscribe-section {
+                text-align: left;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .latest-report {
+                font-size: 16px;
+            }
+            
+            .article-content {
+                font-size: 18px;
+            }
+            
+            .wonder-image img {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header-right {
+                gap: 15px;
+            }
+            
+            .latest-report {
+                font-size: 12px;
+            }
+            
+            .subscribe-form {
+                flex-direction: column;
+            }
+            
+            .article-title {
+                font-size: 24px;
+            }
+            
+            .article-content h2 {
+                font-size: 20px;
+            }
+            
+            .article-content h3 {
+                font-size: 18px;
+            }
+            
+            .wonder-section {
+                padding: 15px;
+            }
+            
+            .wonder-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <a href="about.html" class="logo">
+                    <img src="images/file_00000000cb3471f48ca1cc72833279fa.jpg" alt="Kora Reporters Logo">
+                </a>
+                <div class="header-right">
+                    <div class="latest-report" id="latest-report-link">Latest Report</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Link Section -->
+    <div class="home-link-section">
+        <div class="container">
+            <a href="index.html" class="home-link">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-links">
+            <a href="index.html" class="mobile-menu-link">Home</a>
+            <a href="about.html" class="mobile-menu-link">Who We Are</a>
+            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+            <a href="termsp.html" class="mobile-menu-link">Terms and Privacy</a>
+            <a href="termss.html" class="mobile-menu-link">Terms of Service</a>
+        </div>
+    </div>
+    <div class="menu-overlay"></div>
+
+    <!-- Content -->
+    <div class="container content">
+        <!-- Main Article -->
+        <article class="article" id="article-main">
+            <div class="category-label">TRAVEL & HISTORY</div>
+            <h1 class="article-title">Eight Wonders of the World: Which Was Recently Added</h1>
+            
+            <div class="featured-image">
+                <img src="images/0022" alt="Eight Wonders of the World Collage">
+            </div>
+            
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="xavier.html" class="author-name">Henry Xavier</a>
+                    <div class="date">November 29, 2024</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Eight Wonders of the World: Which Was Recently Added">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Eight Wonders of the World: Which Was Recently Added">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Eight Wonders of the World: Which Was Recently Added">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Eight Wonders of the World: Which Was Recently Added">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Eight Wonders of the World: Which Was Recently Added">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="article-content">
+                <p>The "Wonders of the World" have always captured our imagination. These are places and structures so amazing that people from all over the world want to see them. Over time, the list of wonders has changed. Ancient people had their seven wonders. Today, we have new wonders that show what humans can create.</p>
+
+                <p>In this article, we will look at the eight wonders of the world that most people agree on today. We will talk about each one, why it is special, and which one was added most recently to this famous list.</p>
+
+                <h2>The Ancient Seven Wonders</h2>
+                <p>First, let's look back at history. Around 2,000 years ago, Greek writers made a list of seven amazing things built by people. This list included the Great Pyramid of Giza, the Hanging Gardens of Babylon, and the Statue of Zeus at Olympia. Most of these ancient wonders are gone now. Only the Great Pyramid still stands today in Egypt.</p>
+
+                <p>Because most of the ancient wonders disappeared, people wanted to make a new list. They wanted to celebrate amazing things from our modern world that people can still visit and see.</p>
+
+                <h2>The New Seven Wonders Campaign</h2>
+                <p>In the year 2000, a Swiss company started a project to choose new seven wonders of the world. They wanted people from all countries to vote for their favorite amazing places. Over 100 million people voted by phone and internet. This was one of the biggest votes in history!</p>
+
+                <p>In 2007, they announced the New Seven Wonders of the World. These were seven amazing places chosen by people from around the globe. But there was a problem. The Great Pyramid of Giza, the only ancient wonder still standing, was not on the new list. The Egyptian government was not happy about this.</p>
+
+                <h2>How We Got Eight Wonders</h2>
+                <p>To solve this problem, the organizers made the Great Pyramid of Giza an "Honorary Candidate." This meant they added it to the list, making eight wonders instead of seven. So today, we have eight wonders of the world that most travelers and history lovers recognize.</p>
+
+                <p>Now, let's look at each of these eight amazing places. We'll start with the oldest and finish with the ones chosen in the modern vote.</p>
+
+                <!-- Wonder 1 -->
+                <div class="wonder-section">
+                    <h3 class="wonder-title">1. The Great Pyramid of Giza, Egypt</h3>
+                    <div class="wonder-image">
+                        <img src="images/pyramid_giza.jpg" alt="The Great Pyramid of Giza">
+                    </div>
+                    <p class="wonder-description"><strong>The Great Pyramid is the oldest wonder and the only ancient wonder still standing today.</strong> It was built around 2560 BC as a tomb for the Egyptian Pharaoh Khufu. For over 3,800 years, it was the tallest building in the world made by humans.</p>
+                    <p class="wonder-description">What makes this pyramid so special is how it was built. Ancient Egyptians moved over 2 million stone blocks, each weighing about 2.5 tons. They did this without modern machines or tools. The pyramid is perfectly aligned with the stars. The four sides face exactly north, south, east, and west.</p>
+                    <p class="wonder-description">For many years, people wondered how the Egyptians built it. Today, experts believe they used ramps, sleds, and lots of workers. The pyramid shows us how smart ancient people were. It reminds us that people thousands of years ago could do amazing things.</p>
+                    <div class="wonder-facts">
+                        <h4>Quick Facts:</h4>
+                        <ul>
+                            <li>Built: Around 2560 BC</li>
+                            <li>Height: Originally 146.6 meters (481 feet)</li>
+                            <li>Location: Giza, Egypt</li>
+                            <li>Special Note: Only ancient wonder still existing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Wonder 2 -->
+                <div class="wonder-section">
+                    <h3 class="wonder-title">2. The Great Wall of China</h3>
+                    <div class="wonder-image">
+                        <img src="images/great_wall_china.jpg" alt="The Great Wall of China">
+                    </div>
+                    <p class="wonder-description"><strong>The Great Wall of China is the longest wall in the world.</strong> It stretches over 21,000 kilometers (13,000 miles) across northern China. Different Chinese dynasties built sections of the wall over 2,000 years. The most famous parts were built during the Ming Dynasty between 1368 and 1644.</p>
+                    <p class="wonder-description">The wall was built to protect China from invasions from the north. Watchtowers were placed along the wall where soldiers could watch for enemies. When they saw danger, they lit fires to send signals along the wall.</p>
+                    <p class="wonder-description">A common myth says you can see the Great Wall from space with your eyes. This is not true. From low Earth orbit, astronauts can see it with cameras, but not with just their eyes. What makes the wall amazing is how long it is and how it goes over mountains and through difficult land.</p>
+                    <div class="wonder-facts">
+                        <h4>Quick Facts:</h4>
+                        <ul>
+                            <li>Total Length: Over 21,000 km (13,000 miles)</li>
+                            <li>Built: Over 2,000 years, mainly 7th century BC to 17th century AD</li>
+                            <li>Location: Northern China</li>
+                            <li>Special Note: Longest structure ever built by humans</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Wonder 3 -->
+                <div class="wonder-section">
+                    <h3 class="wonder-title">3. Petra, Jordan</h3>
+                    <div class="wonder-image">
+                        <img src="images/petra_jordan.jpg" alt="Petra, Jordan">
+                    </div>
+                    <p class="wonder-description"><strong>Petra is an ancient city carved into red rock cliffs.</strong> It's in Jordan's desert and was the capital of the Nabataean Kingdom around 400 BC to 106 AD. The most famous building in Petra is Al-Khazneh, which means "The Treasury." It was actually a tomb for a king.</p>
+                    <p class="wonder-description">What makes Petra special is how it was built. Instead of building with stones, people carved buildings directly into the rock mountains. The Nabataeans were experts in water engineering. They created a system to collect and store water in the desert, which allowed their city to grow.</p>
+                    <p class="wonder-description">Petra was lost to the Western world for hundreds of years. A Swiss explorer rediscovered it in 1812. Today, visitors walk through a narrow canyon called the Siq to reach the city. When they come out, they see the beautiful Treasury building in front of them.</p>
+                    <div class="wonder-facts">
+                        <h4>Quick Facts:</h4>
+                        <ul>
+                            <li>Built: Around 400 BC to 106 AD</li>
+                            <li>Discovered by West: 1812 by Johann Ludwig Burckhardt</li>
+                            <li>Location: Ma'an Governorate, Jordan</li>
+                            <li>Special Note: Entire city carved from rock</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Wonder 4 -->
+                <div class="wonder-section">
+                    <h3 class="wonder-title">4. The Colosseum, Italy</h3>
+                    <div class="wonder-image">
+                        <img src="images/colosseum_italy.jpg" alt="The Colosseum, Rome">
+                    </div>
+                    <p class="wonder-description"><strong>The Colosseum in Rome is the largest amphitheater ever built.</strong> It could hold between 50,000 and 80,000 people. The Roman Empire built it between 72 and 80 AD. For almost 500 years, people went there to watch games, gladiator fights, animal hunts, and plays.</p>
+                    <p class="wonder-description">The Colosseum shows us how advanced Roman engineering was. They used arches to make the building strong. They had a system of tunnels under the floor where animals and gladiators waited. They could even flood the floor for mock sea battles.</p>
+                    <p class="wonder-description">Today, the Colosseum is partly ruined from earthquakes and stone robbers. But it still stands as a symbol of Rome's power and engineering skills. It reminds us of both the greatness and the cruelty of ancient Rome.</p>
+                    <div class="wonder-facts">
+                        <h4>Quick Facts:</h4>
+                        <ul>
+                            <li>Built: 72-80 AD</li>
+                            <li>Capacity: 50,000 to 80,000 people</li>
+                            <li>Location: Rome, Italy</li>
+                            <li>Special Note: Largest amphitheater ever built</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Wonder 5 -->
+                <div class="wonder-section">
+                    <h3 class="wonder-title">5. Chichen Itza, Mexico</h3>
+                    <div class="wonder-image">
+                        <img src="images/chichen_itza.jpg" alt="Chichen Itza, Mexico">
+                    </div>
+                    <p class="wonder-description"><strong>Chichen Itza was a large Mayan city in Mexico.</strong> It was at its peak between 600 and 1200 AD. The most famous building there is El Castillo, also called the Temple of Kukulkan. This pyramid shows how much the Mayans knew about astronomy.</p>
+                    <p class="wonder-description">During the spring and autumn equinoxes (around March 20 and September 22), something amazing happens. The setting sun creates shadows on the pyramid that look like a snake moving down the stairs. This represents the feathered serpent god Kukulkan.</p>
+                    <p class="wonder-description">Chichen Itza also has the largest ball court in Mesoamerica. Here, Mayans played a ball game that had religious meaning. The city shows us how advanced the Mayan civilization was in math, astronomy, and building.</p>
+                    <div class="wonder-facts">
+                        <h4>Quick Facts:</h4>
+                        <ul>
+                            <li>Peak: 600-1200 AD</li>
+                            <li>Main Pyramid: El Castillo (Temple of Kukulkan)</li>
+                            <li>Location: Yucatán, Mexico</li>
+                            <li>Special Note: Shows advanced Mayan astronomy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Wonder 6 -->
+                <div class="wonder-section">
+                    <h3 class="wonder-title">6. Machu Picchu, Peru</h3>
+                    <div class="wonder-image">
+                        <img src="images/machu_picchu.jpg" alt="Machu Picchu, Peru">
+                    </div>
+                    <p class="wonder-description"><strong>Machu Picchu is an ancient Inca city in the Andes Mountains.</strong> It was built around 1450 AD but abandoned about 100 years later during the Spanish conquest. The Spanish never found it, so it remained mostly untouched.</p>
+                    <p class="wonder-description">An American explorer named Hiram Bingham brought Machu Picchu to world attention in 1911. The city is built on a mountain ridge 2,430 meters (7,970 feet) above sea level. The Incas built it without using mortar (the substance that holds stones together). The stones fit together so perfectly that you can't put a knife blade between them.</p>
+                    <p class="wonder-description">Machu Picchu was probably a royal estate for Inca emperors. It has temples, palaces, and over 150 buildings. The Incas built terraces for farming and a complex water system. The city shows how the Incas adapted to living high in the mountains.</p>
+                    <div class="wonder-facts">
+                        <h4>Quick Facts:</h4>
+                        <ul>
+                            <li>Built: Around 1450 AD</li>
+                            <li>Elevation: 2,430 meters (7,970 feet)</li>
+                            <li>Location: Andes Mountains, Peru</li>
+                            <li>Special Note: Spanish never found it during conquest</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Wonder 7 -->
+                <div class="wonder-section">
+                    <h3 class="wonder-title">7. The Taj Mahal, India</h3>
+                    <div class="wonder-image">
+                        <img src="images/taj_mahal.jpg" alt="The Taj Mahal, India">
+                    </div>
+                    <p class="wonder-description"><strong>The Taj Mahal is a beautiful white marble mausoleum.</strong> Mughal Emperor Shah Jahan built it between 1632 and 1653 as a tomb for his favorite wife, Mumtaz Mahal, who died giving birth to their 14th child. The emperor was so heartbroken that he wanted to build the most beautiful tomb in the world.</p>
+                    <p class="wonder-description">Over 20,000 workers and 1,000 elephants helped build the Taj Mahal. The white marble came from 200 miles away. The building uses precious stones from different countries: jade from China, turquoise from Tibet, lapis lazuli from Afghanistan, and sapphire from Sri Lanka.</p>
+                    <p class="wonder-description">The Taj Mahal looks different colors at different times of day. It looks pinkish in the morning, white in the afternoon, and golden in the moonlight. The building is perfectly symmetrical except for the tombs inside, where the emperor's tomb is larger than his wife's.</p>
+                    <div class="wonder-facts">
+                        <h4>Quick Facts:</h4>
+                        <ul>
+                            <li>Built: 1632-1653</li>
+                            <li>Cost: About 32 million rupees (around $1 billion today)</li>
+                            <li>Location: Agra, India</li>
+                            <li>Special Note: Built as a love memorial</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Wonder 8 -->
+                <div class="wonder-section">
+                    <h3 class="wonder-title">8. Christ the Redeemer, Brazil</h3>
+                    <div class="wonder-image">
+                        <img src="images/christ_redeemer.jpg" alt="Christ the Redeemer, Brazil">
+                    </div>
+                    <p class="wonder-description"><strong>Christ the Redeemer is the newest wonder on our list.</strong> This statue of Jesus Christ stands on top of Corcovado Mountain in Rio de Janeiro, Brazil. It was completed in 1931 and stands 30 meters (98 feet) tall, with its arms stretching 28 meters (92 feet) wide.</p>
+                    <p class="wonder-description">The statue was designed by Brazilian engineer Heitor da Silva Costa and created by French sculptor Paul Landowski. It's made of reinforced concrete and covered with about 6 million soapstone tiles. These tiles give the statue its smooth appearance and protect it from weather.</p>
+                    <p class="wonder-description">Christ the Redeemer represents Brazil's Catholic faith and welcomes visitors to Rio de Janeiro. It's the largest Art Deco statue in the world. To reach it, visitors can take a train, van, or hike up the mountain. From the top, they get amazing views of Rio, including Sugarloaf Mountain and Copacabana Beach.</p>
+                    <div class="wonder-facts">
+                        <h4>Quick Facts:</h4>
+                        <ul>
+                            <li>Built: 1926-1931</li>
+                            <li>Height: 30 meters (98 feet), plus 8 meter (26 foot) pedestal</li>
+                            <li>Location: Rio de Janeiro, Brazil</li>
+                            <li>Special Note: Most recently built wonder (1931)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2>Which Wonder Was Most Recently Added?</h2>
+                <p>Now, let's answer the question from our title: which wonder was most recently added to the list?</p>
+                
+                <p><strong>Christ the Redeemer in Brazil is the most recently built wonder</strong> (completed in 1931), but it's not the most recently added to the list. All the new seven wonders were announced together in 2007.</p>
+                
+                <p><strong>The Great Pyramid of Giza is actually the most recently added to the eight wonders list.</strong> Remember, it wasn't included in the original new seven wonders chosen by vote in 2007. After complaints from Egypt, it was added as an "honorary candidate" later that year. This made the list eight wonders instead of seven.</p>
+                
+                <p>So, if we're talking about when they were added to the official wonders list, the Great Pyramid of Giza was added most recently (in 2007, after the original announcement). If we're talking about when they were built, Christ the Redeemer is the newest (built in 1931).</p>
+
+                <h2>Why These Places Matter</h2>
+                <p>These eight wonders show what humans can achieve. They come from different times, places, and cultures. Some were built by ancient Egyptians, others by Romans, Mayans, Incas, Mughals, and modern Brazilians.</p>
+
+                <p>Each wonder tells a story about the people who built it. The Great Pyramid shows ancient Egyptian beliefs about the afterlife. The Colosseum shows Roman entertainment and engineering. The Taj Mahal shows love and loss. Christ the Redeemer shows faith and welcome.</p>
+
+                <p>These places also show how humans work with their environment. Machu Picchu was built high in the mountains. Petra was carved from desert rock. The Great Wall follows China's northern border.</p>
+
+                <h2>Visiting the Wonders</h2>
+                <p>Today, millions of people visit these wonders every year. If you want to see them, here are some tips:</p>
+                
+                <ul>
+                    <li><strong>Plan ahead:</strong> Some wonders require tickets booked months in advance, especially during busy seasons.</li>
+                    <li><strong>Respect the sites:</strong> These are ancient or important places. Follow the rules and don't damage anything.</li>
+                    <li><strong>Learn the history:</strong> Knowing why a place is special makes visiting more meaningful.</li>
+                    <li><strong>Consider local guides:</strong> They can tell you stories and facts you won't find in guidebooks.</li>
+                    <li><strong>Visit responsibly:</strong> Be mindful of your environmental impact and support local communities.</li>
+                </ul>
+
+                <h2>The Future of Wonders</h2>
+                <p>Some people wonder if we should add more places to the list. There are many other amazing places in the world, like Angkor Wat in Cambodia, the Eiffel Tower in Paris, or the Sydney Opera House in Australia.</p>
+
+                <p>Maybe one day there will be a new vote for wonders of the 21st century. What would you include? Perhaps the International Space Station, the Burj Khalifa in Dubai (the world's tallest building), or amazing natural places like the Great Barrier Reef.</p>
+
+                <p>For now, these eight wonders remind us of human creativity, faith, love, power, and intelligence across thousands of years. They connect us to our past and inspire us for the future.</p>
+
+                <p>Whether you've visited some of these places or hope to see them one day, they stand as proof that when humans dream big and work together, we can create things that last for centuries and inspire generations.</p>
+            </div>
+            
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+    </div>
+
+    <!-- Contact Email Section -->
+    <div class="container contact-section">
+        <h2 class="contact-title">Contact Our Editors</h2>
+        <a href="mailto:contactoureditors@gmail.com" class="contact-email">contactoureditors@gmail.com</a>
+    </div>
+
+    <!-- Recently Added Section -->
+    <div class="container recently-added" id="recently-added">
+        <h2 class="section-title">Recently Added</h2>
+        <div class="recent-articles">
+            <a href="eight.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_htjsqr-1.jpg" alt="Christmas destinations">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Five best places to celebrate christmas: exploring lively countries</div>
+                    <div class="recent-time">2 hours ago</div>
+                </div>
+                <div class="recent-share" data-title="Five best places to celebrate christmas: exploring lively countries">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="nine.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_xwqdwfg-1.jpg" alt="Wonders of the world">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Eight wonders of the world: which was recently added</div>
+                    <div class="recent-time">5 hours ago</div>
+                </div>
+                <div class="recent-share" data-title="Eight wonders of the world: which was recently added">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="ten.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_x71tog5.jpg" alt="Early snow">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Countries who experienced snow too early in 2025: minimal Climate change</div>
+                    <div class="recent-time">Yesterday</div>
+                </div>
+                <div class="recent-share" data-title="Countries who experienced snow too early in 2025: minimal Climate change">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="eleven.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/1764268033680.jpg" alt="Scholarship programs">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Upcoming schorlarship programmes in 2026: starting and deadlines</div>
+                    <div class="recent-time">2 days ago</div>
+                </div>
+                <div class="recent-share" data-title="Upcoming schorlarship programmes in 2026: starting and deadlines">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Go Up Button -->
+    <div class="go-up" id="go-up">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="subscribe-section">
+                    <h3 class="subscribe-title">Subscribe to our newsletter</h3>
+                    <form class="subscribe-form" id="footer-subscribe-form">
+                        <input type="email" class="email-input" id="footer-subscribe-email" placeholder="Your email address" required>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <div id="footer-subscribe-message" class="subscription-message"></div>
+                </div>
+                <div class="footer-links">
+                    <a href="contact.html" class="footer-link">Having any issues? Reach us</a>
+                    <a href="termsp.html" class="footer-link">Understanding our privacy policy</a>
+                    <a href="termss.html" class="footer-link">Terms of Service</a>
+                    <a href="about.html" class="footer-link">Who we are?</a>
+                    <a href="xavier.html" class="footer-link">The Writer Henry Xavier</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Kora Reporters. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXqNe_BDdh9WIJ9lyrFPeQ_-733qbXW4s",
+            authDomain: "realinsightreport.firebaseapp.com",
+            projectId: "realinsightreport",
+            storageBucket: "realinsightreport.firebasestorage.app",
+            messagingSenderId: "1083096764833",
+            appId: "1:1083096764833:web:4b526f278471212ba43be0",
+            measurementId: "G-6LHBN68HMH"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // DOM elements for footer subscription
+        const footerSubscribeForm = document.getElementById('footer-subscribe-form');
+        const footerSubscribeEmail = document.getElementById('footer-subscribe-email');
+        const footerSubscribeMessage = document.getElementById('footer-subscribe-message');
+        
+        // User data
+        let userCountry = "Unknown";
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Detect user's country
+            detectCountry();
+            
+            // Set up event listeners for footer subscription
+            footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
+            
+            // Set up other event listeners
+            setupEventListeners();
+        });
+        
+        // Detect user's country using IP
+        function detectCountry() {
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    userCountry = data.country_name;
+                })
+                .catch(error => {
+                    console.error('Error detecting country:', error);
+                    // Fallback to a free API if the first one fails
+                    fetch('https://api.country.is/')
+                        .then(response => response.json())
+                        .then(data => {
+                            userCountry = data.country;
+                        })
+                        .catch(error2 => {
+                            console.error('Error detecting country with fallback:', error2);
+                        });
+                });
+        }
+        
+        // Handle footer email subscription
+        function handleFooterSubscription(e) {
+            e.preventDefault();
+            
+            const email = footerSubscribeEmail.value.trim();
+            
+            if (!email) {
+                showFooterSubscribeMessage("Please enter a valid email address.", "error");
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showFooterSubscribeMessage("Please enter a valid email address.", "error");
+                return;
+            }
+            
+            // Check if email already exists
+            db.collection("subscribers")
+                .where("email", "==", email)
+                .get()
+                .then((querySnapshot) => {
+                    if (!querySnapshot.empty) {
+                        showFooterSubscribeMessage("✓ You're already subscribed! Thank you for being part of our exclusive newsletter community. You'll continue receiving our premium insights and early access to all content.", "info");
+                        footerSubscribeEmail.value = "";
+                        return;
+                    }
+                    
+                    // Save to Firebase
+                    return db.collection("subscribers").add({
+                        email: email,
+                        country: userCountry,
+                        subscribedAt: new Date().toISOString(),
+                        subscriptionType: "premium",
+                        newsletterAccess: true
+                    });
+                })
+                .then(() => {
+                    showFooterSubscribeMessage("🎉 Welcome to our exclusive newsletter community! You'll now receive premium insights, early access to all research reports, and exclusive analytical briefings directly to your inbox.", "success");
+                    footerSubscribeEmail.value = "";
+                })
+                .catch((error) => {
+                    console.error("Error subscribing: ", error);
+                    showFooterSubscribeMessage("There was an error processing your subscription. Please try again.", "error");
+                });
+        }
+        
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Show footer subscription message
+        function showFooterSubscribeMessage(message, type) {
+            footerSubscribeMessage.textContent = message;
+            footerSubscribeMessage.className = `subscription-message ${type}`;
+            footerSubscribeMessage.style.display = 'block';
+            
+            // Hide message after 8 seconds for success, 5 for error
+            setTimeout(() => {
+                footerSubscribeMessage.style.display = 'none';
+            }, type === 'success' ? 8000 : 5000);
+        }
+
+        // Original functionality
+        function setupEventListeners() {
+            // Share functionality
+            function shareArticle(title, platform) {
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(`${title} - Check out this article on Kora Reporters`);
+                
+                let shareUrl;
+                
+                switch(platform) {
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                        break;
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                        break;
+                    case 'whatsapp':
+                        shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                        break;
+                    case 'telegram':
+                        shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+                        break;
+                    case 'share':
+                    default:
+                        if (navigator.share) {
+                            navigator.share({
+                                title: title,
+                                text: `${title} - Kora Reporters`,
+                                url: window.location.href,
+                            })
+                            .then(() => console.log('Successful share'))
+                            .catch((error) => console.log('Error sharing:', error));
+                            return;
+                        } else {
+                            // Fallback for browsers that don't support the Web Share API
+                            shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                        }
+                        break;
+                }
+                
+                if (shareUrl) {
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                }
+            }
+
+            // Latest Report functionality
+            const latestReportLink = document.getElementById('latest-report-link');
+            const recentlyAddedSection = document.getElementById('recently-added');
+            
+            latestReportLink.addEventListener('click', function() {
+                recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Go Up Button functionality
+            const goUpButton = document.getElementById('go-up');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    goUpButton.classList.add('active');
+                } else {
+                    goUpButton.classList.remove('active');
+                }
+            });
+            
+            goUpButton.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Mobile menu functionality
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const menuOverlay = document.querySelector('.menu-overlay');
+            
+            hamburgerMenu.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+            });
+            
+            menuOverlay.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            });
+
+            // Add share functionality to all share buttons
+            document.querySelectorAll('.share-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const title = this.getAttribute('data-title');
+                    const platform = this.getAttribute('data-platform');
+                    shareArticle(title, platform);
+                });
+            });
+            
+            // Add share functionality to recent article share icons
+            document.querySelectorAll('.recent-share').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation(); // Prevent navigation when clicking share icon
+                    const title = this.getAttribute('data-title');
+                    shareArticle(title, 'share');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
