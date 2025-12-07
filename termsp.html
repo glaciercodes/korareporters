@@ -27,6 +27,11 @@
             color: #fff;
         }
         
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        
         .container {
             width: 100%;
             max-width: 1200px;
@@ -74,6 +79,13 @@
             gap: 20px;
         }
         
+        .latest-report {
+            color: #ff6600;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
         .search-icon {
             font-size: 20px;
             color: #fff;
@@ -81,28 +93,27 @@
         }
         
         /* Home Link */
-        .home-link {
+        .home-link-section {
             background-color: #111;
-            padding: 12px 0;
+            padding: 15px 0;
             border-bottom: 1px solid #333;
         }
         
-        .home-link-content {
+        .home-link {
+            color: #ff6600;
+            font-size: 16px;
             display: flex;
             align-items: center;
             gap: 10px;
+            transition: color 0.3s;
         }
         
-        .home-link a {
-            color: #ff6600;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .home-link:hover {
+            color: #fff;
         }
         
-        .home-link a:hover {
-            color: #ff8533;
+        .home-link i {
+            font-size: 14px;
         }
         
         /* Mobile Menu */
@@ -156,50 +167,166 @@
             display: block;
         }
         
+        /* Search Modal */
+        .search-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 102;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .search-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .search-container {
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .search-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff6600;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ff6600;
+            background-color: #000;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        .search-button {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .search-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .search-filter {
+            background-color: #222;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-filter.active {
+            background-color: #ff6600;
+        }
+        
+        .search-results {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        
+        .search-result-item {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-result-item:hover {
+            background-color: #222;
+        }
+        
+        .search-result-category {
+            color: #ff6600;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        
+        .search-result-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .search-result-snippet {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .close-search {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
         /* Privacy Policy Content */
         .privacy-content {
             padding: 40px 0;
         }
         
-        .page-title {
-            font-size: 32px;
-            margin-bottom: 30px;
-            color: #ff6600;
-            font-weight: 700;
-        }
-        
-        .last-updated {
-            color: #999;
+        .privacy-header {
             margin-bottom: 40px;
-            font-size: 14px;
             padding-bottom: 20px;
             border-bottom: 1px solid #333;
         }
         
-        .policy-section {
+        .privacy-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #ff6600;
+        }
+        
+        .last-updated {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .privacy-section {
             margin-bottom: 40px;
         }
         
         .section-title {
             font-size: 22px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #ff6600;
-            font-weight: 600;
+            border-left: 4px solid #ff6600;
+            padding-left: 15px;
         }
         
-        .policy-text {
-            margin-bottom: 20px;
-            font-size: 16px;
-            color: #ccc;
-        }
-        
-        .policy-list {
-            margin-left: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .policy-list li {
-            margin-bottom: 10px;
+        .privacy-text {
+            margin-bottom: 15px;
+            line-height: 1.8;
             color: #ccc;
         }
         
@@ -208,18 +335,29 @@
             font-weight: 600;
         }
         
-        .contact-info {
-            background-color: #111;
-            padding: 25px;
-            border-radius: 8px;
-            margin-top: 30px;
-            border-left: 4px solid #ff6600;
+        .privacy-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #ccc;
         }
         
-        .contact-title {
+        .privacy-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .note-box {
+            background-color: #111;
+            border-left: 4px solid #ff6600;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .note-title {
             color: #ff6600;
-            margin-bottom: 15px;
-            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
         }
         
         /* Recently Added Section */
@@ -360,6 +498,7 @@
             border: none;
             padding: 0 20px;
             cursor: pointer;
+            height: 40px;
         }
         
         .footer-links {
@@ -412,6 +551,20 @@
         
         /* Mobile Responsive */
         @media (min-width: 768px) {
+            .privacy-title {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .recent-articles {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            
             .footer-content {
                 flex-direction: row;
                 justify-content: space-between;
@@ -426,10 +579,8 @@
                 gap: 10px;
             }
             
-            .recent-articles {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
+            .latest-report {
+                font-size: 16px;
             }
         }
         
@@ -438,16 +589,16 @@
                 gap: 15px;
             }
             
+            .latest-report {
+                font-size: 12px;
+            }
+            
             .subscribe-form {
                 flex-direction: column;
             }
             
-            .page-title {
-                font-size: 26px;
-            }
-            
-            .section-title {
-                font-size: 20px;
+            .privacy-title {
+                font-size: 28px;
             }
         }
     </style>
@@ -460,10 +611,11 @@
                 <div class="hamburger-menu">
                     <i class="fas fa-bars"></i>
                 </div>
-                <a href="index.html" class="logo">
-                    <img src="images/file_00000000cb3471f48ca1cc72833279fa.jpg" alt="Kora Reporters Logo">
+                <a href="about.html" class="logo">
+                    <img src="images/file_00000000cb3471f48ca1cc72833279fa.jpg" alt="Logo">
                 </a>
                 <div class="header-right">
+                    <div class="latest-report" id="latest-report-link">Latest Report</div>
                     <div class="search-icon">
                         <i class="fas fa-search"></i>
                     </div>
@@ -473,11 +625,10 @@
     </header>
 
     <!-- Home Link -->
-    <div class="home-link">
-        <div class="container home-link-content">
-            <a href="index.html">
-                <i class="fas fa-home"></i>
-                Back to Home
+    <div class="home-link-section">
+        <div class="container">
+            <a href="index.html" class="home-link">
+                <i class="fas fa-home"></i> Back to Home
             </a>
         </div>
     </div>
@@ -494,154 +645,228 @@
     </div>
     <div class="menu-overlay"></div>
 
+    <!-- Search Modal -->
+    <div class="search-modal">
+        <div class="close-search">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="search-container">
+            <h2 class="search-title">Search Articles</h2>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Enter keywords...">
+                <button class="search-button">Search</button>
+            </div>
+            <div class="search-filters">
+                <button class="search-filter active" data-filter="all">All</button>
+                <button class="search-filter" data-filter="tech">Tech</button>
+                <button class="search-filter" data-filter="news">News</button>
+                <button class="search-filter" data-filter="health">Health</button>
+                <button class="search-filter" data-filter="education">Education</button>
+            </div>
+            <div class="search-results">
+                <!-- Search results will be populated here -->
+            </div>
+        </div>
+    </div>
+
     <!-- Privacy Policy Content -->
     <div class="container privacy-content">
-        <h1 class="page-title">Privacy Policy</h1>
-        <div class="last-updated">Last Updated: January 2025</div>
+        <div class="privacy-header">
+            <h1 class="privacy-title">Privacy Policy</h1>
+            <div class="last-updated">Last Updated: January 15, 2025</div>
+        </div>
         
-        <div class="policy-section">
-            <h2 class="section-title">Welcome to Our Privacy Policy</h2>
-            <p class="policy-text">
-                At Kora Reporters, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website. We want you to feel safe and informed about your data, so we've written this policy in simple, easy-to-understand language.
+        <div class="privacy-section">
+            <h2 class="section-title">Our Commitment to Your Privacy</h2>
+            <p class="privacy-text">
+                At Kora Reporters, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website. We want you to feel confident about how we handle your data, so we've written this policy in simple, easy-to-understand language.
             </p>
-            <p class="policy-text">
-                Please read this policy carefully. By using our website, you agree to the terms outlined here. If you have any questions about our privacy practices, feel free to contact us using the information at the end of this page.
+            
+            <p class="privacy-text">
+                By using our website, you agree to the collection and use of information as described in this policy. If you have any questions about our privacy practices, please contact us at 
+                <span class="highlight">contactoureditors@gmail.com</span>.
             </p>
         </div>
         
-        <div class="policy-section">
+        <div class="privacy-section">
             <h2 class="section-title">What Information We Collect</h2>
-            <p class="policy-text">
-                When you visit Kora Reporters, we collect certain information to make your experience better and to improve our services. Here's what we collect:
+            <p class="privacy-text">
+                When you visit Kora Reporters, we may collect certain information automatically. This helps us understand how people use our website and improve your experience. Here's what we collect:
             </p>
-            <ul class="policy-list">
-                <li><span class="highlight">IP Address:</span> This is like your computer's online address. We use it to understand where our visitors are coming from and to protect our website from security threats.</li>
-                <li><span class="highlight">Browser Information:</span> We collect details about the web browser you're using (like Chrome, Firefox, or Safari) and your device type. This helps us make sure our website works properly on your device.</li>
-                <li><span class="highlight">Pages You Visit:</span> We track which articles you read and how you navigate our website. This helps us understand what content our readers enjoy most.</li>
-                <li><span class="highlight">Email Address:</span> If you subscribe to our newsletter, we collect your email address to send you updates about new articles and special content.</li>
-                <li><span class="highlight">Usage Data:</span> This includes how long you spend on our site, which links you click, and when you visit. We use this to improve our website layout and content.</li>
+            
+            <ul class="privacy-list">
+                <li><span class="highlight">IP Address:</span> Your computer's internet address, which helps us understand where our readers are located</li>
+                <li><span class="highlight">Browser Information:</span> The type of browser you use (like Chrome, Firefox, or Safari) and your device type</li>
+                <li><span class="highlight">Pages Visited:</span> Which articles you read and how long you spend on each page</li>
+                <li><span class="highlight">Referring Sites:</span> How you found our website (like from Google search or social media)</li>
+                <li><span class="highlight">Email Address:</span> Only if you voluntarily subscribe to our newsletter</li>
+                <li><span class="highlight">Country Information:</span> Your country location to help us provide relevant content</li>
             </ul>
         </div>
         
-        <div class="policy-section">
+        <div class="privacy-section">
             <h2 class="section-title">How We Use Cookies</h2>
-            <p class="policy-text">
-                Cookies are small text files that websites place on your device. They help websites remember information about your visit. We use cookies for several important purposes:
+            <p class="privacy-text">
+                Cookies are small text files that websites place on your device. They help websites remember your preferences and improve your browsing experience. We use cookies for several important purposes:
             </p>
-            <ul class="policy-list">
-                <li><span class="highlight">Essential Cookies:</span> These are necessary for our website to work properly. They help pages load correctly and remember your preferences.</li>
-                <li><span class="highlight">Google AdSense Cookies:</span> We use Google AdSense to display advertisements on our website. Google uses cookies to show you ads that might be relevant to your interests based on your browsing history.</li>
-                <li><span class="highlight">Analytics Cookies:</span> These help us understand how visitors use our website. We can see which articles are most popular and how people find our content.</li>
-                <li><span class="highlight">Functionality Cookies:</span> These remember your preferences, like whether you prefer dark mode or light mode on our site.</li>
+            
+            <ul class="privacy-list">
+                <li><span class="highlight">Essential Cookies:</span> These are necessary for our website to function properly</li>
+                <li><span class="highlight">Analytics Cookies:</span> Help us understand how visitors use our site so we can improve it</li>
+                <li><span class="highlight">Preference Cookies:</span> Remember your settings and preferences</li>
+                <li><span class="highlight">Advertising Cookies:</span> Used by Google AdSense and other advertisers to show you relevant ads</li>
             </ul>
-            <p class="policy-text">
-                You can control cookies through your browser settings. Most browsers allow you to block or delete cookies. However, if you block all cookies, some parts of our website may not work properly.
+            
+            <div class="note-box">
+                <div class="note-title">About Google AdSense Cookies</div>
+                <p class="privacy-text">
+                    We use Google AdSense to display advertisements on our site. Google uses cookies to serve ads based on your previous visits to our website and other sites on the internet. These cookies help Google show you ads that are more relevant to your interests.
+                </p>
+            </div>
+            
+            <p class="privacy-text">
+                You can control cookies through your browser settings. Most browsers allow you to block or delete cookies. However, if you disable cookies, some features of our website may not work properly.
             </p>
         </div>
         
-        <div class="policy-section">
+        <div class="privacy-section">
             <h2 class="section-title">Google AdSense and Third-Party Advertising</h2>
-            <p class="policy-text">
-                We use Google AdSense to display advertisements on our website. Here's how this works and what it means for your privacy:
+            <p class="privacy-text">
+                We work with Google AdSense and other third-party advertising companies to display ads on our website. Here's how this works:
             </p>
-            <ul class="policy-list">
-                <li><span class="highlight">Personalized Ads:</span> Google uses cookies to show you ads based on your interests. For example, if you often read tech articles, you might see more ads about technology products.</li>
-                <li><span class="highlight">How Google Uses Data:</span> Google collects information about the ads you see and click on our site. They use this to improve their advertising services across the internet.</li>
-                <li><span class="highlight">Third-Party Advertisers:</span> Other companies besides Google might also show ads on our site. These advertisers may use their own cookies and tracking technologies.</li>
-                <li><span class="highlight">You Can Opt Out:</span> If you don't want to see personalized ads, you can visit Google's Ads Settings page to adjust your preferences. You can also opt out of many third-party advertising networks through websites like the Network Advertising Initiative.</li>
+            
+            <ul class="privacy-list">
+                <li><span class="highlight">Personalized Advertising:</span> Google uses cookies to show you ads based on your browsing history and interests</li>
+                <li><span class="highlight">Non-Personalized Advertising:</span> Some ads are shown based on the content of the page rather than your personal information</li>
+                <li><span class="highlight">Ad Performance:</span> Advertisers track how well their ads perform on our site</li>
+                <li><span class="highlight">Frequency Capping:</span> Limits how many times you see the same ad</li>
             </ul>
-            <p class="policy-text">
-                We don't have direct control over how Google or other advertisers use your data. Their use of information is governed by their own privacy policies. We encourage you to review Google's Privacy Policy to understand how they handle your information.
+            
+            <p class="privacy-text">
+                <span class="highlight">Important:</span> Google and other third-party vendors use cookies to serve ads based on your prior visits to our website or other websites. You can opt out of personalized advertising by visiting 
+                <span class="highlight">Google's Ads Settings</span> or by visiting <span class="highlight">www.aboutads.info</span>.
+            </p>
+            
+            <p class="privacy-text">
+                Third-party advertisers may use their own cookies, web beacons, and similar technologies to collect information about your activities on our site and other websites. We do not control these third-party tracking technologies.
             </p>
         </div>
         
-        <div class="policy-section">
+        <div class="privacy-section">
             <h2 class="section-title">How We Use Your Information</h2>
-            <p class="policy-text">
-                We use the information we collect for specific, legitimate purposes. Here are the main ways we use your data:
+            <p class="privacy-text">
+                The information we collect helps us provide a better experience for our readers. Here are the specific ways we use your information:
             </p>
-            <ul class="policy-list">
-                <li><span class="highlight">Improving Our Website:</span> We analyze how visitors use our site to make it better. If we notice many people leave after reading one article, we might change our layout to make it easier to find more content.</li>
-                <li><span class="highlight">Content Creation:</span> We look at which articles get the most reads to understand what topics interest our readers. This helps us create more of the content you love.</li>
-                <li><span class="highlight">Newsletter Delivery:</span> If you subscribe to our newsletter, we use your email address to send you updates about new articles and special features.</li>
-                <li><span class="highlight">Website Security:</span> We monitor traffic patterns to detect and prevent security threats, like hacking attempts or other malicious activities.</li>
-                <li><span class="highlight">Advertising Support:</span> The ads on our site help us keep Kora Reporters free for all readers. The data helps show relevant ads, which makes advertising more effective.</li>
+            
+            <ul class="privacy-list">
+                <li><span class="highlight">Improve Our Website:</span> Understand which articles are popular and what content our readers enjoy</li>
+                <li><span class="highlight">Analytics:</span> Track website performance and identify technical issues</li>
+                <li><span class="highlight">Content Personalization:</span> Show you content that might interest you based on your reading history</li>
+                <li><span class="highlight">Newsletter Delivery:</span> Send email updates to subscribers who have opted in</li>
+                <li><span class="highlight">Advertising:</span> Display relevant ads to support our free content</li>
+                <li><span class="highlight">Security:</span> Protect our website from malicious activities</li>
             </ul>
-            <p class="policy-text">
-                We never use your personal information for purposes that aren't mentioned in this policy without getting your permission first.
+            
+            <p class="privacy-text">
+                We never use your personal information for purposes other than those described in this policy without your explicit consent.
             </p>
         </div>
         
-        <div class="policy-section">
-            <h2 class="section-title">Your Data Protection Rights</h2>
-            <p class="policy-text">
-                We take protecting your data seriously. Here are our commitments to you:
+        <div class="privacy-section">
+            <h2 class="section-title">Data Protection and Your Rights</h2>
+            <p class="privacy-text">
+                We are committed to protecting your personal information. Here's our promise to you:
             </p>
-            <ul class="policy-list">
-                <li><span class="highlight">We Don't Sell Your Information:</span> This is very important. We do not sell, trade, or rent your personal information to third parties for their marketing purposes.</li>
-                <li><span class="highlight">Limited Sharing:</span> We only share information with trusted partners who help us run our website, like our email service provider for newsletters. These partners must follow strict confidentiality agreements.</li>
-                <li><span class="highlight">Data Security:</span> We use reasonable security measures to protect your information from unauthorized access or disclosure.</li>
-                <li><span class="highlight">Your Control:</span> You can unsubscribe from our newsletter at any time by clicking the "unsubscribe" link in any email we send you.</li>
-                <li><span class="highlight">Data Retention:</span> We keep your information only as long as necessary for the purposes described in this policy or as required by law.</li>
+            
+            <div class="note-box">
+                <div class="note-title">We Do Not Sell Your Information</div>
+                <p class="privacy-text">
+                    We want to be absolutely clear: <span class="highlight">We do not sell, trade, or rent your personal information to anyone.</span> Your data is used only for the purposes described in this policy.
+                </p>
+            </div>
+            
+            <p class="privacy-text">
+                We implement appropriate security measures to protect your information from unauthorized access, alteration, or destruction. However, no internet transmission is completely secure, so we cannot guarantee absolute security.
+            </p>
+            
+            <p class="privacy-text">
+                You have the right to:
+            </p>
+            
+            <ul class="privacy-list">
+                <li>Access the personal information we have about you</li>
+                <li>Correct any inaccurate information</li>
+                <li>Request deletion of your personal information</li>
+                <li>Opt out of marketing communications</li>
+                <li>Withdraw consent for data processing</li>
             </ul>
-            <p class="policy-text">
-                We believe transparency is key to trust. If we ever need to change how we handle your data, we'll update this policy and let you know.
+            
+            <p class="privacy-text">
+                To exercise any of these rights, please contact us at 
+                <span class="highlight">contactoureditors@gmail.com</span>. We will respond to your request within 30 days.
             </p>
         </div>
         
-        <div class="policy-section">
-            <h2 class="section-title">Links to Other Websites</h2>
-            <p class="policy-text">
-                Our website contains links to other websites that we think might interest our readers. For example, we might link to a research study mentioned in one of our articles.
+        <div class="privacy-section">
+            <h2 class="section-title">Third-Party Links and Content</h2>
+            <p class="privacy-text">
+                Our website may contain links to other websites that are not operated by us. These third-party sites have their own privacy policies, which you should review before providing any personal information.
             </p>
-            <p class="policy-text">
-                <span class="highlight">Important:</span> When you click on a link to another website, you leave Kora Reporters. We are not responsible for the privacy practices or content of these other sites. We encourage you to read the privacy policies of any website you visit.
+            
+            <p class="privacy-text">
+                <span class="highlight">Disclaimer:</span> We are not responsible for the content, privacy policies, or practices of any third-party websites. When you click on a third-party link, you will be directed to that site. We strongly advise you to review the Privacy Policy of every site you visit.
             </p>
-            <p class="policy-text">
-                We try to link only to reputable websites, but we cannot guarantee the safety or privacy practices of third-party sites.
+            
+            <p class="privacy-text">
+                This privacy policy applies only to information collected by Kora Reporters through our website. It does not apply to information collected by third-party websites, even if they are linked from our site.
             </p>
         </div>
         
-        <div class="policy-section">
+        <div class="privacy-section">
             <h2 class="section-title">Children's Privacy</h2>
-            <p class="policy-text">
-                Kora Reporters is a general audience website. We do not knowingly collect personal information from children under the age of 13.
+            <p class="privacy-text">
+                Our website is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe that your child has provided us with personal information, please contact us immediately.
             </p>
-            <p class="policy-text">
-                If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately. We will take steps to remove that information from our systems.
+            
+            <p class="privacy-text">
+                If we become aware that we have collected personal information from a child under 13 without verification of parental consent, we will take steps to remove that information from our servers as quickly as possible.
             </p>
-            <p class="policy-text">
-                We encourage parents and guardians to monitor their children's internet usage and to help us enforce our privacy policy by instructing children never to provide personal information on any website without parental permission.
-            </p>
-        </div>
-        
-        <div class="policy-section">
-            <h2 class="section-title">Your Consent</h2>
-            <p class="policy-text">
-                By using our website, you consent to our Privacy Policy. This means you agree to how we collect, use, and protect your information as described here.
-            </p>
-            <p class="policy-text">
-                If you subscribe to our newsletter, you are giving us explicit consent to send you emails with updates and content from Kora Reporters. You can withdraw this consent at any time by unsubscribing.
-            </p>
-            <p class="policy-text">
-                We may update this Privacy Policy from time to time. When we make changes, we'll update the "Last Updated" date at the top of this page. We encourage you to review this policy periodically to stay informed about how we're protecting your information.
-            </p>
-            <p class="policy-text">
-                If you continue to use our website after we post changes to this policy, it means you accept those changes.
+            
+            <p class="privacy-text">
+                We encourage parents and guardians to monitor their children's internet usage and to help enforce our Privacy Policy by instructing their children never to provide personal information through any website without their permission.
             </p>
         </div>
         
-        <div class="contact-info">
-            <h3 class="contact-title">Contact Us About Privacy</h3>
-            <p class="policy-text">
-                If you have any questions or concerns about our Privacy Policy, or if you want to know what information we have about you, please contact us:
+        <div class="privacy-section">
+            <h2 class="section-title">Your Consent and Changes to This Policy</h2>
+            <p class="privacy-text">
+                By using our website, you consent to our Privacy Policy. If you do not agree with this policy, please do not use our site.
             </p>
-            <p class="policy-text">
-                Email: <a href="mailto:contactoureditors@gmail.com" style="color: #ff6600;">contactoureditors@gmail.com</a>
+            
+            <p class="privacy-text">
+                <span class="highlight">Consent Statement:</span> When you voluntarily provide us with personal information (such as subscribing to our newsletter), you are giving us permission to collect, use, and store that information as described in this Privacy Policy.
             </p>
-            <p class="policy-text">
-                We'll do our best to respond to your privacy-related questions within a reasonable timeframe.
+            
+            <p class="privacy-text">
+                We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the top of this policy.
             </p>
+            
+            <p class="privacy-text">
+                We encourage you to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+            </p>
+            
+            <div class="note-box">
+                <div class="note-title">Contact Us</div>
+                <p class="privacy-text">
+                    If you have any questions about this Privacy Policy or how we handle your information, please don't hesitate to contact us:
+                </p>
+                <p class="privacy-text">
+                    Email: <span class="highlight">contactoureditors@gmail.com</span>
+                </p>
+                <p class="privacy-text">
+                    We value your privacy and will respond to your inquiries as quickly as possible.
+                </p>
+            </div>
         </div>
     </div>
 
@@ -761,6 +986,25 @@
         // User data
         let userCountry = "Unknown";
         
+        // Sample article data for search functionality
+        const articlesData = [
+            {
+                id: 1,
+                title: "Software engineering vs computer science: which are in high demand",
+                category: "tech",
+                snippet: "In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand...",
+                content: "In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand. However, the nature of this demand differs significantly between the two fields. Software engineering focuses on the practical application of engineering principles to software development..."
+            },
+            {
+                id: 2,
+                title: "Top 10 largest African countries: by economy size",
+                category: "news",
+                snippet: "Africa's economic landscape is diverse and rapidly changing, with several countries emerging as economic powerhouses...",
+                content: "Africa's economic landscape is diverse and rapidly changing, with several countries emerging as economic powerhouses on the continent. Based on GDP figures, here are the top 10 largest African economies. Nigeria leads as Africa's largest economy with a GDP of over $500 billion..."
+            },
+            // ... (other articles data from original)
+        ];
+
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             // Detect user's country
@@ -769,7 +1013,7 @@
             // Set up event listeners for footer subscription
             footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
             
-            // Set up other event listeners
+            // Set up other event listeners from original code
             setupEventListeners();
         });
         
@@ -913,6 +1157,14 @@
                 });
             });
 
+            // Latest Report functionality
+            const latestReportLink = document.getElementById('latest-report-link');
+            const recentlyAddedSection = document.getElementById('recently-added');
+            
+            latestReportLink.addEventListener('click', function() {
+                recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
+            });
+
             // Go Up Button functionality
             const goUpButton = document.getElementById('go-up');
             
@@ -943,6 +1195,100 @@
                 mobileMenu.classList.remove('active');
                 menuOverlay.classList.remove('active');
             });
+            
+            // Close menu when a link is clicked
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                });
+            });
+
+            // Search functionality
+            const searchIcon = document.querySelector('.search-icon');
+            const searchModal = document.querySelector('.search-modal');
+            const closeSearch = document.querySelector('.close-search');
+            const searchInput = document.querySelector('.search-input');
+            const searchButton = document.querySelector('.search-button');
+            const searchFilters = document.querySelectorAll('.search-filter');
+            const searchResults = document.querySelector('.search-results');
+            
+            searchIcon.addEventListener('click', function() {
+                searchModal.classList.add('active');
+                searchInput.focus();
+            });
+            
+            closeSearch.addEventListener('click', function() {
+                searchModal.classList.remove('active');
+            });
+            
+            // Close search modal when clicking outside
+            searchModal.addEventListener('click', function(e) {
+                if (e.target === searchModal) {
+                    searchModal.classList.remove('active');
+                }
+            });
+            
+            // Search filter functionality
+            searchFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    searchFilters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+                    performSearch();
+                });
+            });
+            
+            // Perform search when typing or clicking search button
+            searchInput.addEventListener('input', performSearch);
+            searchButton.addEventListener('click', performSearch);
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const activeFilter = document.querySelector('.search-filter.active').getAttribute('data-filter');
+                
+                // Filter articles based on search term and category
+                const filteredArticles = articlesData.filter(article => {
+                    const matchesSearch = searchTerm === '' || 
+                        article.title.toLowerCase().includes(searchTerm) ||
+                        article.snippet.toLowerCase().includes(searchTerm) ||
+                        article.content.toLowerCase().includes(searchTerm);
+                    
+                    const matchesCategory = activeFilter === 'all' || article.category === activeFilter;
+                    
+                    return matchesSearch && matchesCategory;
+                });
+                
+                // Display results
+                displaySearchResults(filteredArticles);
+            }
+            
+            function displaySearchResults(results) {
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div class="search-result-item">No articles found matching your search criteria.</div>';
+                    return;
+                }
+                
+                searchResults.innerHTML = results.map(article => `
+                    <div class="search-result-item" data-article-id="${article.id}">
+                        <div class="search-result-category">${article.category.toUpperCase()}</div>
+                        <div class="search-result-title">${article.title}</div>
+                        <div class="search-result-snippet">${article.snippet}</div>
+                    </div>
+                `).join('');
+                
+                // Add click event to result items
+                document.querySelectorAll('.search-result-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const articleId = this.getAttribute('data-article-id');
+                        
+                        // Close search modal
+                        searchModal.classList.remove('active');
+                        
+                        // Redirect to index page for article viewing
+                        window.location.href = 'index.html';
+                    });
+                });
+            }
         }
     </script>
 </body>
