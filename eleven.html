@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kora Reporters - Scholarship Programmes 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #000;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hamburger-menu {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .logo {
+            width: 150px;
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .latest-report {
+            color: #ff6600;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* Home Link Section */
+        .home-link-section {
+            background-color: #111;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .home-link {
+            color: #ff6600;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        
+        .home-link:hover {
+            color: #ff8533;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            background-color: #111;
+            padding: 80px 20px 20px;
+            transition: left 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .mobile-menu-link {
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu-link:hover {
+            color: #ff6600;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 98;
+            display: none;
+        }
+        
+        .menu-overlay.active {
+            display: block;
+        }
+        
+        /* Content Styles */
+        .content {
+            padding: 30px 0;
+        }
+        
+        .article {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .category-label {
+            color: #ff6600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-label::before {
+            content: "●";
+            margin-right: 5px;
+        }
+        
+        .article-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .featured-image {
+            width: 100%;
+            margin: 25px 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+            overflow: hidden;
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .author-name {
+            font-weight: 600;
+            color: #ff6600;
+        }
+        
+        .date {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .share-section {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .share-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .share-btn {
+            color: #ff6600;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            transition: color 0.3s;
+        }
+        
+        .share-btn:hover {
+            color: #ff8533;
+        }
+        
+        .share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        .article-content {
+            margin-bottom: 40px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        
+        .article-content p {
+            margin-bottom: 25px;
+        }
+
+        .article-content strong {
+            font-weight: 700;
+            color: #ff6600;
+        }
+        
+        .article-content h2 {
+            font-size: 24px;
+            margin: 35px 0 20px;
+            color: #ff6600;
+            font-weight: 600;
+        }
+        
+        .article-content h3 {
+            font-size: 20px;
+            margin: 30px 0 15px;
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .article-content ul {
+            margin: 20px 0 20px 30px;
+            list-style-type: disc;
+        }
+        
+        .article-content li {
+            margin-bottom: 12px;
+        }
+        
+        .source-info {
+            background-color: #111;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border-left: 4px solid #ff6600;
+        }
+        
+        .source-info p {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .source-info a {
+            color: #ff6600;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        
+        .source-info a:hover {
+            color: #ff8533;
+        }
+        
+        /* Contact Email Section */
+        .contact-section {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .contact-email {
+            color: #ff6600;
+            font-size: 18px;
+        }
+        
+        /* Recently Added Section */
+        .recently-added {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .recent-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .recent-article {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        
+        .recent-img {
+            width: 80px;
+            height: 60px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 10px;
+            flex-shrink: 0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .recent-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recent-content {
+            flex: 1;
+        }
+        
+        .recent-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .recent-time {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .recent-share {
+            color: #ff6600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+        
+        .recent-share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        /* Go Up Button */
+        .go-up {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff6600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .go-up.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .go-up i {
+            color: #000;
+            font-size: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 40px 0 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .subscribe-section {
+            text-align: center;
+        }
+        
+        .subscribe-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #333;
+            background-color: #000;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        .subscribe-btn {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .footer-link {
+            color: #ff6600;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Subscription Message Styles */
+        .subscription-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .subscription-message.success {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        
+        .subscription-message.error {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        .subscription-message.info {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            border: 1px solid #3498db;
+        }
+        
+        /* Mobile Responsive */
+        @media (min-width: 768px) {
+            .article-title {
+                font-size: 32px;
+            }
+            
+            .featured-image {
+                height: 400px;
+            }
+            
+            .featured-image img {
+                height: 400px;
+            }
+            
+            .recent-articles {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .subscribe-section {
+                text-align: left;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .latest-report {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header-right {
+                gap: 15px;
+            }
+            
+            .latest-report {
+                font-size: 12px;
+            }
+            
+            .subscribe-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .subscribe-btn {
+                height: 45px;
+            }
+            
+            .article-title {
+                font-size: 24px;
+            }
+            
+            .article-content {
+                font-size: 16px;
+            }
+            
+            .share-buttons {
+                gap: 10px;
+            }
+            
+            .share-btn {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <a href="index.html" class="logo">
+                    <span>KORA REPORTERS</span>
+                </a>
+                <div class="header-right">
+                    <div class="latest-report" id="latest-report-link">Latest Report</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Link -->
+    <div class="home-link-section">
+        <div class="container">
+            <a href="index.html" class="home-link">
+                <i class="fas fa-home"></i>
+                Back to Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-links">
+            <a href="index.html" class="mobile-menu-link">Home</a>
+            <a href="about.html" class="mobile-menu-link">Who We Are</a>
+            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+            <a href="termsp.html" class="mobile-menu-link">Terms and Privacy</a>
+            <a href="termss.html" class="mobile-menu-link">Terms of Service</a>
+        </div>
+    </div>
+    <div class="menu-overlay"></div>
+
+    <!-- Content -->
+    <div class="container content">
+        <!-- Scholarship Article -->
+        <article class="article">
+            <div class="category-label">EDUCATION</div>
+            <h1 class="article-title">Upcoming Scholarship Programmes in 2026: Starting Dates and Deadlines</h1>
+            <div class="featured-image">
+                <img src="images/0022.jpg" alt="Scholarship Programmes 2026">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="xavier.html" class="author-name">Henry Xavier</a>
+                    <div class="date">December 15, 2025</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Upcoming Scholarship Programmes in 2026: Starting Dates and Deadlines">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Upcoming Scholarship Programmes in 2026: Starting Dates and Deadlines">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Upcoming Scholarship Programmes in 2026: Starting Dates and Deadlines">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Upcoming Scholarship Programmes in 2026: Starting Dates and Deadlines">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Upcoming Scholarship Programmes in 2026: Starting Dates and Deadlines">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>As we approach 2026, thousands of students worldwide are looking for scholarship opportunities to help fund their education. The good news is that many organizations, governments, and universities are preparing to launch new scholarship programs or continue existing ones with updated timelines for the upcoming academic year. This comprehensive guide will walk you through verified upcoming scholarship programmes for 2026, including their starting dates and application deadlines.</p>
+
+                <p>Getting a scholarship can be life-changing for many students. It can mean the difference between pursuing higher education or not, studying abroad instead of locally, or focusing on studies instead of working multiple jobs. The key to success is early preparation and understanding what opportunities are available well in advance.</p>
+
+                <h2>Why Plan Early for 2026 Scholarships?</h2>
+                
+                <p>Planning early gives you several advantages. First, you have more time to prepare strong application materials like essays, recommendation letters, and portfolios. Second, you can research each scholarship thoroughly to understand what the selection committees are looking for. Third, early planning allows you to meet all requirements, which sometimes include standardized tests, language proficiency exams, or specific coursework.</p>
+
+                <p>Most competitive scholarships have deadlines in late 2025 or early 2026 for programs starting in fall 2026. Some even have deadlines as early as December 2025. That's why starting your research now is crucial if you want to be ready when applications open.</p>
+
+                <h2>Verified Government Scholarship Programmes</h2>
+
+                <p>Government scholarships are often the most reliable and well-funded opportunities. These programs typically have clear application processes and established reputations. Here are some verified government scholarship programmes for 2026:</p>
+
+                <h3>1. Fulbright Foreign Student Program (USA)</h3>
+                
+                <p>The Fulbright Program is one of the most prestigious international exchange programs in the world. For the 2026 academic year, application timelines vary by country, but most deadlines fall between February and October 2025. The program provides funding for graduate study, research, and teaching assistantships in the United States.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Information about the Fulbright Program can be verified through the official U.S. Department of State website: <a href="https://foreign.fulbrightonline.org" target="_blank">https://foreign.fulbrightonline.org</a></p>
+                    <p><strong>Key Dates for 2026:</strong> Country-specific deadlines typically range from February to October 2025. Programs begin in August or September 2026.</p>
+                </div>
+
+                <h3>2. Chevening Scholarships (UK)</h3>
+                
+                <p>Chevening Scholarships are the UK government's global scholarship programme funded by the Foreign, Commonwealth and Development Office. These scholarships support one-year master's degrees at any UK university. For the 2026/2027 academic year, applications are expected to open in August 2025 and close in November 2025.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Official information is available on the Chevening website: <a href="https://www.chevening.org" target="_blank">https://www.chevening.org</a></p>
+                    <p><strong>Key Dates for 2026:</strong> Applications typically open in early August 2025 and close in early November 2025. Interviews occur from February to April 2026, with results announced from June 2026 onward.</p>
+                </div>
+
+                <h3>3. Australia Awards Scholarships</h3>
+                
+                <p>Australia Awards are long-term scholarships funded by the Australian government for students from developing countries, particularly those in the Indo-Pacific region. These scholarships provide opportunities for undergraduate or postgraduate study at Australian universities.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Detailed information is available on the official Australia Awards website: <a href="https://www.dfat.gov.au/people-to-people/australia-awards" target="_blank">https://www.dfat.gov.au/people-to-people/australia-awards</a></p>
+                    <p><strong>Key Dates for 2026:</strong> Applications usually open in February 2025 and close in April 2025 for programs starting in January 2026. Some countries may have different timelines.</p>
+                </div>
+
+                <h3>4. Erasmus+ Programme (European Union)</h3>
+                
+                <p>The Erasmus+ programme is the EU's flagship education and training programme with a budget of over €26 billion for 2021-2027. It offers scholarships for study periods, traineeships, and staff exchanges across Europe and partner countries.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Official information can be found on the European Commission's website: <a href="https://erasmus-plus.ec.europa.eu" target="_blank">https://erasmus-plus.ec.europa.eu</a></p>
+                    <p><strong>Key Dates for 2026:</strong> Deadlines vary by action type and country. Typically, calls for proposals open in October 2025 with deadlines in early 2026 for projects starting later that year.</p>
+                </div>
+
+                <h2>University-Specific Scholarship Programmes</h2>
+
+                <p>Many top universities around the world offer their own scholarship programmes for international students. These are often merit-based and highly competitive.</p>
+
+                <h3>1. University of Oxford Clarendon Fund Scholarships</h3>
+                
+                <p>The Clarendon Fund is the University of Oxford's flagship scholarship scheme for graduate students. It offers around 140 new scholarships annually for students pursuing master's or doctoral degrees.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Information is available on the University of Oxford's official website: <a href="https://www.ox.ac.uk/clarendon" target="_blank">https://www.ox.ac.uk/clarendon</a></p>
+                    <p><strong>Key Dates for 2026:</strong> The application deadline is typically in early January 2026 for entry in October 2026. Applicants must apply for their chosen course by the relevant January deadline.</p>
+                </div>
+
+                <h3>2. University of Cambridge Gates Cambridge Scholarships</h3>
+                
+                <p>The Gates Cambridge Scholarship programme funds postgraduate study at the University of Cambridge. It was established in 2000 by a donation from the Bill and Melinda Gates Foundation.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Official details can be found on the Gates Cambridge website: <a href="https://www.gatescambridge.org" target="_blank">https://www.gatescambridge.org</a></p>
+                    <p><strong>Key Dates for 2026:</strong> There are two rounds: one for US citizens (deadline typically in October 2025) and one for all other eligible countries (deadline typically in December 2025 or January 2026).</p>
+                </div>
+
+                <h3>3. Harvard University Scholarships</h3>
+                
+                <p>Harvard University offers need-based scholarships to international students through the Harvard Financial Aid Initiative. About 55% of Harvard students receive need-based scholarships.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Information is available on Harvard's official financial aid website: <a href="https://college.harvard.edu/financial-aid" target="_blank">https://college.harvard.edu/financial-aid</a></p>
+                    <p><strong>Key Dates for 2026:</strong> For undergraduate admissions, the regular decision deadline is typically January 1, 2026, with financial aid applications due around the same time. Graduate program deadlines vary by department.</p>
+                </div>
+
+                <h2>Regional Scholarship Programmes</h2>
+
+                <p>Some scholarships are specifically designed for students from particular regions or countries. These programmes aim to promote educational development in specific areas.</p>
+
+                <h3>1. African Development Bank (AfDB) Scholarships</h3>
+                
+                <p>The African Development Bank offers several scholarship programmes for African students, including the Japan Africa Dream Scholarship (JADS) and the AfDB Internship Program.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Information can be verified on the African Development Bank's official website: <a href="https://www.afdb.org/en/topics-and-sectors/topics/afdb-scholarships" target="_blank">https://www.afdb.org/en/topics-and-sectors/topics/afdb-scholarships</a></p>
+                    <p><strong>Key Dates for 2026:</strong> Application periods typically open in the first quarter of the year, with deadlines around April or May 2026 for programs starting later that year.</p>
+                </div>
+
+                <h3>2. Commonwealth Scholarships for Developing Countries</h3>
+                
+                <p>Commonwealth Scholarships are awarded to citizens of Commonwealth countries for study in other Commonwealth nations. These scholarships are funded by the UK Department for International Development.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Official information is available on the Commonwealth Scholarship Commission website: <a href="https://cscuk.fcdo.gov.uk" target="_blank">https://cscuk.fcdo.gov.uk</a></p>
+                    <p><strong>Key Dates for 2026:</strong> Applications typically open in late 2025 with deadlines in December 2025 for programs starting in September/October 2026.</p>
+                </div>
+
+                <h2>Field-Specific Scholarship Programmes</h2>
+
+                <p>Many organizations offer scholarships for students pursuing specific fields of study. These are particularly valuable for students with clear career paths in mind.</p>
+
+                <h3>1. Mastercard Foundation Scholars Program</h3>
+                
+                <p>The Mastercard Foundation Scholars Program provides comprehensive scholarships to academically talented young people from economically disadvantaged communities, primarily in Africa.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Information can be verified on the Mastercard Foundation website: <a href="https://mastercardfdn.org/all/scholars" target="_blank">https://mastercardfdn.org/all/scholars</a></p>
+                    <p><strong>Key Dates for 2026:</strong> Deadlines vary by partner university but typically fall between December 2025 and March 2026 for programs starting in fall 2026.</p>
+                </div>
+
+                <h3>2. Joint Japan/World Bank Graduate Scholarship Program</h3>
+                
+                <p>This programme provides scholarships for students from developing countries to pursue development-related master's degrees at participating universities around the world.</p>
+
+                <div class="source-info">
+                    <p><strong>Source Verification:</strong> Official information is available on the World Bank website: <a href="https://www.worldbank.org/en/programs/scholarships" target="_blank">https://www.worldbank.org/en/programs/scholarships</a></p>
+                    <p><strong>Key Dates for 2026:</strong> Application periods typically open in March 2026 with deadlines in April 2026 for programs starting in August/September 2026.</p>
+                </div>
+
+                <h2>Tips for Successful Scholarship Applications</h2>
+
+                <p>Applying for scholarships can be overwhelming, but these tips can help you stay organized and submit strong applications:</p>
+
+                <p><strong>Start Early:</strong> Begin your research at least 12-18 months before you plan to start your studies. This gives you time to prepare all required documents.</p>
+
+                <p><strong>Read Guidelines Carefully:</strong> Each scholarship has specific requirements. Make sure you understand exactly what is needed before you start your application.</p>
+
+                <p><strong>Tailor Your Application:</strong> Don't use the same essay for every scholarship. Customize your application to match what each selection committee is looking for.</p>
+
+                <p><strong>Get Strong Recommendations:</strong> Choose recommenders who know you well and can speak specifically about your qualifications for the scholarship.</p>
+
+                <p><strong>Proofread Everything:</strong> Typos and grammatical errors can hurt your chances. Have someone else review your application materials.</p>
+
+                <p><strong>Meet All Deadlines:</strong> Submit your applications well before the deadline to avoid last-minute technical issues.</p>
+
+                <p><strong>Follow Up:</strong> After submitting your application, make sure all materials have been received. Send polite follow-up emails if you don't receive confirmation.</p>
+
+                <h2>Common Application Requirements</h2>
+
+                <p>While requirements vary by scholarship, most applications will ask for some or all of the following:</p>
+
+                <ul>
+                    <li>Completed application form</li>
+                    <li>Academic transcripts</li>
+                    <li>Proof of language proficiency (TOEFL, IELTS, etc.)</li>
+                    <li>Standardized test scores (GRE, GMAT, SAT, etc.)</li>
+                    <li>Personal statement or essay</li>
+                    <li>Research proposal (for research-based programmes)</li>
+                    <li>Letters of recommendation</li>
+                    <li>Curriculum vitae or resume</li>
+                    <li>Proof of citizenship or residency</li>
+                    <li>Admission letter from a university (for some scholarships)</li>
+                </ul>
+
+                <h2>Staying Updated on New Opportunities</h2>
+
+                <p>Scholarship opportunities can change, and new programmes may be announced throughout the year. Here are some ways to stay informed:</p>
+
+                <p><strong>Subscribe to Official Mailing Lists:</strong> Many scholarship providers have email lists you can join to receive updates.</p>
+
+                <p><strong>Check University Websites Regularly:</strong> If you're interested in a specific university, check their financial aid page frequently.</p>
+
+                <p><strong>Use Trusted Scholarship Databases:</strong> Websites like Scholarships.com, Fastweb, and InternationalStudent.com can help you find opportunities, but always verify information on official websites.</p>
+
+                <p><strong>Follow Social Media Accounts:</strong> Many scholarship providers and universities announce opportunities on their social media channels.</p>
+
+                <p><strong>Consult Educational Advisors:</strong> If your school or university has a career or guidance office, they may have information about scholarship opportunities.</p>
+
+                <h2>Final Thoughts</h2>
+
+                <p>The scholarship landscape for 2026 is promising, with many established programmes continuing and new opportunities emerging. While the competition can be fierce, careful planning and preparation can significantly improve your chances of success.</p>
+
+                <p>Remember that scholarships are not just about academic achievement. Many selection committees also look for leadership potential, community involvement, and clear career goals. Your application should tell a compelling story about who you are, what you've accomplished, and what you hope to achieve with the scholarship.</p>
+
+                <p>Start your preparations now, stay organized, and don't get discouraged by rejection. Many successful scholarship recipients applied to multiple programmes before receiving an award. With persistence and careful planning, you can find the right scholarship opportunity to support your educational goals in 2026.</p>
+
+                <p>Note: Always verify scholarship information on official websites before applying, as details can change. The information provided here is based on current patterns and should be confirmed with the respective scholarship providers.</p>
+            </div>
+        </article>
+    </div>
+
+    <!-- Contact Email Section -->
+    <div class="container contact-section">
+        <h2 class="contact-title">Contact Our Editors</h2>
+        <a href="mailto:contactoureditors@gmail.com" class="contact-email">contactoureditors@gmail.com</a>
+    </div>
+
+    <!-- Recently Added Section -->
+    <div class="container recently-added" id="recently-added">
+        <h2 class="section-title">Recently Added</h2>
+        <div class="recent-articles">
+            <a href="eight.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_htjsqr-1.jpg" alt="Christmas destinations">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Five best places to celebrate christmas: exploring lively countries</div>
+                    <div class="recent-time">2 hours ago</div>
+                </div>
+                <div class="recent-share" data-title="Five best places to celebrate christmas: exploring lively countries">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="nine.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_xwqdwfg-1.jpg" alt="Wonders of the world">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Eight wonders of the world: which was recently added</div>
+                    <div class="recent-time">5 hours ago</div>
+                </div>
+                <div class="recent-share" data-title="Eight wonders of the world: which was recently added">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="ten.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_x71tog5.jpg" alt="Early snow">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Countries who experienced snow too early in 2025: minimal Climate change</div>
+                    <div class="recent-time">Yesterday</div>
+                </div>
+                <div class="recent-share" data-title="Countries who experienced snow too early in 2025: minimal Climate change">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="eleven.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/1764268033680.jpg" alt="Scholarship programs">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Upcoming schorlarship programmes in 2026: starting and deadlines</div>
+                    <div class="recent-time">2 days ago</div>
+                </div>
+                <div class="recent-share" data-title="Upcoming schorlarship programmes in 2026: starting and deadlines">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Go Up Button -->
+    <div class="go-up" id="go-up">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="subscribe-section">
+                    <h3 class="subscribe-title">Subscribe to our newsletter</h3>
+                    <form class="subscribe-form" id="footer-subscribe-form">
+                        <input type="email" class="email-input" id="footer-subscribe-email" placeholder="Your email address" required>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <div id="footer-subscribe-message" class="subscription-message"></div>
+                </div>
+                <div class="footer-links">
+                    <a href="contact.html" class="footer-link">Having any issues? Reach us</a>
+                    <a href="termsp.html" class="footer-link">Understanding our privacy policy</a>
+                    <a href="termss.html" class="footer-link">Terms of Service</a>
+                    <a href="about.html" class="footer-link">Who we are?</a>
+                    <a href="xavier.html" class="footer-link">The Writer Henry Xavier</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Kora Reporters. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXqNe_BDdh9WIJ9lyrFPeQ_-733qbXW4s",
+            authDomain: "realinsightreport.firebaseapp.com",
+            projectId: "realinsightreport",
+            storageBucket: "realinsightreport.firebasestorage.app",
+            messagingSenderId: "1083096764833",
+            appId: "1:1083096764833:web:4b526f278471212ba43be0",
+            measurementId: "G-6LHBN68HMH"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // DOM elements for footer subscription
+        const footerSubscribeForm = document.getElementById('footer-subscribe-form');
+        const footerSubscribeEmail = document.getElementById('footer-subscribe-email');
+        const footerSubscribeMessage = document.getElementById('footer-subscribe-message');
+        
+        // User data
+        let userCountry = "Unknown";
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Detect user's country
+            detectCountry();
+            
+            // Set up event listeners for footer subscription
+            footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
+            
+            // Set up other event listeners
+            setupEventListeners();
+        });
+        
+        // Detect user's country using IP
+        function detectCountry() {
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    userCountry = data.country_name;
+                })
+                .catch(error => {
+                    console.error('Error detecting country:', error);
+                    // Fallback to a free API if the first one fails
+                    fetch('https://api.country.is/')
+                        .then(response => response.json())
+                        .then(data => {
+                            userCountry = data.country;
+                        })
+                        .catch(error2 => {
+                            console.error('Error detecting country with fallback:', error2);
+                        });
+                });
+        }
+        
+        // Handle footer email subscription
+        function handleFooterSubscription(e) {
+            e.preventDefault();
+            
+            const email = footerSubscribeEmail.value.trim();
+            
+            if (!email) {
+                showFooterSubscribeMessage("Please enter a valid email address.", "error");
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showFooterSubscribeMessage("Please enter a valid email address.", "error");
+                return;
+            }
+            
+            // Check if email already exists
+            db.collection("subscribers")
+                .where("email", "==", email)
+                .get()
+                .then((querySnapshot) => {
+                    if (!querySnapshot.empty) {
+                        showFooterSubscribeMessage("✓ You're already subscribed! Thank you for being part of our exclusive newsletter community. You'll continue receiving our premium insights and early access to all content.", "info");
+                        footerSubscribeEmail.value = "";
+                        return;
+                    }
+                    
+                    // Save to Firebase
+                    return db.collection("subscribers").add({
+                        email: email,
+                        country: userCountry,
+                        subscribedAt: new Date().toISOString(),
+                        subscriptionType: "premium",
+                        newsletterAccess: true
+                    });
+                })
+                .then(() => {
+                    showFooterSubscribeMessage("🎉 Welcome to our exclusive newsletter community! You'll now receive premium insights, early access to all research reports, and exclusive analytical briefings directly to your inbox.", "success");
+                    footerSubscribeEmail.value = "";
+                })
+                .catch((error) => {
+                    console.error("Error subscribing: ", error);
+                    showFooterSubscribeMessage("There was an error processing your subscription. Please try again.", "error");
+                });
+        }
+        
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Show footer subscription message
+        function showFooterSubscribeMessage(message, type) {
+            footerSubscribeMessage.textContent = message;
+            footerSubscribeMessage.className = `subscription-message ${type}`;
+            footerSubscribeMessage.style.display = 'block';
+            
+            // Hide message after 8 seconds for success, 5 for error
+            setTimeout(() => {
+                footerSubscribeMessage.style.display = 'none';
+            }, type === 'success' ? 8000 : 5000);
+        }
+
+        // Share functionality
+        function shareArticle(title, platform) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`${title} - Check out this write up on kora reporters`);
+            
+            let shareUrl;
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+                    break;
+                case 'share':
+                default:
+                    if (navigator.share) {
+                        navigator.share({
+                            title: title,
+                            text: `${title} - kora reporters`,
+                            url: window.location.href,
+                        })
+                        .then(() => console.log('Successful share'))
+                        .catch((error) => console.log('Error sharing:', error));
+                        return;
+                    } else {
+                        // Fallback for browsers that don't support the Web Share API
+                        shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                    }
+                    break;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Latest Report functionality
+            const latestReportLink = document.getElementById('latest-report-link');
+            const recentlyAddedSection = document.getElementById('recently-added');
+            
+            latestReportLink.addEventListener('click', function() {
+                recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Go Up Button functionality
+            const goUpButton = document.getElementById('go-up');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    goUpButton.classList.add('active');
+                } else {
+                    goUpButton.classList.remove('active');
+                }
+            });
+            
+            goUpButton.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Mobile menu functionality
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const menuOverlay = document.querySelector('.menu-overlay');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+            
+            hamburgerMenu.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+            });
+            
+            menuOverlay.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            });
+            
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                });
+            });
+
+            // Add share functionality to all share buttons
+            document.querySelectorAll('.share-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const title = this.getAttribute('data-title');
+                    const platform = this.getAttribute('data-platform');
+                    shareArticle(title, platform);
+                });
+            });
+            
+            // Add share functionality to recent article share icons
+            document.querySelectorAll('.recent-share').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation(); // Prevent navigation when clicking share icon
+                    const title = this.getAttribute('data-title');
+                    shareArticle(title, 'share');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
