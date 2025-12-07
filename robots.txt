@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://korareporters.netlify.app/sitemap.xml
