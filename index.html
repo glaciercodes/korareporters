@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>kora Reporters</title>
-    <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -311,7 +311,7 @@
         .article {
             margin-bottom: 50px;
             padding-bottom: 30px;
-            border-bottom: 1px solid #333; /* Faint line between articles */
+            border-bottom: 1px solid #333;
         }
         
         .category-label {
@@ -365,6 +365,14 @@
             justify-content: center;
             color: #999;
             font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
         
         .author-info {
@@ -426,6 +434,66 @@
         .article-content strong {
             font-weight: 700;
             color: #ff6600;
+        }
+        
+        /* NEW: Video Styling for Christmas article */
+        .country-video {
+            margin: 25px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
+        }
+        
+        .country-video video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .video-caption {
+            text-align: center;
+            font-size: 14px;
+            color: #999;
+            margin-top: 8px;
+            font-style: italic;
+            padding: 0 10px;
+        }
+        
+        .country-section {
+            margin: 40px 0;
+        }
+        
+        .country-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #ff6600;
+            border-left: 4px solid #ff6600;
+            padding-left: 10px;
+        }
+        
+        .highlight-box {
+            background-color: #111;
+            border: 1px solid #333;
+            border-left: 4px solid #ff6600;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .highlight-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #ff6600;
+            font-size: 16px;
+        }
+        
+        .highlight-box ul {
+            list-style-position: inside;
+        }
+        
+        .highlight-box li {
+            margin-bottom: 8px;
+            padding-left: 5px;
         }
         
         .comments-link {
@@ -498,7 +566,6 @@
             margin-bottom: 5px;
         }
         
-        /* ADDED: Time styling for recently added articles */
         .recent-time {
             color: #999;
             font-size: 12px;
@@ -590,7 +657,7 @@
             border: none;
             padding: 0 20px;
             cursor: pointer;
-            height: 40px
+          height: 40px 
         }
         
         .footer-links {
@@ -756,6 +823,11 @@
                 height: 350px;
             }
             
+            .country-video {
+                max-width: 800px;
+                margin: 25px auto;
+            }
+            
             .recent-articles {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -796,6 +868,14 @@
             
             .scroll-card {
                 width: 260px;
+            }
+            
+            .country-video video {
+                max-height: 300px;
+            }
+            
+            .country-title {
+                font-size: 20px;
             }
         }
     </style>
@@ -881,12 +961,12 @@
                 <img src="images/grok_image_xffgglf.jpg" alt="Software engineering vs computer science">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">Jan 15, 2025</div>
+                    <div class="date">Jan 15, 2026</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -938,6 +1018,244 @@
             <a href="#" class="comments-link">Comments</a>
         </article>
 
+        <!-- NEW: Christmas Article -->
+        <article class="article" data-category="news" id="article-christmas">
+            <div class="category-label">NEWS</div>
+            <h1 class="article-title">Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World</h1>
+            
+            <div class="featured-image">
+                <img src="images/grok_image_htjsqr-1.jpg" alt="Christmas celebration around the world">
+            </div>
+            
+            <div class="article-meta">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
+                    <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="xavier.html" class="author-name">Henry Xavier</a>
+                    <div class="date">Jan 1, 2026</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="article-content">
+                <p>Christmas is a magical time of year when cities around the world transform into winter wonderlands, each offering unique traditions, festive decorations, and joyful celebrations. If you're looking for the ultimate Christmas experience, certain countries stand out for their extraordinary holiday spirit. From traditional European markets to sunny beach celebrations, here are the five best places to celebrate Christmas around the globe.</p>
+
+                <div class="country-section">
+                    <h2 class="country-title">1. Germany - The Heart of Christmas Traditions</h2>
+                    
+                    <p>Germany is often considered the birthplace of many Christmas traditions we know and love today. When you visit Germany during December, you step into a storybook world of festive markets, warm glühwein (mulled wine), and centuries-old customs.</p>
+                    
+                    <p>The <strong>Christkindlesmarkt in Nuremberg</strong> is perhaps the most famous Christmas market in the world. Dating back to 1628, this market features hundreds of wooden stalls selling traditional crafts, gingerbread cookies shaped like hearts, and the famous Nuremberg plum people figurines. The air fills with the scent of roasted almonds, cinnamon, and pine as families browse handmade ornaments and wooden toys.</p>
+                    
+                    <p>In Dresden, the <strong>Striezelmarkt</strong> has been operating since 1434, making it one of Germany's oldest Christmas markets. Here you can taste traditional stollen, a delicious fruit bread dusted with powdered sugar that symbolizes the baby Jesus wrapped in swaddling clothes.</p>
+                    
+                    <div class="country-video">
+                        <video src="videos/lv_0_20251205121513.mp4" controls></video>
+                        <div class="video-caption">Christmas markets in Germany come alive with lights, music, and festive cheer</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">What Makes Germany Special:</div>
+                        <ul>
+                            <li>World-famous Christmas markets in nearly every town</li>
+                            <li>Traditional Advent calendars and wreaths</li>
+                            <li>Delicious seasonal treats like lebkuchen and marzipan</li>
+                            <li>The Christkind (Christmas angel) delivers gifts on Christmas Eve</li>
+                            <li>Beautiful medieval town squares decorated with thousands of lights</li>
+                        </ul>
+                    </div>
+                    
+                    <p>German Christmas celebrations focus heavily on family. On December 6th, children clean their boots and leave them out for <strong>Saint Nicholas</strong> to fill with small gifts and treats. Christmas Eve is the main gift-giving time, followed by a family meal that often includes roast goose, red cabbage, and potato dumplings.</p>
+                    
+                    <p>Beyond the markets, Germany offers stunning Christmas displays. The <strong>Cologne Cathedral</strong> hosts magnificent Christmas concerts, while the <strong>Berlin Christmas Garden</strong> at the Botanical Garden features light installations that transform the space into a magical winter landscape.</p>
+                </div>
+
+                <div class="country-section">
+                    <h2 class="country-title">2. Austria - Classical Music and Alpine Charm</h2>
+                    
+                    <p>Austria combines stunning Alpine scenery with sophisticated cultural celebrations. Vienna, the city of music, transforms into a winter paradise during December, with Christmas markets set against the backdrop of imperial palaces and historic buildings.</p>
+                    
+                    <p>The <strong>Vienna Christmas Dream at Rathausplatz</strong> is the city's largest market, featuring over 150 stalls surrounding the beautiful City Hall. Children can enjoy carousel rides and workshops, while adults savor warm punch and traditional Austrian pastries. The market's giant Advent calendar features different windows opening each day with special performances.</p>
+                    
+                    <p>In Salzburg, the hometown of Mozart, Christmas takes on a particularly musical quality. The <strong>Salzburg Christmas Market</strong> dates back to the 15th century and offers breathtaking views of Hohensalzburg Fortress. Visitors can attend Christmas concerts featuring Mozart's music in historic churches throughout the city.</p>
+                    
+                    <div class="country-video">
+                        <video src="videos/lv_0_20251205123946.mp4" controls></video>
+                        <div class="video-caption">Austrian Christmas celebrations blend music, mountains, and magical markets</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Austrian Christmas Highlights:</div>
+                        <ul>
+                            <li>Classical Christmas concerts in historic venues</li>
+                            <li>Traditional Krampus parades in early December</li>
+                            <li>Beautiful Alpine villages with candlelit windows</li>
+                            <li>Delicious treats like vanillekipferl (vanilla crescent cookies)</li>
+                            <li>Ice skating in front of imperial palaces</li>
+                        </ul>
+                    </div>
+                    
+                    <p>A unique Austrian tradition is <strong>Krampusnacht</strong> on December 5th, when people dressed as Krampus (a horned creature who punishes naughty children) parade through the streets. This contrasts with the arrival of Saint Nicholas the next day, who rewards good children with gifts.</p>
+                    
+                    <p>In the Austrian Alps, Christmas becomes even more magical. Small villages like <strong>Hallstatt</strong> and <strong>Innsbruck</strong> offer cozy celebrations with fewer tourists. Here, you can experience authentic Austrian hospitality, complete with traditional folk music, handcrafted decorations, and warm hospitality in family-run guesthouses.</p>
+                </div>
+
+                <div class="country-section">
+                    <h2 class="country-title">3. United States - Big City Glamour and Small-Town Charm</h2>
+                    
+                    <p>Christmas in the United States offers something for everyone, from the dazzling displays of New York City to the cozy celebrations of small towns. Each region has its own unique traditions, making America a diverse Christmas destination.</p>
+                    
+                    <p><strong>New York City</strong> is perhaps the most famous Christmas destination in America. The lighting of the Rockefeller Center Christmas Tree draws thousands of spectators, while the store windows along Fifth Avenue feature elaborate animated displays. Ice skating at Rockefeller Center or Wollman Rink in Central Park provides the perfect romantic winter activity.</p>
+                    
+                    <p>Meanwhile, <strong>Williamsburg, Virginia</strong> offers a completely different experience with its Colonial Christmas celebrations. Historic buildings are decorated with natural materials like pinecones, holly, and candles, recreating how early American settlers would have celebrated the holiday. Costumed interpreters demonstrate traditional crafts and share stories of 18th-century Christmas customs.</p>
+                    
+                    <div class="country-video">
+                        <video src="videos/lv_0_20251205125051.mp4" controls></video>
+                        <div class="video-caption">Christmas in America ranges from big city spectacles to heartwarming small-town traditions</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">American Christmas Experiences:</div>
+                        <ul>
+                            <li>Rockefeller Center Christmas Tree and ice skating</li>
+                            <li>Macy's Thanksgiving Day Parade kicks off the season</li>
+                            <li>Christmas lights tours in residential neighborhoods</li>
+                            <li>Traditional cookie baking and decorating parties</li>
+                            <li>Christmas parades and community events nationwide</li>
+                        </ul>
+                    </div>
+                    
+                    <p>For a warmer Christmas experience, <strong>Florida</strong> offers unique celebrations. Disney World's Christmas parties feature special parades, fireworks, and character meet-ups in holiday attire. Meanwhile, <strong>San Antonio, Texas</strong> celebrates with the River Walk's thousands of lights reflected in the water, creating a magical atmosphere perfect for evening strolls.</p>
+                    
+                    <p>Small towns across America have their own charming traditions. <strong>Leavenworth, Washington</strong> transforms its Bavarian-style village into a Christmas wonderland with millions of lights. <strong>McAdenville, North Carolina</strong>, known as "Christmas Town USA," decorates nearly every home with coordinated light displays that draw visitors from across the region.</p>
+                </div>
+
+                <div class="country-section">
+                    <h2 class="country-title">4. United Kingdom - Royal Traditions and Cozy Celebrations</h2>
+                    
+                    <p>Christmas in the United Kingdom blends royal pageantry with cozy domestic traditions. From the Queen's Christmas message to Christmas crackers at the dinner table, British celebrations have a unique character that combines formality with family warmth.</p>
+                    
+                    <p><strong>London</strong> shines during the Christmas season with spectacular light displays on Oxford Street, Regent Street, and Carnaby Street. The department stores - particularly Harrods, Selfridges, and Fortnum & Mason - create breathtaking window displays that have become annual traditions. Ice skating at the Natural History Museum or Somerset House provides elegant outdoor fun.</p>
+                    
+                    <p>For a more traditional experience, visit <strong>Bath</strong> for its historic Christmas market set against the Roman baths and Georgian architecture. Or travel to <strong>Edinburgh</strong> for its European-style market with the castle as a stunning backdrop. Scotland celebrates Hogmanay (New Year's Eve) with particular enthusiasm, making it perfect for extended holiday visits.</p>
+                    
+                    <div class="country-video">
+                        <video src="videos/Screen_Recording_20251205_130937_TikTok Lite (1).mp4" controls></video>
+                        <div class="video-caption">British Christmas blends royal traditions with cozy family celebrations</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">British Christmas Traditions:</div>
+                        <ul>
+                            <li>Christmas crackers with paper crowns and small gifts</li>
+                            <li>Roast turkey with all the trimmings on Christmas Day</li>
+                            <li>Pantomime theater performances for families</li>
+                            <li>The Queen's (now King's) Christmas Day broadcast</li>
+                            <li>Boxing Day sales and football matches</li>
+                        </ul>
+                    </div>
+                    
+                    <p>Beyond London, the UK offers charming Christmas experiences. <strong>York</strong> hosts a traditional Christmas market in its medieval streets, while <strong>Cambridge</strong> offers carol services in its ancient colleges. In Wales, <strong>Cardiff</strong> features a winter wonderland with ice skating and fairground rides.</p>
+                    
+                    <p>A particularly British tradition is the <strong>pantomime</strong> - a comedic musical theater production based on fairy tales, performed between December and January. These family-friendly shows encourage audience participation with shouts of "He's behind you!" and "Oh no he isn't!" - creating memorable holiday entertainment for all ages.</p>
+                </div>
+
+                <div class="country-section">
+                    <h2 class="country-title">5. Philippines - The World's Longest Christmas Season</h2>
+                    
+                    <p>The Philippines celebrates the world's longest Christmas season, starting as early as September and continuing until January. This predominantly Catholic country combines religious devotion with joyful celebrations, creating a uniquely festive atmosphere that lasts for months.</p>
+                    
+                    <p>The celebration begins with the <strong>"Ber Months"</strong> (September, October, November, December) when radio stations start playing Christmas carols and stores begin their holiday displays. By December 16, the <strong>Simbang Gabi</strong> (Night Mass) tradition begins - nine days of early morning masses that culminate on Christmas Eve with the Misa de Gallo (Rooster's Mass).</p>
+                    
+                    <p>Manila transforms into a city of lights, with the most spectacular display at the <strong>Ayala Triangle Gardens</strong>, where dancing light shows synchronized to music draw huge crowds. In the province of <strong>Pampanga</strong>, the Giant Lantern Festival features massive, intricately designed lanterns that light up the night sky in a competition of craftsmanship and creativity.</p>
+                    
+                    <div class="country-video">
+                        <video src="videos/Screen_Recording_20251205_131159_TikTok Lite (1).mp4" controls></video>
+                        <div class="video-caption">Filipino Christmas blends religious traditions with month-long festive celebrations</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Filipino Christmas Features:</div>
+                        <ul>
+                            <li>The world's longest Christmas season (September to January)</li>
+                            <li>Giant parol (star-shaped lantern) displays</li>
+                            <li>Family-focused Noche Buena feasts on Christmas Eve</li>
+                            <li>Carolers going house-to-house for donations</li>
+                            <li>Monito/Monita gift exchange tradition</li>
+                        </ul>
+                    </div>
+                    
+                    <p>Christmas Eve features the <strong>Noche Buena</strong> - a midnight feast enjoyed after Misa de Gallo. Families gather for traditional dishes like lechon (roast pig), queso de bola (edam cheese), hamon (Christmas ham), and various rice cakes. Gift-giving happens on Christmas Day, with godparents presenting gifts to their godchildren in a tradition called "Aguinaldo."</p>
+                    
+                    <p>Beyond the capital, each region adds its own flavor to Christmas celebrations. In the <strong>Bicol region</strong>, residents create belens (nativity scenes) from local materials. In the <strong>Visayas</strong>, communities hold lantern-making competitions. Throughout the country, the spirit of bayanihan (community unity) shines as people come together to celebrate the season.</p>
+                </div>
+
+                <h2>Choosing Your Perfect Christmas Destination</h2>
+                
+                <p>When selecting where to celebrate Christmas, consider what type of experience you're seeking:</p>
+                
+                <p><strong>For traditional Christmas markets:</strong> Germany and Austria offer authentic experiences with centuries-old traditions. The quality of crafts, food, and atmosphere in these countries is unmatched.</p>
+                
+                <p><strong>For spectacular city displays:</strong> New York City and London provide glamorous urban celebrations with world-famous light displays, shopping, and entertainment.</p>
+                
+                <p><strong>For warm-weather celebrations:</strong> The Philippines offers a unique tropical Christmas with month-long festivities that blend religious devotion with joyful community celebrations.</p>
+                
+                <p><strong>For family-friendly activities:</strong> The United States provides diverse options from theme park celebrations to small-town charm that children will love.</p>
+                
+                <p><strong>For cultural immersion:</strong> The United Kingdom's blend of royal traditions and cozy domestic celebrations offers insight into British culture during its most festive season.</p>
+                
+                <h2>Tips for Celebrating Christmas Abroad</h2>
+                
+                <p>If you're planning to celebrate Christmas in another country, here are some helpful tips:</p>
+                
+                <div class="highlight-box">
+                    <ul>
+                        <li><strong>Book early:</strong> Christmas is peak travel season in many destinations. Book accommodations and transportation several months in advance.</li>
+                        <li><strong>Research local customs:</strong> Each country has unique traditions. Learning basic phrases and customs shows respect and enhances your experience.</li>
+                        <li><strong>Check holiday hours:</strong> Many businesses close on Christmas Day and sometimes Christmas Eve. Plan meals and activities accordingly.</li>
+                        <li><strong>Embrace the local food:</strong> Try traditional Christmas dishes instead of seeking familiar foods from home.</li>
+                        <li><strong>Pack appropriately:</strong> Research the climate and pack suitable clothing, especially if traveling between hemispheres.</li>
+                        <li><strong>Be patient:</strong> Crowds are part of the Christmas experience in popular destinations. Maintain a festive spirit and enjoy the atmosphere.</li>
+                    </ul>
+                </div>
+                
+                <h2>The True Spirit of Christmas Travel</h2>
+                
+                <p>Ultimately, the best place to celebrate Christmas isn't about the destination itself, but about the experiences you share and the memories you create. Whether you're sipping glühwein at a German market, watching the Rockefeller tree lighting, or attending midnight mass in the Philippines, the Christmas spirit transcends borders.</p>
+                
+                <p>Each country offers its own interpretation of this beloved holiday, reflecting its culture, history, and values. By experiencing Christmas in different parts of the world, we gain not only wonderful memories but also a deeper appreciation for the diversity of human celebration and the universal themes of peace, joy, and goodwill that Christmas represents.</p>
+                
+                <p>This Christmas season, whether you travel abroad or celebrate at home, may you experience the warmth of community, the joy of giving, and the peace that comes from connecting with loved ones. The world is full of magical places to celebrate, but the truest magic of Christmas lives in our hearts and in how we share this special time with others.</p>
+            </div>
+            
+            <a href="#" class="comments-link">Comments (42)</a>
+        </article>
+
         <!-- News Article -->
         <article class="article" data-category="news" id="article-2">
             <div class="category-label">NEWS</div>
@@ -946,12 +1264,12 @@
                 <img src="images/grok_image_bstpjj.jpg" alt="Top 10 largest African countries">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">Jan 30, 2025</div>
+                    <div class="date">Dec 19, 2025</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -1108,12 +1426,12 @@
                 <img src="images/grok_image_2qe4vk.jpg" alt="Sleep debt concept">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">Jan 10, 2025</div>
+                    <div class="date">Nov 30, 2025</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -1169,12 +1487,12 @@
                 <img src="images/grok_image_9f18pk.jpg" alt="Online vs physical learning">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">feb 8, 2025</div>
+                    <div class="date">Nov 13, 2025</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -1232,12 +1550,12 @@
                 <img src="images/grok_image_z5ewm.jpg" alt="Skills vs degrees">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">Jan 5, 2025</div>
+                    <div class="date">Oct 28, 2025</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -1297,12 +1615,12 @@
                 <img src="images/grok_image_x78ckc6.jpg" alt="Drinking water for health">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">mar 3, 2025</div>
+                    <div class="date">Sept 16, 2025</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -1374,12 +1692,12 @@
                 <img src="images/grok_image_v29lvn.jpg" alt="Smartphone headache">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">april 1, 2025</div>
+                    <div class="date">Sept 2, 2025</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -1491,12 +1809,12 @@
                 <img src="images/grok_image_xhr5vyn.jpg" alt="Elementary education">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">may 28, 2025</div>
+                    <div class="date">Aug 17, 2025</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -1566,12 +1884,12 @@
                 <img src="images/grok_image_xcex09d.jpg" alt="Extra mural classes">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">june 25, 2025</div>
+                    <div class="date">July 20, 2025</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -1641,12 +1959,12 @@
                 <img src="images/grok_image_u4p2lg.jpg" alt="African cash crops">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">july 22, 2025</div>
+                    <div class="date">July 5, 2025</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -1713,12 +2031,12 @@
                 <img src="images/grok_image_bstpjj.jpg" alt="African tech innovation">
             </div>
             <div class="article-meta">
-                <div class="author-img">
+                <div class="author-img" onclick="window.location.href='xavier.html'">
                     <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
                 </div>
                 <div class="author-info">
                     <a href="xavier.html" class="author-name">Henry Xavier</a>
-                    <div class="date">Dec 20, 2024</div>
+                    <div class="date">June 27, 2025</div>
                 </div>
                 <div class="share-section">
                     <div class="share-label">Share</div>
@@ -1791,7 +2109,7 @@
                 <div class="recent-content">
                     <div class="recent-title">Five best places to celebrate christmas: exploring lively countries</div>
                     <!-- ADDED: Time for recently added articles -->
-                    <div class="recent-time">2 hours ago</div>
+                    <div class="recent-time"> just now</div>
                 </div>
                 <div class="recent-share" data-title="Five best places to celebrate christmas: exploring lively countries">
                     <i class="fas fa-share-alt"></i>
@@ -1805,7 +2123,7 @@
                 <div class="recent-content">
                     <div class="recent-title">Eight wonders of the world: which was recently added</div>
                     <!-- ADDED: Time for recently added articles -->
-                    <div class="recent-time">5 hours ago</div>
+                    <div class="recent-time">an hour ago</div>
                 </div>
                 <div class="recent-share" data-title="Eight wonders of the world: which was recently added">
                     <i class="fas fa-share-alt"></i>
@@ -1908,6 +2226,13 @@
                 category: "tech",
                 snippet: "In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand...",
                 content: "In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand. However, the nature of this demand differs significantly between the two fields. Software engineering focuses on the practical application of engineering principles to software development..."
+            },
+            {
+                id: "christmas",
+                title: "Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World",
+                category: "news",
+                snippet: "Christmas is a magical time of year when cities around the world transform into winter wonderlands, each offering unique traditions...",
+                content: "Christmas is a magical time of year when cities around the world transform into winter wonderlands, each offering unique traditions, festive decorations, and joyful celebrations. If you're looking for the ultimate Christmas experience, certain countries stand out for their extraordinary holiday spirit."
             },
             {
                 id: 2,
