@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kora Reporters</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #000;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hamburger-menu {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .logo {
+            width: 150px;
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .latest-report {
+            color: #ff6600;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            background-color: #111;
+            padding: 80px 20px 20px;
+            transition: left 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .mobile-menu-link {
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu-link:hover {
+            color: #ff6600;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 98;
+            display: none;
+        }
+        
+        .menu-overlay.active {
+            display: block;
+        }
+        
+        /* Home Link Section */
+        .home-link-section {
+            background-color: #111;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+        
+        .home-link {
+            color: #ff6600;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        
+        .home-link:hover {
+            color: #ff8533;
+        }
+        
+        /* Content Styles */
+        .content {
+            padding: 30px 0;
+        }
+        
+        .article {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .article-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .featured-image {
+            width: 100%;
+            margin: 30px 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+            border-radius: 8px;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            overflow: hidden;
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .author-name {
+            font-weight: 600;
+            color: #ff6600;
+            font-size: 16px;
+        }
+        
+        .date {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .share-section {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .share-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .share-btn {
+            color: #ff6600;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            transition: color 0.3s;
+        }
+        
+        .share-btn:hover {
+            color: #ff8533;
+        }
+        
+        .share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        .article-content {
+            margin-bottom: 30px;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+        }
+        
+        .article-content h2 {
+            font-size: 24px;
+            margin: 30px 0 15px;
+            color: #ff6600;
+            font-weight: 600;
+        }
+        
+        .article-content h3 {
+            font-size: 20px;
+            margin: 25px 0 12px;
+            color: #fff;
+            font-weight: 600;
+        }
+        
+        .article-content ul, .article-content ol {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .article-content strong {
+            font-weight: 700;
+            color: #ff6600;
+        }
+        
+        .highlight-box {
+            background-color: #111;
+            border-left: 4px solid #ff6600;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+        
+        .highlight-box p {
+            margin-bottom: 0;
+            color: #fff;
+            font-style: italic;
+        }
+        
+        .comments-link {
+            color: #ff6600;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        /* Contact Email Section */
+        .contact-section {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .contact-email {
+            color: #ff6600;
+            font-size: 18px;
+        }
+        
+        /* Recently Added Section */
+        .recently-added {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .recent-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .recent-article {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        
+        .recent-img {
+            width: 80px;
+            height: 60px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 10px;
+            flex-shrink: 0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .recent-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recent-content {
+            flex: 1;
+        }
+        
+        .recent-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .recent-time {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .recent-share {
+            color: #ff6600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+        
+        .recent-share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        /* Go Up Button */
+        .go-up {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff6600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .go-up.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .go-up i {
+            color: #000;
+            font-size: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 40px 0 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .subscribe-section {
+            text-align: center;
+        }
+        
+        .subscribe-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #333;
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .subscribe-btn {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .footer-link {
+            color: #ff6600;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Subscription Message Styles */
+        .subscription-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .subscription-message.success {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        
+        .subscription-message.error {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        .subscription-message.info {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            border: 1px solid #3498db;
+        }
+        
+        /* Mobile Responsive */
+        @media (min-width: 768px) {
+            .article-title {
+                font-size: 36px;
+            }
+            
+            .featured-image {
+                height: 400px;
+            }
+            
+            .featured-image img {
+                height: 400px;
+            }
+            
+            .recent-articles {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .subscribe-section {
+                text-align: left;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .latest-report {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header-right {
+                gap: 15px;
+            }
+            
+            .latest-report {
+                font-size: 12px;
+            }
+            
+            .subscribe-form {
+                flex-direction: column;
+            }
+            
+            .article-title {
+                font-size: 28px;
+            }
+            
+            .featured-image {
+                height: 250px;
+            }
+            
+            .featured-image img {
+                height: 250px;
+            }
+            
+            .article-content {
+                font-size: 16px;
+            }
+            
+            .share-section {
+                margin-left: 0;
+                margin-top: 15px;
+                width: 100%;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <a href="about.html" class="logo">
+                    <img src="images/file_00000000cb3471f48ca1cc72833279fa.jpg" alt="Logo">
+                </a>
+                <div class="header-right">
+                    <div class="latest-report" id="latest-report-link">Latest Report</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Link -->
+    <div class="home-link-section">
+        <div class="container">
+            <a href="index.html" class="home-link">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-links">
+            <a href="index.html" class="mobile-menu-link">Home</a>
+            <a href="about.html" class="mobile-menu-link">Who We Are</a>
+            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+            <a href="termsp.html" class="mobile-menu-link">Terms and Privacy</a>
+            <a href="termss.html" class="mobile-menu-link">Terms of Service</a>
+        </div>
+    </div>
+    <div class="menu-overlay"></div>
+
+    <!-- Content -->
+    <div class="container content">
+        <!-- Main Article -->
+        <article class="article">
+            <h1 class="article-title">How to freelance even as a student in 2026: Balance school and extra cash easily!</h1>
+            <div class="featured-image">
+                <img src="images/image-6.jpg" alt="Student freelancing on laptop">
+            </div>
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="xavier.html" class="author-name">Henry Xavier</a>
+                    <div class="date">Jan 15, 2026</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share this article</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="How to freelance even as a student in 2026: Balance school and extra cash easily!">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="How to freelance even as a student in 2026: Balance school and extra cash easily!">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="How to freelance even as a student in 2026: Balance school and extra cash easily!">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="How to freelance even as a student in 2026: Balance school and extra cash easily!">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="How to freelance even as a student in 2026: Balance school and extra cash easily!">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="article-content">
+                <p>Being a student in 2026 means you have more opportunities than ever to make money while you study. The world has changed, and now you don't have to wait until you graduate to start earning. With just a laptop and an internet connection, you can start freelancing and make good side income without missing a single class.</p>
+
+                <div class="highlight-box">
+                    <p>Many students today are earning between $500 to $2000 per month through freelancing. They're paying their own bills, saving for the future, and gaining real work experience—all while maintaining good grades.</p>
+                </div>
+
+                <h2>Why Freelancing Works Perfectly for Students</h2>
+                <p>Freelancing is like having a job where you're the boss. You choose when to work, what projects to take, and how much to charge. This flexibility is exactly what students need. You can work between classes, on weekends, or during holidays. When exams are coming, you can take fewer projects. When you have a break, you can take on more work.</p>
+
+                <p>The best part? You're building real skills that will help you get a job after graduation. Employers love seeing freelancing experience on a resume. It shows you're responsible, self-motivated, and know how to work with clients.</p>
+
+                <h2>Simple Skills You Already Have (Or Can Learn Quickly)</h2>
+                
+                <h3>Writing and Content Creation</h3>
+                <p>If you can write essays for school, you can write for money. Students are making great money writing blog posts, social media content, product descriptions, and even simple articles. Many businesses need help with their content, and they're happy to pay students who write well.</p>
+
+                <p>Sarah, a third-year English student, started by writing blog posts about books she was already reading for class. "I realized I could get paid for writing about things I was already studying," she says. "Now I make about $800 a month writing for three different websites."</p>
+
+                <h3>Graphic Design</h3>
+                <p>You don't need to be a professional designer to make money from design work. If you can create simple social media graphics, logos, or presentation slides, there are people willing to pay for it. Tools like Canva make it easy for anyone to create professional-looking designs.</p>
+
+                <p>Michael, an engineering student, learned basic design skills from YouTube. "I started making logos for small businesses in my hometown," he explains. "At first I charged $50 per logo, now I charge $200. It's amazing how quickly you can improve and earn more."</p>
+
+                <h3>Social Media Management</h3>
+                <p>As a student, you probably spend time on social media anyway. Why not get paid for it? Many small business owners don't have time to manage their social media accounts. They'll pay someone to post content, respond to comments, and help grow their following.</p>
+
+                <p>"I help three local restaurants with their Instagram accounts," says Priya, a business student. "I post pictures of their food, respond to customer comments, and run simple promotions. It takes me about 5 hours a week total, and I earn $300 monthly."</p>
+
+                <h3>Tutoring and Teaching</h3>
+                <p>If you're good at a particular subject, you can tutor other students online. This works especially well for subjects like math, science, languages, or test preparation. You can charge by the hour and set your own schedule.</p>
+
+                <p>Online platforms make it easy to connect with students who need help. "I tutor high school students in math," says David, a computer science student. "I make $25 per hour, and I only work evenings and weekends. It's perfect because I'm reviewing math concepts I'll need for my own courses."</p>
+
+                <h2>Where to Find Freelance Work</h2>
+                
+                <h3>Upwork and Fiverr</h3>
+                <p>These are the two biggest platforms for freelancers. Upwork is great for longer-term projects, while Fiverr is perfect for smaller, one-time jobs. Both platforms handle payments for you, so you don't have to worry about clients not paying.</p>
+
+                <p>When starting on these platforms, begin with lower prices to get your first few reviews. Once you have good reviews, you can gradually increase your rates. Always deliver quality work on time, and clients will come back for more.</p>
+
+                <h3>Social Media</h3>
+                <p>Don't underestimate the power of simply telling people what you do. Post on your personal social media accounts about the services you offer. Let friends and family know you're available for work. You'd be surprised how many opportunities come from people you already know.</p>
+
+                <p>Join Facebook groups related to your skills or local business groups. Many small business owners in these groups need help but don't know where to find affordable freelancers.</p>
+
+                <h3>Your University</h3>
+                <p>Check if your university has a job board or career center that posts freelance opportunities. Many professors and departments need help with research, writing, or design work. Student organizations often need help with their social media or websites too.</p>
+
+                <div class="highlight-box">
+                    <p>Remember: Your first few jobs might not pay much, but they're worth it. They give you experience, build your portfolio, and help you understand how freelancing works.</p>
+                </div>
+
+                <h2>How to Balance Freelancing with Studies</h2>
+                <p>This is the most important part. You're a student first, and your education comes before freelancing. Here's how smart student freelancers manage both:</p>
+
+                <h3>Create a Realistic Schedule</h3>
+                <p>Look at your class schedule and identify blocks of time when you can work. Maybe you have three free hours on Tuesday and Thursday afternoons. Maybe you work best on Saturday mornings. Block out these times for freelancing and stick to them.</p>
+
+                <p>Use a calendar app to schedule everything: classes, study time, freelancing work, and breaks. When everything has its place, you won't feel overwhelmed.</p>
+
+                <h3>Set Clear Boundaries</h3>
+                <p>Decide in advance how many hours per week you can realistically work without hurting your studies. For most students, 10-15 hours per week is a good starting point. Some can handle 20 hours, but be honest with yourself about what you can manage.</p>
+
+                <p>Also, set boundaries with clients. Let them know when you're available and when you're not. Most clients understand that you're a student and will respect your study time if you're clear about it from the beginning.</p>
+
+                <h3>Use the Semester System to Your Advantage</h3>
+                <p>During midterms and finals week, take on less work or no work at all. Plan for this in advance by saving some money from your freelancing during less busy times.</p>
+
+                <p>During summer and winter breaks, you can take on more projects and earn more money. This is when many student freelancers make most of their income for the year.</p>
+
+                <h3>Combine Freelancing with Your Studies</h3>
+                <p>Look for ways to make your freelancing work support your studies. If you're a marketing student, take on social media marketing projects. If you're studying graphic design, obviously do design work. This way, you're learning practical skills while making money.</p>
+
+                <p>Sometimes you can even use freelance projects for class assignments (with your professor's permission, of course). This kills two birds with one stone.</p>
+
+                <h2>Money Management for Student Freelancers</h2>
+                <p>When you start making money from freelancing, it's important to manage it well. Here are some simple tips:</p>
+
+                <h3>Track Your Income and Expenses</h3>
+                <p>Keep a simple spreadsheet or use a free app to track how much you're earning and what you're spending. This helps you understand your business and plan for taxes.</p>
+
+                <h3>Save for Taxes</h3>
+                <p>As a freelancer, you're responsible for paying your own taxes. A good rule is to save 20-30% of everything you earn for taxes. Put this money in a separate savings account so you don't spend it.</p>
+
+                <h3>Pay Yourself a "Salary"</h3>
+                <p>Instead of spending money as soon as it comes in, pay yourself a fixed amount each month. This helps with budgeting and prevents you from overspending during good months.</p>
+
+                <h3>Build an Emergency Fund</h3>
+                <p>Try to save enough money to cover 3-6 months of expenses. This gives you peace of mind and helps you through slow periods or unexpected emergencies.</p>
+
+                <h2>Common Mistakes to Avoid</h2>
+                
+                <h3>Undercharging for Your Work</h3>
+                <p>Many new freelancers charge too little because they don't feel confident. Remember that your time and skills have value. Research what others are charging for similar work and price yourself accordingly.</p>
+
+                <h3>Overcommitting</h3>
+                <p>It's tempting to take every job that comes your way, especially when you're starting. But taking on too much work will hurt both your freelancing quality and your grades. Learn to say no when you're at capacity.</p>
+
+                <h3>Not Having a Contract</h3>
+                <p>Even for small jobs, it's good to have a simple agreement in writing. This can be as simple as an email that outlines what you'll do, when you'll deliver it, and how much you'll be paid. This prevents misunderstandings later.</p>
+
+                <h3>Working with Difficult Clients</h3>
+                <p>Some clients are more trouble than they're worth. If a client is rude, constantly changing requirements, or slow to pay, it's okay to finish the current job and not work with them again. Your peace of mind is important.</p>
+
+                <h2>Success Stories: Real Students Making It Work</h2>
+                
+                <h3>Alex's Story: From $50 to $1500 Per Month</h3>
+                <p>Alex started freelancing in his second year of college. "I offered to write product descriptions for an online store for $50," he says. "That first job led to more work from the same client. Now, two years later, I have five regular clients and make about $1500 per month. I've paid for my last year of college myself."</p>
+
+                <h3>Maria's Journey: Turning a Hobby into Income</h3>
+                <p>Maria always enjoyed making digital art for fun. "A friend asked me to design a logo for her new business," she recalls. "I charged her $100. She showed it to other business owners, and suddenly I had more work than I could handle. Now I make enough to cover my rent and groceries every month."</p>
+
+                <h3>James' Experience: The International Student Advantage</h3>
+                <p>James came to study from another country. "Freelancing online allowed me to work legally as an international student," he explains. "I help businesses translate documents between English and my native language. It's flexible work that fits around my classes, and I'm gaining experience that will help me find a job after graduation."</p>
+
+                <h2>Getting Started This Week</h2>
+                <p>Ready to begin? Here's a simple 7-day plan to start your freelancing journey:</p>
+
+                <p><strong>Day 1:</strong> Choose one skill you want to offer. Don't overthink it—pick something you're decent at and enjoy doing.</p>
+                <p><strong>Day 2:</strong> Create a simple portfolio. This could be a PDF with 3-5 examples of your work, or even just screenshots.</p>
+                <p><strong>Day 3:</strong> Set up profiles on Upwork and/or Fiverr. Fill them out completely with your skills and portfolio.</p>
+                <p><strong>Day 4:</strong> Tell friends and family what you're offering. Send a simple message or make a social media post.</p>
+                <p><strong>Day 5:</strong> Apply for 3-5 small jobs on freelancing platforms. Don't worry if you don't get them—it's practice.</p>
+                <p><strong>Day 6:</strong> Research what others in your field are charging. Set your own prices accordingly.</p>
+                <p><strong>Day 7:</strong> Review and adjust. Look at what's working and what's not, and make changes for next week.</p>
+
+                <div class="highlight-box">
+                    <p>The most important step is simply to begin. Don't wait until you feel "ready"—you'll never feel 100% ready. Start small, learn as you go, and be consistent. Within a few months, you could be making significant extra income while building valuable career experience.</p>
+                </div>
+
+                <p>Freelancing as a student in 2026 is not just possible—it's one of the smartest moves you can make for your future. You earn money, gain experience, build confidence, and create opportunities that will serve you long after graduation. The tools and platforms are there. The opportunities are waiting. All you need to do is take that first step.</p>
+
+                <p>Remember, every successful freelancer started exactly where you are now: at the beginning. With each project you complete, each skill you learn, and each client you satisfy, you're building not just income, but a foundation for your entire career. Start today—your future self will thank you.</p>
+            </div>
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+    </div>
+
+    <!-- Contact Email Section -->
+    <div class="container contact-section">
+        <h2 class="contact-title">Contact Our Editors</h2>
+        <a href="mailto:contactoureditors@gmail.com" class="contact-email">contactoureditors@gmail.com</a>
+    </div>
+
+    <!-- Recently Added Section -->
+    <div class="container recently-added" id="recently-added">
+        <h2 class="section-title">Recently Added</h2>
+        <div class="recent-articles">
+            <a href="eight.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_htjsqr-1.jpg" alt="Christmas destinations">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Five best places to celebrate christmas: exploring lively countries</div>
+                    <div class="recent-time">2 hours ago</div>
+                </div>
+                <div class="recent-share" data-title="Five best places to celebrate christmas: exploring lively countries">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="nine.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_xwqdwfg-1.jpg" alt="Wonders of the world">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Eight wonders of the world: which was recently added</div>
+                    <div class="recent-time">5 hours ago</div>
+                </div>
+                <div class="recent-share" data-title="Eight wonders of the world: which was recently added">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="ten.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_x71tog5.jpg" alt="Early snow">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Countries who experienced snow too early in 2025: minimal Climate change</div>
+                    <div class="recent-time">Yesterday</div>
+                </div>
+                <div class="recent-share" data-title="Countries who experienced snow too early in 2025: minimal Climate change">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="eleven.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/1764268033680.jpg" alt="Scholarship programs">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Upcoming schorlarship programmes in 2026: starting and deadlines</div>
+                    <div class="recent-time">2 days ago</div>
+                </div>
+                <div class="recent-share" data-title="Upcoming schorlarship programmes in 2026: starting and deadlines">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Go Up Button -->
+    <div class="go-up" id="go-up">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="subscribe-section">
+                    <h3 class="subscribe-title">Subscribe to our newsletter</h3>
+                    <form class="subscribe-form" id="footer-subscribe-form">
+                        <input type="email" class="email-input" id="footer-subscribe-email" placeholder="Your email address" required>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <div id="footer-subscribe-message" class="subscription-message"></div>
+                </div>
+                <div class="footer-links">
+                    <a href="contact.html" class="footer-link">Having any issues? Reach us</a>
+                    <a href="termsp.html" class="footer-link">Understanding our privacy policy</a>
+                    <a href="termss.html" class="footer-link">Terms of Service</a>
+                    <a href="about.html" class="footer-link">Who we are?</a>
+                    <a href="xavier.html" class="footer-link">The Writer Henry Xavier</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Kora Reporters. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXqNe_BDdh9WIJ9lyrFPeQ_-733qbXW4s",
+            authDomain: "realinsightreport.firebaseapp.com",
+            projectId: "realinsightreport",
+            storageBucket: "realinsightreport.firebasestorage.app",
+            messagingSenderId: "1083096764833",
+            appId: "1:1083096764833:web:4b526f278471212ba43be0",
+            measurementId: "G-6LHBN68HMH"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // DOM elements for footer subscription
+        const footerSubscribeForm = document.getElementById('footer-subscribe-form');
+        const footerSubscribeEmail = document.getElementById('footer-subscribe-email');
+        const footerSubscribeMessage = document.getElementById('footer-subscribe-message');
+        
+        // User data
+        let userCountry = "Unknown";
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Detect user's country
+            detectCountry();
+            
+            // Set up event listeners for footer subscription
+            footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
+            
+            // Set up other event listeners
+            setupEventListeners();
+        });
+        
+        // Detect user's country using IP
+        function detectCountry() {
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    userCountry = data.country_name;
+                })
+                .catch(error => {
+                    console.error('Error detecting country:', error);
+                    // Fallback to a free API if the first one fails
+                    fetch('https://api.country.is/')
+                        .then(response => response.json())
+                        .then(data => {
+                            userCountry = data.country;
+                        })
+                        .catch(error2 => {
+                            console.error('Error detecting country with fallback:', error2);
+                        });
+                });
+        }
+        
+        // Handle footer email subscription
+        function handleFooterSubscription(e) {
+            e.preventDefault();
+            
+            const email = footerSubscribeEmail.value.trim();
+            
+            if (!email) {
+                showFooterSubscribeMessage("Please enter a valid email address.", "error");
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showFooterSubscribeMessage("Please enter a valid email address.", "error");
+                return;
+            }
+            
+            // Check if email already exists
+            db.collection("subscribers")
+                .where("email", "==", email)
+                .get()
+                .then((querySnapshot) => {
+                    if (!querySnapshot.empty) {
+                        showFooterSubscribeMessage("✓ You're already subscribed! Thank you for being part of our exclusive newsletter community. You'll continue receiving our premium insights and early access to all content.", "info");
+                        footerSubscribeEmail.value = "";
+                        return;
+                    }
+                    
+                    // Save to Firebase
+                    return db.collection("subscribers").add({
+                        email: email,
+                        country: userCountry,
+                        subscribedAt: new Date().toISOString(),
+                        subscriptionType: "premium",
+                        newsletterAccess: true
+                    });
+                })
+                .then(() => {
+                    showFooterSubscribeMessage("🎉 Welcome to our exclusive newsletter community! You'll now receive premium insights, early access to all research reports, and exclusive analytical briefings directly to your inbox.", "success");
+                    footerSubscribeEmail.value = "";
+                })
+                .catch((error) => {
+                    console.error("Error subscribing: ", error);
+                    showFooterSubscribeMessage("There was an error processing your subscription. Please try again.", "error");
+                });
+        }
+        
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Show footer subscription message
+        function showFooterSubscribeMessage(message, type) {
+            footerSubscribeMessage.textContent = message;
+            footerSubscribeMessage.className = `subscription-message ${type}`;
+            footerSubscribeMessage.style.display = 'block';
+            
+            // Hide message after 8 seconds for success, 5 for error
+            setTimeout(() => {
+                footerSubscribeMessage.style.display = 'none';
+            }, type === 'success' ? 8000 : 5000);
+        }
+
+        // Main functionality
+        function setupEventListeners() {
+            // Share functionality
+            function shareArticle(title, platform) {
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(`${title} - Check out this write up on kora reporters`);
+                
+                let shareUrl;
+                
+                switch(platform) {
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                        break;
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                        break;
+                    case 'whatsapp':
+                        shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                        break;
+                    case 'telegram':
+                        shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+                        break;
+                    case 'share':
+                    default:
+                        if (navigator.share) {
+                            navigator.share({
+                                title: title,
+                                text: `${title} - kora reporters`,
+                                url: window.location.href,
+                            })
+                            .then(() => console.log('Successful share'))
+                            .catch((error) => console.log('Error sharing:', error));
+                            return;
+                        } else {
+                            // Fallback for browsers that don't support the Web Share API
+                            shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                        }
+                        break;
+                }
+                
+                if (shareUrl) {
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                }
+            }
+
+            // Latest Report functionality
+            const latestReportLink = document.getElementById('latest-report-link');
+            const recentlyAddedSection = document.getElementById('recently-added');
+            
+            latestReportLink.addEventListener('click', function() {
+                recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Go Up Button functionality
+            const goUpButton = document.getElementById('go-up');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    goUpButton.classList.add('active');
+                } else {
+                    goUpButton.classList.remove('active');
+                }
+            });
+            
+            goUpButton.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Mobile menu functionality
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const menuOverlay = document.querySelector('.menu-overlay');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+            
+            hamburgerMenu.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+            });
+            
+            menuOverlay.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            });
+            
+            // Close menu when a link is clicked
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                });
+            });
+
+            // Add share functionality to all share buttons
+            document.querySelectorAll('.share-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const title = this.getAttribute('data-title');
+                    const platform = this.getAttribute('data-platform');
+                    shareArticle(title, platform);
+                });
+            });
+            
+            // Add share functionality to recent article share icons
+            document.querySelectorAll('.recent-share').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation(); // Prevent navigation when clicking share icon
+                    const title = this.getAttribute('data-title');
+                    shareArticle(title, 'share');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
