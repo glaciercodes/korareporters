@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kora Reporters</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #000;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .hamburger-menu {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .logo {
+            width: 150px;
+            height: 50px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .latest-report {
+            color: #ff6600;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* Home Link */
+        .home-link {
+            background-color: #ff6600;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 10px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        
+        .home-link:hover {
+            background-color: #e55a00;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            background-color: #111;
+            padding: 80px 20px 20px;
+            transition: left 0.3s ease;
+            z-index: 99;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .mobile-menu-link {
+            padding: 12px 15px;
+            border-bottom: 1px solid #333;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu-link:hover {
+            color: #ff6600;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 98;
+            display: none;
+        }
+        
+        .menu-overlay.active {
+            display: block;
+        }
+        
+        /* Content Styles */
+        .content {
+            padding: 30px 0;
+        }
+        
+        .article {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .category-label {
+            color: #ff6600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-label::before {
+            content: "●";
+            margin-right: 5px;
+        }
+        
+        .article-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .featured-image {
+            width: 100%;
+            margin: 20px 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .author-name {
+            font-weight: 600;
+        }
+        
+        .date {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .share-section {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .share-label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .share-btn {
+            color: #ff6600;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+        
+        .share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        .article-content {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        
+        .article-content p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .article-content strong {
+            font-weight: 700;
+            color: #ff6600;
+        }
+        
+        .article-content h3 {
+            color: #ff6600;
+            margin: 25px 0 15px;
+            font-size: 20px;
+        }
+        
+        .article-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .article-content li {
+            margin-bottom: 10px;
+        }
+        
+        .comments-link {
+            color: #ff6600;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        /* Contact Email Section */
+        .contact-section {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .contact-email {
+            color: #ff6600;
+            font-size: 18px;
+        }
+        
+        /* Recently Added Section */
+        .recently-added {
+            padding: 30px 0;
+            border-top: 1px solid #333;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .recent-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .recent-article {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        
+        .recent-img {
+            width: 80px;
+            height: 60px;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+        
+        .recent-content {
+            flex: 1;
+        }
+        
+        .recent-title {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .recent-time {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .recent-share {
+            color: #ff6600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+        
+        .recent-share-text {
+            font-size: 10px;
+            color: #999;
+        }
+        
+        /* Go Up Button */
+        .go-up {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff6600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .go-up.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .go-up i {
+            color: #000;
+            font-size: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #111;
+            padding: 40px 0 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .subscribe-section {
+            text-align: center;
+        }
+        
+        .subscribe-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #333;
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .subscribe-btn {
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .footer-link {
+            color: #ff6600;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Subscription Message Styles */
+        .subscription-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .subscription-message.success {
+            background: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        
+        .subscription-message.error {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+
+        .subscription-message.info {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            border: 1px solid #3498db;
+        }
+        
+        /* Mobile Responsive */
+        @media (min-width: 768px) {
+            .article-title {
+                font-size: 32px;
+            }
+            
+            .featured-image {
+                height: 400px;
+            }
+            
+            .featured-image img {
+                height: 400px;
+            }
+            
+            .article-content {
+                font-size: 17px;
+            }
+            
+            .recent-articles {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .subscribe-section {
+                text-align: left;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .latest-report {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .header-right {
+                gap: 15px;
+            }
+            
+            .latest-report {
+                font-size: 12px;
+            }
+            
+            .subscribe-form {
+                flex-direction: column;
+            }
+            
+            .home-link {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <a href="about.html" class="logo">
+                    <img src="images/file_00000000cb3471f48ca1cc72833279fa.jpg" alt="Logo">
+                </a>
+                <div class="header-right">
+                    <div class="latest-report" id="latest-report-link">Latest Report</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Link -->
+    <div class="container" style="padding-top: 15px;">
+        <a href="index.html" class="home-link">
+            <i class="fas fa-home"></i> Back to Home
+        </a>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-links">
+            <a href="about.html" class="mobile-menu-link">Who We Are</a>
+            <a href="contact.html" class="mobile-menu-link">Contact Us</a>
+            <a href="termsp.html" class="mobile-menu-link">Terms and Privacy</a>
+            <a href="termss.html" class="mobile-menu-link">Terms of Service</a>
+        </div>
+    </div>
+    <div class="menu-overlay"></div>
+
+    <!-- Content -->
+    <div class="container content">
+        <!-- Main Article -->
+        <article class="article" id="main-article">
+            <div class="category-label">TRAVEL & CULTURE</div>
+            <h1 class="article-title">Top 10 Most Enjoyable Cultural Festivals in Africa: Feel the Joy of Africa's Colors, Music, Dance, and Food</h1>
+            
+            <div class="featured-image">
+                <img src="images/image (" alt="African Cultural Festival">
+            </div>
+            
+            <div class="article-meta">
+                <div class="author-img">
+                    <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
+                </div>
+                <div class="author-info">
+                    <a href="xavier.html" class="author-name">Henry Xavier</a>
+                    <div class="date">April 15, 2025</div>
+                </div>
+                <div class="share-section">
+                    <div class="share-label">Share</div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" data-platform="share" data-title="Top 10 Most Enjoyable Cultural Festivals in Africa">
+                            <i class="fas fa-share-alt"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="facebook" data-title="Top 10 Most Enjoyable Cultural Festivals in Africa">
+                            <i class="fab fa-facebook"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="whatsapp" data-title="Top 10 Most Enjoyable Cultural Festivals in Africa">
+                            <i class="fab fa-whatsapp"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="telegram" data-title="Top 10 Most Enjoyable Cultural Festivals in Africa">
+                            <i class="fab fa-telegram"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                        <a href="#" class="share-btn" data-platform="twitter" data-title="Top 10 Most Enjoyable Cultural Festivals in Africa">
+                            <i class="fab fa-twitter"></i>
+                            <span class="share-text">Share</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="article-content">
+                <p>Africa is a continent bursting with life, color, and joy, and nowhere is this more visible than in its incredible cultural festivals. From Ghana's vibrant Akwasidae with royal chiefs in bright kente cloth to Mali's street parades and South Africa's big music parties, each festival celebrates traditions, brings communities together, and leaves you smiling with unforgettable memories and energy.</p>
+
+                <p>These festivals are more than just events—they're living expressions of history, community, and identity. They welcome everyone with open arms, whether you're a local celebrating your heritage or a visitor experiencing Africa's warmth for the first time. The combination of music that moves your soul, dances that tell ancient stories, food that delights your senses, and colors that dazzle your eyes creates an experience that stays with you forever.</p>
+
+                <p>Let's explore the top 10 most enjoyable cultural festivals in Africa that you absolutely must experience at least once in your lifetime.</p>
+
+                <h3>1. Akwasidae Festival - Ghana</h3>
+                <p>The Akwasidae Festival in Ghana is a breathtaking display of royal tradition and Ashanti culture. Held every six weeks at the Manhyia Palace in Kumasi, this festival brings together the Asantehene (the Ashanti king), his royal family, chiefs, and thousands of community members in a celebration that dates back centuries.</p>
+
+                <p>Picture this: Royal chiefs dressed in stunning kente cloth woven with gold threads, elaborate gold jewelry that sparkles in the sun, and traditional sandals. The king arrives under a colorful umbrella carried by attendants, while court musicians play traditional drums and horns. The air fills with the sound of talking drums telling ancient stories.</p>
+
+                <p>What makes Akwasidae special is how it connects the present with the past. The festival honors ancestors, with prayers and libations poured to remember those who came before. Traditional dances like Adowa and Kete tell stories through graceful movements. The food is incredible too—try fufu (pounded cassava and plantain) with light soup or jollof rice that locals swear is the best in West Africa.</p>
+
+                <p>For visitors, the warmth of the Ashanti people makes this festival unforgettable. Everyone is welcome to watch the ceremonies, take photos, and even meet some of the chiefs. The festival isn't just for show—it's a living tradition that keeps Ashanti culture strong and vibrant.</p>
+
+                <h3>2. Festival au Désert - Mali</h3>
+                <p>Imagine music under a sky filled with more stars than you've ever seen, in the middle of the Sahara Desert. That's the Festival au Désert in Mali, often called "Africa's Burning Man" but with much deeper roots. Originally a traditional Tuareg gathering, this festival has grown into an international music celebration while keeping its desert soul.</p>
+
+                <p>The journey to the festival is part of the adventure. You travel by 4x4 across golden dunes that seem to go on forever. When you arrive, you find a temporary city of tents, with stages set against the endless desert. As the sun sets, temperatures drop, and the music begins.</p>
+
+                <p>Tuareg musicians play their signature "desert blues"—a hypnotic sound created with traditional instruments like the imzad (a single-string violin) and tende drums, mixed with electric guitars. The music tells stories of nomadic life, love, and resistance. You'll see Tuareg men and women in their beautiful indigo robes dancing around campfires, their silver jewelry catching the firelight.</p>
+
+                <p>During the day, you can ride camels across the dunes, learn about Tuareg crafts, or just sit with new friends drinking sweet mint tea. The festival creates a temporary community where musicians from around the world jam with local artists, and everyone shares stories under the desert stars.</p>
+
+                <h3>3. Cape Town International Jazz Festival - South Africa</h3>
+                <p>South Africa knows how to throw a party, and the Cape Town International Jazz Festival is proof. For two days every March, the Mother City becomes the jazz capital of Africa, with over 40 artists performing across multiple stages to crowds of enthusiastic music lovers.</p>
+
+                <p>What makes this festival so enjoyable is its perfect mix—world-famous international jazz stars perform alongside incredible African talent. You might hear smooth American jazz followed by energetic South African marabi music, then some Afrobeat that gets everyone dancing. The festival isn't stuck in one style—it celebrates how jazz has grown and changed across the world.</p>
+
+                <p>Beyond the music, the festival feels like a giant friendly gathering. Food stalls offer everything from Cape Malay curries to juicy braai (barbecue) meats. Local craft beer and South African wines flow freely. Between sets, people chat, dance, and make new friends from around the world.</p>
+
+                <p>For many locals, this festival is the highlight of their year. The energy is electric but relaxed—people are here to enjoy great music and good company. Whether you're a serious jazz fan or just someone who loves good vibes, this festival will leave you smiling for weeks.</p>
+
+                <h3>4. Osun-Osogbo Festival - Nigeria</h3>
+                <p>In the sacred forest of Osogbo, Nigeria, the Osun-Osogbo Festival creates a magical connection between people, nature, and the divine. This two-week festival honors Osun, the Yoruba goddess of fertility, love, and fresh water, and draws thousands of worshippers, cultural enthusiasts, and curious visitors every August.</p>
+
+                <p>The festival begins with traditional cleansing rites, then builds to a spectacular procession to the Osun River. Devotees dressed in white carry sacred items to the riverbank, where priestesses perform rituals asking for Osun's blessings. The air fills with chanting, drumming, and the scent of special herbs and offerings.</p>
+
+                <p>What's truly special is the Osun Sacred Grove itself—a UNESCO World Heritage Site filled with sculptures, shrines, and art pieces created to honor the goddess. Walking through this forest feels like entering another world, where every tree and stream seems alive with spirit.</p>
+
+                <p>The festival isn't just serious ritual—there's plenty of joy too. Traditional Yoruba drummers play complex rhythms that make it impossible to stand still. Dancers in colorful costumes tell stories with their movements. And the food! Try amala (yam flour paste) with ewedu soup and tender beef, or sweet puff-puff doughnuts sold by street vendors.</p>
+
+                <p>For visitors, the festival offers a rare glimpse into living Yoruba traditions that have survived for centuries. The local community welcomes outsiders with incredible hospitality, often explaining rituals and inviting people to join celebrations.</p>
+
+                <h3>5. Fespaco - Burkina Faso</h3>
+                <p>In Ouagadougou, Burkina Faso, film becomes a reason for the whole city to celebrate. Fespaco (Pan-African Film and Television Festival of Ouagadougou) is Africa's biggest film festival, but calling it just a "film festival" doesn't capture the joy and community spirit it creates.</p>
+
+                <p>For nine days every two years, Ouagadougou turns into a giant cinema under the stars. Films screen in proper theaters, but also in open-air venues where entire neighborhoods gather with chairs and mats. When a Burkinabé film plays, the crowd cheers for local actors, laughs at jokes, and discusses the story like they're part of it.</p>
+
+                <p>The festival buzzes with energy beyond the screenings. Filmmakers from across Africa meet to share ideas and collaborate. Street parades feature actors, musicians, and dancers celebrating African cinema. Markets sell film memorabilia, traditional crafts, and delicious street food like riz gras (richly seasoned rice with meat).</p>
+
+                <p>What makes Fespaco so enjoyable is how it makes film accessible to everyone. You don't need to be a cinema expert—just someone who loves stories. The festival shows that African cinema isn't just about serious issues (though it covers those too), but also about comedy, romance, fantasy, and everyday life that anyone can relate to.</p>
+
+                <h3>6. Timkat - Ethiopia</h3>
+                <p>Timkat, the Ethiopian Epiphany celebration, is one of the most visually stunning festivals anywhere in the world. For three days every January, cities across Ethiopia transform into seas of white as millions of Orthodox Christians celebrate the baptism of Jesus in the Jordan River.</p>
+
+                <p>The festival begins on Timkat Eve with a magnificent procession. Priests carry elaborately embroidered velvet umbrellas, while deacons swing incense burners that fill the air with sweet smoke. The centerpiece is the tabot—a replica of the Ark of the Covenant—wrapped in rich cloth and carried on the head of a priest. The faithful follow, dressed in beautiful white traditional clothes called netela.</p>
+
+                <p>As night falls, worshippers gather near water for vigil services, singing hymns by candlelight until dawn. When morning comes, the priests bless the water, and everyone celebrates with singing, dancing, and splashing water in remembrance of baptism.</p>
+
+                <p>The joy is infectious. After the religious ceremonies, the festival becomes a community party. Families picnic together, sharing special Timkat foods like doro wat (spicy chicken stew) and injera (spongy flatbread). Children play games, young people flirt and dance, and elders tell stories. The combination of deep faith and pure celebration creates an atmosphere that touches everyone, regardless of their own beliefs.</p>
+
+                <h3>7. Lake of Stars Festival - Malawi</h3>
+                <p>On the beautiful shores of Lake Malawi, the Lake of Stars Festival creates a weekend of music, arts, and pure happiness against one of Africa's most stunning backdrops. Unlike traditional cultural festivals, this one is relatively new, but it has quickly become a beloved event that showcases Malawi's creative spirit.</p>
+
+                <p>The festival takes place right on the beach, with stages set up just meters from the clear blue waters of the lake. As bands play, you can feel the sand under your feet, take a swim between sets, or watch the sun set over the water in shades of orange and pink.</p>
+
+                <p>Malawian musicians share the stage with artists from across Africa and beyond, creating a musical journey that might include traditional Malawian beats, South African house music, Kenyan Afro-pop, and British indie rock—all in one evening. The crowd is a friendly mix of locals and international visitors, all united by good music.</p>
+
+                <p>Beyond music, the festival celebrates Malawian arts and culture. Local craftspeople sell beautiful wood carvings, paintings, and jewelry. Theater groups perform short plays. There are workshops where you can learn traditional dances or try your hand at drumming. And the food! Fresh fish from the lake grilled right there, served with nsima (Malawi's staple maize porridge) and local vegetables.</p>
+
+                <p>The "Lake of Stars" name comes from how the moonlight reflects on the water at night, creating a magical effect. Combined with great music and friendly people, this festival feels like a perfect dream you don't want to wake up from.</p>
+
+                <h3>8. Gerewol Festival - Niger</h3>
+                <p>In the remote regions of Niger, the Wodaabe people hold one of the world's most unique beauty competitions during their annual Gerewol Festival. This isn't your typical beauty pageant—here, men are the ones who dress up and compete for the attention of women.</p>
+
+                <p>The festival happens at the end of the rainy season, when different Wodaabe clans gather after months of nomadic herding. For several days, young men prepare for the competition. They paint their faces with red ochre and white clay in intricate patterns that highlight their features. They wear their best jewelry and elaborate headdresses made of ostrich feathers. They practice their dances and songs for hours.</p>
+
+                <p>When competition day arrives, the men line up and begin the Yaake dance. They roll their eyes to show the whites, smile widely to show their teeth (considered a sign of beauty), and make rhythmic movements while singing in high-pitched voices. The women watch carefully, then choose the most attractive men—sometimes even leaving their current husbands for the winners!</p>
+
+                <p>What makes Gerewol so enjoyable for visitors is its complete immersion in a different way of life. The Wodaabe people are famously welcoming, often inviting outsiders to join celebrations, share meals, and learn about their nomadic traditions. The festival isn't performed for tourists—it's a genuine cultural event that visitors are privileged to witness.</p>
+
+                <p>The beauty of Gerewol goes deeper than the competition. It's about community gathering after months apart, celebrating survival in a harsh environment, and continuing traditions that define Wodaabe identity. The joy and pride are palpable, and the experience stays with you long after you leave the desert.</p>
+
+                <h3>9. Durban July - South Africa</h3>
+                <p>Horse racing meets high fashion and fabulous parties at South Africa's Durban July. While technically a horse race, this event has grown into a massive cultural festival that takes over the city of Durban every winter.</p>
+
+                <p>The race itself is exciting—South Africa's best horses and jockeys compete for one of the country's most prestigious racing titles. But for most attendees, the real action happens off the track. The Durban July is South Africa's biggest fashion event, where people spend months planning their outfits.</p>
+
+                <p>Picture women in stunning designer dresses and elaborate hats, men in sharp suits or traditional African wear. Every year has a theme that inspires creative interpretations—you might see someone dressed as a tropical bird next to someone in futuristic metallic fabric. The fashion shows and competitions are as exciting as the horse race.</p>
+
+                <p>Music fills the venue, with live bands and DJs keeping energy high between races. Food and drink flow freely—champagne, cocktails, and gourmet snacks alongside South African favorites like bunny chow (hollowed-out bread filled with curry).</p>
+
+                <p>What makes Durban July so enjoyable is its celebration of South African style, creativity, and love of a good party. It's a chance for people to dress up, see and be seen, enjoy great entertainment, and maybe win some money on the horses. The atmosphere is electric with excitement, laughter, and the joy of celebration.</p>
+
+                <h3>10. Maralal International Camel Derby - Kenya</h3>
+                <p>In the rugged north of Kenya, the Maralal International Camel Derby turns camel racing into a weekend-long festival of fun, culture, and community. What began as a small sports event has grown into a major celebration that brings together Kenya's diverse communities and adventurous visitors from around the world.</p>
+
+                <p>The camel races are both thrilling and hilarious. Professional riders race seriously, leaning forward as their camels gallop at surprising speeds. Meanwhile, amateur races feature tourists and locals who've never ridden camels before, resulting in camels going the wrong way, riders falling off (softly into the sand), and everyone laughing together.</p>
+
+                <p>Between races, the festival grounds buzz with activity. Samburu and Turkana communities showcase their cultures through traditional dances, songs, and crafts. You can learn about beadwork, try traditional foods, or listen to elders tell stories about nomadic life. The colorful clothing, intricate jewelry, and proud bearing of these communities are breathtaking.</p>
+
+                <p>Adventure activities abound—you can go on guided camel treks into the surrounding wilderness, visit nearby villages, or simply enjoy the stunning landscapes of northern Kenya. Evenings feature campfires, more music and dance, and the incredible night sky filled with stars rarely seen in cities.</p>
+
+                <p>The Maralal Camel Derby is special because it's not polished or commercialized—it feels genuine and spontaneous. Locals and visitors mix easily, sharing experiences and creating friendships. The combination of exciting races, rich culture, beautiful scenery, and warm hospitality creates pure, simple joy.</p>
+
+                <h3>Why These Festivals Matter</h3>
+                <p>These ten festivals represent just a small sample of Africa's incredible cultural celebrations, but they share important qualities that make them truly enjoyable experiences. First, they're authentic—these aren't shows put on for tourists, but living traditions that communities practice because they matter deeply. When you attend, you're sharing in something real.</p>
+
+                <p>Second, they're inclusive. African festivals typically welcome everyone with open arms. Whether you're a local or a visitor, young or old, you'll find yourself drawn into the celebrations, invited to dance, eat, and celebrate alongside people who moments before were strangers.</p>
+
+                <p>Third, they engage all your senses. The vibrant colors of traditional clothing, the complex rhythms of African music, the mouthwatering aromas of festival foods, the feel of dance movements—these experiences work together to create memories that stay vivid in your mind.</p>
+
+                <p>Finally, these festivals create joy. In a world that can often feel divided and stressful, African cultural festivals remind us of our shared humanity. They celebrate community, creativity, heritage, and the simple pleasure of being alive. The smiles you see are genuine, the laughter is infectious, and the positive energy is tangible.</p>
+
+                <p>Whether you're dancing to desert blues under Saharan stars, watching royal processions in Ghana, or cheering camels in Kenya, African festivals offer experiences that feed your soul. They connect you with ancient traditions while creating new memories. They introduce you to incredible people. And they leave you with a renewed sense of wonder at the rich tapestry of human culture.</p>
+
+                <p>The next time you plan a trip, consider timing it with one of these amazing festivals. Come with an open heart ready to experience, participate, and enjoy. You'll leave not just with photographs, but with new friends, cherished memories, and perhaps a little African rhythm in your own heartbeat.</p>
+            </div>
+            
+            <a href="#" class="comments-link">Comments</a>
+        </article>
+    </div>
+
+    <!-- Contact Email Section -->
+    <div class="container contact-section">
+        <h2 class="contact-title">Contact Our Editors</h2>
+        <a href="mailto:contactoureditors@gmail.com" class="contact-email">contactoureditors@gmail.com</a>
+    </div>
+
+    <!-- Recently Added Section -->
+    <div class="container recently-added" id="recently-added">
+        <h2 class="section-title">Recently Added</h2>
+        <div class="recent-articles">
+            <a href="eight.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_htjsqr-1.jpg" alt="Christmas destinations">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Five best places to celebrate christmas: exploring lively countries</div>
+                    <div class="recent-time">2 hours ago</div>
+                </div>
+                <div class="recent-share" data-title="Five best places to celebrate christmas: exploring lively countries">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="nine.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_xwqdwfg-1.jpg" alt="Wonders of the world">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Eight wonders of the world: which was recently added</div>
+                    <div class="recent-time">5 hours ago</div>
+                </div>
+                <div class="recent-share" data-title="Eight wonders of the world: which was recently added">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="ten.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/grok_image_x71tog5.jpg" alt="Early snow">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Countries who experienced snow too early in 2025: minimal Climate change</div>
+                    <div class="recent-time">Yesterday</div>
+                </div>
+                <div class="recent-share" data-title="Countries who experienced snow too early in 2025: minimal Climate change">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+            <a href="eleven.html" class="recent-article">
+                <div class="recent-img">
+                    <img src="images/1764268033680.jpg" alt="Scholarship programs">
+                </div>
+                <div class="recent-content">
+                    <div class="recent-title">Upcoming schorlarship programmes in 2026: starting and deadlines</div>
+                    <div class="recent-time">2 days ago</div>
+                </div>
+                <div class="recent-share" data-title="Upcoming schorlarship programmes in 2026: starting and deadlines">
+                    <i class="fas fa-share-alt"></i>
+                    <span class="recent-share-text">Share</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Go Up Button -->
+    <div class="go-up" id="go-up">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="subscribe-section">
+                    <h3 class="subscribe-title">Subscribe to our newsletter</h3>
+                    <form class="subscribe-form" id="footer-subscribe-form">
+                        <input type="email" class="email-input" id="footer-subscribe-email" placeholder="Your email address" required>
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </form>
+                    <div id="footer-subscribe-message" class="subscription-message"></div>
+                </div>
+                <div class="footer-links">
+                    <a href="contact.html" class="footer-link">Having any issues? Reach us</a>
+                    <a href="termsp.html" class="footer-link">Understanding our privacy policy</a>
+                    <a href="termss.html" class="footer-link">Terms of Service</a>
+                    <a href="about.html" class="footer-link">Who we are?</a>
+                    <a href="xavier.html" class="footer-link">The Writer Henry Xavier</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Kora Reporters. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCXqNe_BDdh9WIJ9lyrFPeQ_-733qbXW4s",
+            authDomain: "realinsightreport.firebaseapp.com",
+            projectId: "realinsightreport",
+            storageBucket: "realinsightreport.firebasestorage.app",
+            messagingSenderId: "1083096764833",
+            appId: "1:1083096764833:web:4b526f278471212ba43be0",
+            measurementId: "G-6LHBN68HMH"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // DOM elements for footer subscription
+        const footerSubscribeForm = document.getElementById('footer-subscribe-form');
+        const footerSubscribeEmail = document.getElementById('footer-subscribe-email');
+        const footerSubscribeMessage = document.getElementById('footer-subscribe-message');
+        
+        // User data
+        let userCountry = "Unknown";
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Detect user's country
+            detectCountry();
+            
+            // Set up event listeners for footer subscription
+            footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
+            
+            // Set up other event listeners
+            setupEventListeners();
+        });
+        
+        // Detect user's country using IP
+        function detectCountry() {
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    userCountry = data.country_name;
+                })
+                .catch(error => {
+                    console.error('Error detecting country:', error);
+                    // Fallback to a free API if the first one fails
+                    fetch('https://api.country.is/')
+                        .then(response => response.json())
+                        .then(data => {
+                            userCountry = data.country;
+                        })
+                        .catch(error2 => {
+                            console.error('Error detecting country with fallback:', error2);
+                        });
+                });
+        }
+        
+        // Handle footer email subscription
+        function handleFooterSubscription(e) {
+            e.preventDefault();
+            
+            const email = footerSubscribeEmail.value.trim();
+            
+            if (!email) {
+                showFooterSubscribeMessage("Please enter a valid email address.", "error");
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                showFooterSubscribeMessage("Please enter a valid email address.", "error");
+                return;
+            }
+            
+            // Check if email already exists
+            db.collection("subscribers")
+                .where("email", "==", email)
+                .get()
+                .then((querySnapshot) => {
+                    if (!querySnapshot.empty) {
+                        showFooterSubscribeMessage("✓ You're already subscribed! Thank you for being part of our exclusive newsletter community. You'll continue receiving our premium insights and early access to all content.", "info");
+                        footerSubscribeEmail.value = "";
+                        return;
+                    }
+                    
+                    // Save to Firebase
+                    return db.collection("subscribers").add({
+                        email: email,
+                        country: userCountry,
+                        subscribedAt: new Date().toISOString(),
+                        subscriptionType: "premium",
+                        newsletterAccess: true
+                    });
+                })
+                .then(() => {
+                    showFooterSubscribeMessage("🎉 Welcome to our exclusive newsletter community! You'll now receive premium insights, early access to all research reports, and exclusive analytical briefings directly to your inbox.", "success");
+                    footerSubscribeEmail.value = "";
+                })
+                .catch((error) => {
+                    console.error("Error subscribing: ", error);
+                    showFooterSubscribeMessage("There was an error processing your subscription. Please try again.", "error");
+                });
+        }
+        
+        // Email validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Show footer subscription message
+        function showFooterSubscribeMessage(message, type) {
+            footerSubscribeMessage.textContent = message;
+            footerSubscribeMessage.className = `subscription-message ${type}`;
+            footerSubscribeMessage.style.display = 'block';
+            
+            // Hide message after 8 seconds for success, 5 for error
+            setTimeout(() => {
+                footerSubscribeMessage.style.display = 'none';
+            }, type === 'success' ? 8000 : 5000);
+        }
+
+        // Original functionality
+        function setupEventListeners() {
+            // Share functionality - only share the title
+            function shareArticle(title, platform) {
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent(`${title} - Check out this write up on kora reporters`);
+                
+                let shareUrl;
+                
+                switch(platform) {
+                    case 'facebook':
+                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                        break;
+                    case 'twitter':
+                        shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                        break;
+                    case 'whatsapp':
+                        shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                        break;
+                    case 'telegram':
+                        shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+                        break;
+                    case 'share':
+                    default:
+                        if (navigator.share) {
+                            navigator.share({
+                                title: title,
+                                text: `${title} - kora reporters`,
+                                url: window.location.href,
+                            })
+                            .then(() => console.log('Successful share'))
+                            .catch((error) => console.log('Error sharing:', error));
+                            return;
+                        } else {
+                            // Fallback for browsers that don't support the Web Share API
+                            shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                        }
+                        break;
+                }
+                
+                if (shareUrl) {
+                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                }
+            }
+
+            // Latest Report functionality
+            const latestReportLink = document.getElementById('latest-report-link');
+            const recentlyAddedSection = document.getElementById('recently-added');
+            
+            latestReportLink.addEventListener('click', function() {
+                recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Go Up Button functionality
+            const goUpButton = document.getElementById('go-up');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 500) {
+                    goUpButton.classList.add('active');
+                } else {
+                    goUpButton.classList.remove('active');
+                }
+            });
+            
+            goUpButton.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Mobile menu functionality
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const menuOverlay = document.querySelector('.menu-overlay');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+            
+            hamburgerMenu.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+            });
+            
+            menuOverlay.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            });
+            
+            // Close menu when a link is clicked
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                });
+            });
+
+            // Add share functionality to all share buttons
+            document.querySelectorAll('.share-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const title = this.getAttribute('data-title');
+                    const platform = this.getAttribute('data-platform');
+                    shareArticle(title, platform);
+                });
+            });
+            
+            // Add share functionality to recent article share icons
+            document.querySelectorAll('.recent-share').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation(); // Prevent navigation when clicking share icon
+                    const title = this.getAttribute('data-title');
+                    shareArticle(title, 'share');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
