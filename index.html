@@ -5,8 +5,8 @@
      crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kora Reporters</title>
-  <link rel="icon" href="/favicon.png" type="image/png">
+    <title>kora Rephhhorters</title>
+    <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -193,6 +193,7 @@
             background-color: #000;
             color: #fff;
             font-size: 16px;
+            border-radius: 0; /* Sharp edges */
         }
         
         .search-button {
@@ -202,6 +203,7 @@
             padding: 0 25px;
             cursor: pointer;
             font-size: 16px;
+            border-radius: 0; /* Sharp edges */
         }
         
         .search-filters {
@@ -217,7 +219,7 @@
             color: #fff;
             border: none;
             padding: 8px 15px;
-            border-radius: 20px;
+            border-radius: 0; /* Sharp edges - changed from 20px to 0 */
             cursor: pointer;
             transition: background-color 0.3s;
         }
@@ -293,7 +295,7 @@
             color: #fff;
             border: 1px solid #333;
             padding: 8px 20px;
-            border-radius: 20px;
+            border-radius: 0; /* Sharp edges - changed from 20px to 0 */
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -301,6 +303,129 @@
         .category-btn.active {
             background-color: #ff6600;
             border-color: #ff6600;
+        }
+        
+        /* Hot Topics Banner */
+        .hot-topics-section {
+            margin: 20px 0;
+            position: relative;
+            border: 1px solid #333;
+            padding: 15px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+            overflow: hidden;
+        }
+        
+        .hot-topics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6600;
+        }
+        
+        .hot-topics-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .close-hot-topics {
+            background: #ff6600;
+            color: #000;
+            border: none;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+            border-radius: 0; /* Sharp edges */
+        }
+        
+        .close-hot-topics:hover {
+            background: #ff4500;
+        }
+        
+        .hot-topics-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 10px 0;
+        }
+        
+        .hot-topics-track {
+            display: flex;
+            gap: 15px;
+            transition: transform 0.5s ease;
+            width: max-content;
+        }
+        
+        .hot-topic-card {
+            width: 220px;
+            flex-shrink: 0;
+            background-color: #111;
+            border: 1px solid #333;
+            padding: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0; /* Sharp edges */
+        }
+        
+        .hot-topic-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff6600;
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
+        }
+        
+        .hot-topic-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #ff6600;
+            line-height: 1.3;
+        }
+        
+        .hot-topic-date {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        
+        .hot-topic-content {
+            font-size: 13px;
+            line-height: 1.4;
+            color: #ccc;
+            flex-grow: 1;
+            margin-bottom: 40px;
+        }
+        
+        .hot-topic-image {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 60px;
+            height: 60px;
+            overflow: hidden;
+            border: 1px solid #333;
+            border-radius: 0; /* Sharp edges */
+        }
+        
+        .hot-topic-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         /* Content Styles */
@@ -333,12 +458,12 @@
             font-weight: 700;
         }
         
-        /* FIXED: Featured image styling */
+        /* Featured image styling */
         .featured-image {
             width: 100%;
             margin: 20px 0;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 0; /* Sharp edges */
         }
         
         .featured-image img {
@@ -358,7 +483,7 @@
         .author-img {
             width: 40px;
             height: 40px;
-            border-radius: 50%;
+            border-radius: 0; /* Sharp edges */
             background-color: #333;
             display: flex;
             align-items: center;
@@ -372,7 +497,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 50%;
+            border-radius: 0; /* Sharp edges */
         }
         
         .author-info {
@@ -436,10 +561,10 @@
             color: #ff6600;
         }
         
-        /* NEW: Video Styling for Christmas article */
+        /* Video Styling for Christmas article */
         .country-video {
             margin: 25px 0;
-            border-radius: 8px;
+            border-radius: 0; /* Sharp edges */
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(255, 102, 0, 0.2);
         }
@@ -477,7 +602,7 @@
             border-left: 4px solid #ff6600;
             padding: 20px;
             margin: 20px 0;
-            border-radius: 4px;
+            border-radius: 0; /* Sharp edges */
         }
         
         .highlight-title {
@@ -555,6 +680,14 @@
             color: #999;
             font-size: 10px;
             flex-shrink: 0;
+            border-radius: 0; /* Sharp edges */
+        }
+        
+        .recent-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0; /* Sharp edges */
         }
         
         .recent-content {
@@ -594,7 +727,7 @@
             width: 50px;
             height: 50px;
             background-color: #ff6600;
-            border-radius: 50%;
+            border-radius: 0; /* Sharp edges */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -649,6 +782,7 @@
             border: 1px solid #333;
             background-color: #000;
             color: #fff;
+            border-radius: 0; /* Sharp edges */
         }
         
         .subscribe-btn {
@@ -657,7 +791,8 @@
             border: none;
             padding: 0 20px;
             cursor: pointer;
-          height: 40px 
+            height: 40px;
+            border-radius: 0; /* Sharp edges */
         }
         
         .footer-links {
@@ -681,7 +816,7 @@
         /* Subscription Message Styles */
         .subscription-message {
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 0; /* Sharp edges */
             margin-top: 20px;
             text-align: center;
             display: none;
@@ -742,7 +877,7 @@
         .scroll-card {
             width: 280px;
             background-color: #111;
-            border-radius: 10px;
+            border-radius: 0; /* Sharp edges */
             padding: 20px;
             display: inline-block;
             white-space: normal;
@@ -760,7 +895,7 @@
             width: 100%;
             height: 160px;
             background-color: #333;
-            border-radius: 8px;
+            border-radius: 0; /* Sharp edges */
             margin-bottom: 15px;
             display: flex;
             align-items: center;
@@ -773,6 +908,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 0; /* Sharp edges */
         }
         
         .scroll-card-title {
@@ -877,6 +1013,10 @@
             .country-title {
                 font-size: 20px;
             }
+            
+            .hot-topic-card {
+                width: 200px;
+            }
         }
     </style>
 </head>
@@ -948,6 +1088,21 @@
             <button class="category-btn" data-category="news">News</button>
             <button class="category-btn" data-category="health">Health</button>
             <button class="category-btn" data-category="education">Education</button>
+        </div>
+    </div>
+
+    <!-- NEW: Hot Topics Banner -->
+    <div class="container hot-topics-section" id="hot-topics-banner">
+        <div class="hot-topics-header">
+            <div class="hot-topics-title">
+                Hot Topics Now 🔥
+            </div>
+            <button class="close-hot-topics" id="close-hot-topics">X</button>
+        </div>
+        <div class="hot-topics-carousel">
+            <div class="hot-topics-track" id="hot-topics-track">
+                <!-- Cards will be populated by JavaScript -->
+            </div>
         </div>
     </div>
 
@@ -2193,551 +2348,705 @@
     </footer>
 
     <script>
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCXqNe_BDdh9WIJ9lyrFPeQ_-733qbXW4s",
-            authDomain: "realinsightreport.firebaseapp.com",
-            projectId: "realinsightreport",
-            storageBucket: "realinsightreport.firebasestorage.app",
-            messagingSenderId: "1083096764833",
-            appId: "1:1083096764833:web:4b526f278471212ba43be0",
-            measurementId: "G-6LHBN68HMH"
-        };
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCXqNe_BDdh9WIJ9lyrFPeQ_-733qbXW4s",
+        authDomain: "realinsightreport.firebaseapp.com",
+        projectId: "realinsightreport",
+        storageBucket: "realinsightreport.firebasestorage.app",
+        messagingSenderId: "1083096764833",
+        appId: "1:1083096764833:web:4b526f278471212ba43be0",
+        measurementId: "G-6LHBN68HMH"
+    };
 
-        // Initialize Firebase
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
+    // Initialize Firebase
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.firestore();
+
+    // DOM elements for footer subscription
+    const footerSubscribeForm = document.getElementById('footer-subscribe-form');
+    const footerSubscribeEmail = document.getElementById('footer-subscribe-email');
+    const footerSubscribeMessage = document.getElementById('footer-subscribe-message');
+    
+    // User data
+    let userCountry = "Unknown";
+    
+    // Sample article data for search functionality
+    const articlesData = [
+        {
+            id: 1,
+            title: "Software engineering vs computer science: which are in high demand",
+            category: "tech",
+            snippet: "In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand...",
+            content: "In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand. However, the nature of this demand differs significantly between the two fields. Software engineering focuses on the practical application of engineering principles to software development..."
+        },
+        {
+            id: "christmas",
+            title: "Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World",
+            category: "news",
+            snippet: "Christmas is a magical time of year when cities around the world transform into winter wonderlands, each offering unique traditions...",
+            content: "Christmas is a magical time of year when cities around the world transform into winter wonderlands, each offering unique traditions, festive decorations, and joyful celebrations. If you're looking for the ultimate Christmas experience, certain countries stand out for their extraordinary holiday spirit."
+        },
+        {
+            id: 2,
+            title: "Top 10 largest African countries: by economy size",
+            category: "news",
+            snippet: "Africa's economic landscape is diverse and rapidly changing, with several countries emerging as economic powerhouses...",
+            content: "Africa's economic landscape is diverse and rapidly changing, with several countries emerging as economic powerhouses on the continent. Based on GDP figures, here are the top 10 largest African economies. Nigeria leads as Africa's largest economy with a GDP of over $500 billion..."
+        },
+        {
+            id: 3,
+            title: "Signs you're in sleep debt: hidden damage you ignore at night",
+            category: "health",
+            snippet: "Sleep debt is a growing epidemic in our fast-paced society, with millions of people accumulating a significant sleep deficit...",
+            content: "Sleep debt is a growing epidemic in our fast-paced society, with millions of people accumulating a significant sleep deficit without even realizing it. This hidden health crisis can have profound effects on both physical and mental well-being..."
+        },
+        {
+            id: 4,
+            title: "Online learning vs Physical learning: The future of education",
+            category: "education",
+            snippet: "The education landscape has undergone a dramatic transformation in recent years, with online learning emerging as a powerful alternative...",
+            content: "The education landscape has undergone a dramatic transformation in recent years, with online learning emerging as a powerful alternative to traditional physical classrooms. As we look toward the future of education, it's becoming increasingly clear that the most effective approach may not be an either/or choice..."
+        },
+        {
+            id: 5,
+            title: "Skilled or Degree Certification: find out what big companies are looking for",
+            category: "education",
+            snippet: "The traditional hiring landscape is undergoing a significant transformation as major corporations reevaluate what they truly value in candidates...",
+            content: "The traditional hiring landscape is undergoing a significant transformation as major corporations reevaluate what they truly value in candidates. The long-standing preference for degree credentials is being challenged by a growing emphasis on practical skills and demonstrated capabilities."
+        },
+        {
+            id: 6,
+            title: "Why you should make drinking water a habit: avoiding kidney stones",
+            category: "health",
+            snippet: "Water is essential for life, yet many people don't drink enough of it. Making water consumption a daily habit is one of the simplest...",
+            content: "Water is essential for life, yet many people don't drink enough of it. Making water consumption a daily habit is one of the simplest and most effective ways to protect your health, particularly when it comes to preventing painful kidney stones."
+        },
+        {
+            id: 7,
+            title: "Why you have headache after using your smartphone too long",
+            category: "health",
+            snippet: "If you've ever experienced a headache after spending too much time on your smartphone, you're not alone. This common phenomenon...",
+            content: "If you've ever experienced a headache after spending too much time on your smartphone, you're not alone. This common phenomenon, sometimes called 'tech neck' or 'digital eye strain,' affects millions of people worldwide."
+        },
+        {
+            id: 8,
+            title: "The importance of mandating elementary education in kids",
+            category: "education",
+            snippet: "Elementary education forms the critical foundation upon which all future learning is built. Making this early education mandatory...",
+            content: "Elementary education forms the critical foundation upon which all future learning is built. Making this early education mandatory for all children is one of the most important investments a society can make in its future."
+        },
+        {
+            id: 9,
+            title: "Extra mural classes: the key to faster understanding as a student",
+            category: "education",
+            snippet: "Extra mural classes, also known as extracurricular activities or supplementary lessons, can significantly accelerate a student's learning...",
+            content: "Extra mural classes, also known as extracurricular activities or supplementary lessons, can significantly accelerate a student's learning and understanding. These additional educational opportunities outside regular school hours provide benefits that extend far beyond simple academic reinforcement."
+        },
+        {
+            id: 10,
+            title: "Top most planted cash crops in Africa",
+            category: "news",
+            snippet: "Agriculture remains the backbone of many African economies, with cash crops playing a vital role in both local sustenance and international trade...",
+            content: "Agriculture remains the backbone of many African economies, with cash crops playing a vital role in both local sustenance and international trade. These crops not only provide food security but also generate significant income for millions of farmers across the continent."
+        },
+        {
+            id: 11,
+            title: "Top five countries in Africa leading the tech world",
+            category: "news",
+            snippet: "Africa's technology sector is experiencing remarkable growth, with several countries emerging as innovation hubs that are gaining global recognition...",
+            content: "Africa's technology sector is experiencing remarkable growth, with several countries emerging as innovation hubs that are gaining global recognition. These nations are not only adapting technology but are creating original solutions to local and global challenges."
+        },
+        // Horizontal section articles
+        {
+            id: 12,
+            title: "Top Samsung phones with camera qualities",
+            category: "tech",
+            snippet: "Samsung's flagship phones like the Galaxy S23 Ultra and Z Fold 5 feature exceptional camera systems with advanced sensors...",
+            content: "Samsung's flagship phones like the Galaxy S23 Ultra and Z Fold 5 feature exceptional camera systems with advanced sensors, optical zoom capabilities, and AI-powered photography features that rival professional cameras. These devices deliver stunning image quality in various lighting conditions."
+        },
+        {
+            id: 13,
+            title: "Why you must use cloud storage as first choice",
+            category: "tech",
+            snippet: "Cloud storage offers automatic backups, accessibility from any device, enhanced security, and collaboration features...",
+            content: "Cloud storage offers automatic backups, accessibility from any device, enhanced security, and collaboration features. It protects against data loss from device failure or theft while enabling seamless file sharing and remote work capabilities that local storage can't match."
+        },
+        {
+            id: 14,
+            title: "Rapid effect of AI: does it makes us productive or lazy",
+            category: "tech",
+            snippet: "AI tools boost productivity by automating repetitive tasks and providing data-driven insights, but may reduce critical thinking...",
+            content: "AI tools boost productivity by automating repetitive tasks and providing data-driven insights, but may reduce critical thinking if over-relied upon. The key is using AI as an assistant rather than replacement for human creativity and problem-solving skills."
+        },
+        {
+            id: 15,
+            title: "Why drones are preferred to motorcycles for delivery",
+            category: "tech",
+            snippet: "Drones bypass traffic congestion, reduce delivery times significantly, lower operational costs, and have minimal environmental impact...",
+            content: "Drones bypass traffic congestion, reduce delivery times significantly, lower operational costs, and have minimal environmental impact compared to motorcycles. They're especially effective for urgent medical supplies and hard-to-reach locations where traditional delivery struggles."
+        },
+        {
+            id: 16,
+            title: "Would smartphones without screens be possible",
+            category: "tech",
+            snippet: "Screenless smartphones could use holographic displays, AR glasses, voice interfaces, and haptic feedback...",
+            content: "Screenless smartphones could use holographic displays, AR glasses, voice interfaces, and haptic feedback. While technically possible, user adoption challenges remain as screens provide intuitive visual feedback that alternative interfaces struggle to replicate effectively for most tasks."
+        },
+        {
+            id: 17,
+            title: "Advantages of reading everyday: steps in vocabulary building",
+            category: "education",
+            snippet: "Daily reading exposes you to new words in context, reinforces language patterns, and improves retention...",
+            content: "Daily reading exposes you to new words in context, reinforces language patterns, and improves retention. Start with material slightly above your level, note unfamiliar words, use them in sentences, and review regularly to build a robust vocabulary effectively over time."
+        },
+        {
+            id: 18,
+            title: "How lack of Gadgets affect tech students academically",
+            category: "education",
+            snippet: "Without access to modern devices, tech students miss hands-on practice with essential tools, struggle with software-based assignments...",
+            content: "Without access to modern devices, tech students miss hands-on practice with essential tools, struggle with software-based assignments, and fall behind in digital literacy. This disadvantage affects their practical skills development and limits exposure to current industry-standard technologies and workflows."
         }
-        const db = firebase.firestore();
+    ];
 
-        // DOM elements for footer subscription
-        const footerSubscribeForm = document.getElementById('footer-subscribe-form');
-        const footerSubscribeEmail = document.getElementById('footer-subscribe-email');
-        const footerSubscribeMessage = document.getElementById('footer-subscribe-message');
-        
-        // User data
-        let userCountry = "Unknown";
-        
-        // Sample article data for search functionality
-        const articlesData = [
-            {
-                id: 1,
-                title: "Software engineering vs computer science: which are in high demand",
-                category: "tech",
-                snippet: "In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand...",
-                content: "In today's rapidly evolving technological landscape, both software engineering and computer science professionals are in high demand. However, the nature of this demand differs significantly between the two fields. Software engineering focuses on the practical application of engineering principles to software development..."
-            },
-            {
-                id: "christmas",
-                title: "Five Best Places to Celebrate Christmas: Exploring Lively Countries Around the World",
-                category: "news",
-                snippet: "Christmas is a magical time of year when cities around the world transform into winter wonderlands, each offering unique traditions...",
-                content: "Christmas is a magical time of year when cities around the world transform into winter wonderlands, each offering unique traditions, festive decorations, and joyful celebrations. If you're looking for the ultimate Christmas experience, certain countries stand out for their extraordinary holiday spirit."
-            },
-            {
-                id: 2,
-                title: "Top 10 largest African countries: by economy size",
-                category: "news",
-                snippet: "Africa's economic landscape is diverse and rapidly changing, with several countries emerging as economic powerhouses...",
-                content: "Africa's economic landscape is diverse and rapidly changing, with several countries emerging as economic powerhouses on the continent. Based on GDP figures, here are the top 10 largest African economies. Nigeria leads as Africa's largest economy with a GDP of over $500 billion..."
-            },
-            {
-                id: 3,
-                title: "Signs you're in sleep debt: hidden damage you ignore at night",
-                category: "health",
-                snippet: "Sleep debt is a growing epidemic in our fast-paced society, with millions of people accumulating a significant sleep deficit...",
-                content: "Sleep debt is a growing epidemic in our fast-paced society, with millions of people accumulating a significant sleep deficit without even realizing it. This hidden health crisis can have profound effects on both physical and mental well-being..."
-            },
-            {
-                id: 4,
-                title: "Online learning vs Physical learning: The future of education",
-                category: "education",
-                snippet: "The education landscape has undergone a dramatic transformation in recent years, with online learning emerging as a powerful alternative...",
-                content: "The education landscape has undergone a dramatic transformation in recent years, with online learning emerging as a powerful alternative to traditional physical classrooms. As we look toward the future of education, it's becoming increasingly clear that the most effective approach may not be an either/or choice..."
-            },
-            {
-                id: 5,
-                title: "Skilled or Degree Certification: find out what big companies are looking for",
-                category: "education",
-                snippet: "The traditional hiring landscape is undergoing a significant transformation as major corporations reevaluate what they truly value in candidates...",
-                content: "The traditional hiring landscape is undergoing a significant transformation as major corporations reevaluate what they truly value in candidates. The long-standing preference for degree credentials is being challenged by a growing emphasis on practical skills and demonstrated capabilities."
-            },
-            {
-                id: 6,
-                title: "Why you should make drinking water a habit: avoiding kidney stones",
-                category: "health",
-                snippet: "Water is essential for life, yet many people don't drink enough of it. Making water consumption a daily habit is one of the simplest...",
-                content: "Water is essential for life, yet many people don't drink enough of it. Making water consumption a daily habit is one of the simplest and most effective ways to protect your health, particularly when it comes to preventing painful kidney stones."
-            },
-            {
-                id: 7,
-                title: "Why you have headache after using your smartphone too long",
-                category: "health",
-                snippet: "If you've ever experienced a headache after spending too much time on your smartphone, you're not alone. This common phenomenon...",
-                content: "If you've ever experienced a headache after spending too much time on your smartphone, you're not alone. This common phenomenon, sometimes called 'tech neck' or 'digital eye strain,' affects millions of people worldwide."
-            },
-            {
-                id: 8,
-                title: "The importance of mandating elementary education in kids",
-                category: "education",
-                snippet: "Elementary education forms the critical foundation upon which all future learning is built. Making this early education mandatory...",
-                content: "Elementary education forms the critical foundation upon which all future learning is built. Making this early education mandatory for all children is one of the most important investments a society can make in its future."
-            },
-            {
-                id: 9,
-                title: "Extra mural classes: the key to faster understanding as a student",
-                category: "education",
-                snippet: "Extra mural classes, also known as extracurricular activities or supplementary lessons, can significantly accelerate a student's learning...",
-                content: "Extra mural classes, also known as extracurricular activities or supplementary lessons, can significantly accelerate a student's learning and understanding. These additional educational opportunities outside regular school hours provide benefits that extend far beyond simple academic reinforcement."
-            },
-            {
-                id: 10,
-                title: "Top most planted cash crops in Africa",
-                category: "news",
-                snippet: "Agriculture remains the backbone of many African economies, with cash crops playing a vital role in both local sustenance and international trade...",
-                content: "Agriculture remains the backbone of many African economies, with cash crops playing a vital role in both local sustenance and international trade. These crops not only provide food security but also generate significant income for millions of farmers across the continent."
-            },
-            {
-                id: 11,
-                title: "Top five countries in Africa leading the tech world",
-                category: "news",
-                snippet: "Africa's technology sector is experiencing remarkable growth, with several countries emerging as innovation hubs that are gaining global recognition...",
-                content: "Africa's technology sector is experiencing remarkable growth, with several countries emerging as innovation hubs that are gaining global recognition. These nations are not only adapting technology but are creating original solutions to local and global challenges."
-            },
-            // Horizontal section articles
-            {
-                id: 12,
-                title: "Top Samsung phones with camera qualities",
-                category: "tech",
-                snippet: "Samsung's flagship phones like the Galaxy S23 Ultra and Z Fold 5 feature exceptional camera systems with advanced sensors...",
-                content: "Samsung's flagship phones like the Galaxy S23 Ultra and Z Fold 5 feature exceptional camera systems with advanced sensors, optical zoom capabilities, and AI-powered photography features that rival professional cameras. These devices deliver stunning image quality in various lighting conditions."
-            },
-            {
-                id: 13,
-                title: "Why you must use cloud storage as first choice",
-                category: "tech",
-                snippet: "Cloud storage offers automatic backups, accessibility from any device, enhanced security, and collaboration features...",
-                content: "Cloud storage offers automatic backups, accessibility from any device, enhanced security, and collaboration features. It protects against data loss from device failure or theft while enabling seamless file sharing and remote work capabilities that local storage can't match."
-            },
-            {
-                id: 14,
-                title: "Rapid effect of AI: does it makes us productive or lazy",
-                category: "tech",
-                snippet: "AI tools boost productivity by automating repetitive tasks and providing data-driven insights, but may reduce critical thinking...",
-                content: "AI tools boost productivity by automating repetitive tasks and providing data-driven insights, but may reduce critical thinking if over-relied upon. The key is using AI as an assistant rather than replacement for human creativity and problem-solving skills."
-            },
-            {
-                id: 15,
-                title: "Why drones are preferred to motorcycles for delivery",
-                category: "tech",
-                snippet: "Drones bypass traffic congestion, reduce delivery times significantly, lower operational costs, and have minimal environmental impact...",
-                content: "Drones bypass traffic congestion, reduce delivery times significantly, lower operational costs, and have minimal environmental impact compared to motorcycles. They're especially effective for urgent medical supplies and hard-to-reach locations where traditional delivery struggles."
-            },
-            {
-                id: 16,
-                title: "Would smartphones without screens be possible",
-                category: "tech",
-                snippet: "Screenless smartphones could use holographic displays, AR glasses, voice interfaces, and haptic feedback...",
-                content: "Screenless smartphones could use holographic displays, AR glasses, voice interfaces, and haptic feedback. While technically possible, user adoption challenges remain as screens provide intuitive visual feedback that alternative interfaces struggle to replicate effectively for most tasks."
-            },
-            {
-                id: 17,
-                title: "Advantages of reading everyday: steps in vocabulary building",
-                category: "education",
-                snippet: "Daily reading exposes you to new words in context, reinforces language patterns, and improves retention...",
-                content: "Daily reading exposes you to new words in context, reinforces language patterns, and improves retention. Start with material slightly above your level, note unfamiliar words, use them in sentences, and review regularly to build a robust vocabulary effectively over time."
-            },
-            {
-                id: 18,
-                title: "How lack of Gadgets affect tech students academically",
-                category: "education",
-                snippet: "Without access to modern devices, tech students miss hands-on practice with essential tools, struggle with software-based assignments...",
-                content: "Without access to modern devices, tech students miss hands-on practice with essential tools, struggle with software-based assignments, and fall behind in digital literacy. This disadvantage affects their practical skills development and limits exposure to current industry-standard technologies and workflows."
-            }
-        ];
+    // Hot Topics Data
+    const hotTopicsData = [
+        {
+            title: "Things you should know about YouTube Automation in 2026",
+            content: "Many people now build big channels on trends like celebrity gossip or facts, earning thousands monthly with almost no daily work. Ready to start your passive income dream?",
+            date: "Jan 19, 2026",
+            image: "https://raw.githubusercontent.com/glaciercodes/korareporters/main/images/image.jpg",
+            link: "twelve.html"
+        },
+        {
+            title: "benefits of trading digital products in 21st century",
+            content: "Digital products need no shipping, no storage, and reach buyers worldwide instantly. In today's world, you enjoy high profits, easy updates, and true freedom to work from anywhere",
+            date: "Jan 18, 2026",
+            image: "https://raw.githubusercontent.com/glaciercodes/korareporters/refs/heads/main/images/1768820940739.jpg",
+            link: "thirteen.html"
+        },
+        {
+            title: "Drop shipping: risks you should avoid today",
+            content: "How to avoid fake reviews, hidden fees, and bad customer service that kill your shop fast",
+            date: "Jan 17, 2026",
+            image: "https://raw.githubusercontent.com/glaciercodes/korareporters/refs/heads/main/images/image%20(3).jpg",
+            link: "fourteen.html"
+        },
+        {
+            title: "How to freelance even as a student in 2026",
+            content: "Balance school and extra cash easily! As a student, start freelancing with simple skills like writing, design, or social media.",
+            date: "Jan 16, 2026",
+            image: "https://raw.githubusercontent.com/glaciercodes/korareporters/refs/heads/main/images/image%20(4).jpg",
+            link: "fifteen.html"
+        },
+        {
+            title: "Affiliate Marketing: blooming sit and earn jobs in West Africa today",
+            content: "Sit at home -refer products you like (from Jumia or global brands), and earn commission when people buy.",
+            date: "Jan 15, 2026",
+            image: "https://raw.githubusercontent.com/glaciercodes/korareporters/refs/heads/main/images/image%20(5).jpg",
+            link: "sixteen.html"
+        },
+        {
+            title: "Top 10 most enjoyable cultural festivals in africa",
+            content: "learn how africans celebrates traditions, brings communities together, and leaves you smiling with unforgettable memories and energy.",
+            date: "Jan 14, 2026",
+            image: "https://raw.githubusercontent.com/glaciercodes/korareporters/refs/heads/main/images/Screenshot_20260119_133041_Lite.jpg",
+            link: "seventeen.html"
+        },
+        {
+            title: "How solar powers can dominate hydro electricity",
+            content: "no big rivers or dams needed! It's cheaper to set up, quicker to install on homes or villages, works in dry areas, and causes less harm to nature",
+            date: "Jan 13, 2026",
+            image: "https://raw.githubusercontent.com/glaciercodes/korareporters/refs/heads/main/images/Screenshot_20260119_133903_Lite.jpg",
+            link: "eighteen.html"
+        },
+        {
+            title: "How Music reduces anxiety and depression",
+            content: "a paradise to mind reconciliation and stress harmony.",
+            date: "Jan 12, 2026",
+            image: "https://raw.githubusercontent.com/glaciercodes/korareporters/refs/heads/main/images/image-8.jpg",
+            link: "nineteen.html"
+        }
+    ];
 
-        // Initialize the page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Detect user's country
-            detectCountry();
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Detect user's country
+        detectCountry();
+        
+        // Set up Hot Topics carousel - ALWAYS SHOW ON LOAD
+        initializeHotTopics();
+        
+        // Set up event listeners for footer subscription
+        footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
+        
+        // Set up other event listeners
+        setupEventListeners();
+    });
+    
+    // Detect user's country using IP
+    function detectCountry() {
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                userCountry = data.country_name;
+            })
+            .catch(error => {
+                console.error('Error detecting country:', error);
+                // Fallback to a free API if the first one fails
+                fetch('https://api.country.is/')
+                    .then(response => response.json())
+                    .then(data => {
+                        userCountry = data.country;
+                    })
+                    .catch(error2 => {
+                        console.error('Error detecting country with fallback:', error2);
+                    });
+            });
+    }
+    
+    // Handle footer email subscription
+    function handleFooterSubscription(e) {
+        e.preventDefault();
+        
+        const email = footerSubscribeEmail.value.trim();
+        
+        if (!email) {
+            showFooterSubscribeMessage("Please enter a valid email address.", "error");
+            return;
+        }
+        
+        if (!validateEmail(email)) {
+            showFooterSubscribeMessage("Please enter a valid email address.", "error");
+            return;
+        }
+        
+        // Check if email already exists
+        db.collection("subscribers")
+            .where("email", "==", email)
+            .get()
+            .then((querySnapshot) => {
+                if (!querySnapshot.empty) {
+                    showFooterSubscribeMessage("✓ You're already subscribed! Thank you for being part of our exclusive newsletter community. You'll continue receiving our premium insights and early access to all content.", "info");
+                    footerSubscribeEmail.value = "";
+                    return;
+                }
+                
+                // Save to Firebase
+                return db.collection("subscribers").add({
+                    email: email,
+                    country: userCountry,
+                    subscribedAt: new Date().toISOString(),
+                    subscriptionType: "premium",
+                    newsletterAccess: true
+                });
+            })
+            .then(() => {
+                showFooterSubscribeMessage("🎉 Welcome to our exclusive newsletter community! You'll now receive premium insights, early access to all research reports, and exclusive analytical briefings directly to your inbox.", "success");
+                footerSubscribeEmail.value = "";
+            })
+            .catch((error) => {
+                console.error("Error subscribing: ", error);
+                showFooterSubscribeMessage("There was an error processing your subscription. Please try again.", "error");
+            });
+    }
+    
+    // Email validation
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    // Show footer subscription message
+    function showFooterSubscribeMessage(message, type) {
+        footerSubscribeMessage.textContent = message;
+        footerSubscribeMessage.className = `subscription-message ${type}`;
+        footerSubscribeMessage.style.display = 'block';
+        
+        // Hide message after 8 seconds for success, 5 for error
+        setTimeout(() => {
+            footerSubscribeMessage.style.display = 'none';
+        }, type === 'success' ? 8000 : 5000);
+    }
+
+    // Hot Topics Carousel Functionality - UPDATED TO ALWAYS SHOW
+    function initializeHotTopics() {
+        const hotTopicsTrack = document.getElementById('hot-topics-track');
+        const closeHotTopicsBtn = document.getElementById('close-hot-topics');
+        const hotTopicsBanner = document.getElementById('hot-topics-banner');
+        
+        // REMOVED localStorage check - banner always shows on page load
+        // Create and populate cards
+        hotTopicsData.forEach((topic, index) => {
+            const card = document.createElement('div');
+            card.className = 'hot-topic-card';
+            card.innerHTML = `
+                <div class="hot-topic-title">${topic.title}</div>
+                <div class="hot-topic-date">${topic.date}</div>
+                <div class="hot-topic-content">${topic.content}</div>
+                <div class="hot-topic-image">
+                    <img src="${topic.image}" alt="${topic.title}">
+                </div>
+            `;
             
-            // Set up event listeners for footer subscription
-            footerSubscribeForm.addEventListener('submit', handleFooterSubscription);
+            // Add click event to navigate to link
+            card.addEventListener('click', function() {
+                window.location.href = topic.link;
+            });
             
-            // Set up other event listeners from original code
-            setupEventListeners();
+            hotTopicsTrack.appendChild(card);
         });
         
-        // Detect user's country using IP
-        function detectCountry() {
-            fetch('https://ipapi.co/json/')
-                .then(response => response.json())
-                .then(data => {
-                    userCountry = data.country_name;
-                })
-                .catch(error => {
-                    console.error('Error detecting country:', error);
-                    // Fallback to a free API if the first one fails
-                    fetch('https://api.country.is/')
-                        .then(response => response.json())
-                        .then(data => {
-                            userCountry = data.country;
-                        })
-                        .catch(error2 => {
-                            console.error('Error detecting country with fallback:', error2);
-                        });
-                });
-        }
+        // Auto-slide functionality
+        let currentPosition = 0;
+        let slideInterval;
+        let isPaused = false;
+        const cardWidth = 220;
+        const gap = 15;
+        const cardCount = hotTopicsData.length;
+        const totalWidth = (cardWidth + gap) * cardCount;
         
-        // Handle footer email subscription
-        function handleFooterSubscription(e) {
-            e.preventDefault();
-            
-            const email = footerSubscribeEmail.value.trim();
-            
-            if (!email) {
-                showFooterSubscribeMessage("Please enter a valid email address.", "error");
-                return;
-            }
-            
-            if (!validateEmail(email)) {
-                showFooterSubscribeMessage("Please enter a valid email address.", "error");
-                return;
-            }
-            
-            // Check if email already exists
-            db.collection("subscribers")
-                .where("email", "==", email)
-                .get()
-                .then((querySnapshot) => {
-                    if (!querySnapshot.empty) {
-                        showFooterSubscribeMessage("✓ You're already subscribed! Thank you for being part of our exclusive newsletter community. You'll continue receiving our premium insights and early access to all content.", "info");
-                        footerSubscribeEmail.value = "";
-                        return;
+        function startAutoSlide() {
+            slideInterval = setInterval(() => {
+                if (!isPaused) {
+                    currentPosition -= (cardWidth + gap);
+                    if (currentPosition <= -totalWidth) {
+                        currentPosition = 0;
                     }
-                    
-                    // Save to Firebase
-                    return db.collection("subscribers").add({
-                        email: email,
-                        country: userCountry,
-                        subscribedAt: new Date().toISOString(),
-                        subscriptionType: "premium",
-                        newsletterAccess: true
-                    });
-                })
-                .then(() => {
-                    showFooterSubscribeMessage("🎉 Welcome to our exclusive newsletter community! You'll now receive premium insights, early access to all research reports, and exclusive analytical briefings directly to your inbox.", "success");
-                    footerSubscribeEmail.value = "";
-                })
-                .catch((error) => {
-                    console.error("Error subscribing: ", error);
-                    showFooterSubscribeMessage("There was an error processing your subscription. Please try again.", "error");
-                });
+                    hotTopicsTrack.style.transform = `translateX(${currentPosition}px)`;
+                }
+            }, 2000); // Slide every 2 seconds
         }
         
-        // Email validation
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
+        function stopAutoSlide() {
+            clearInterval(slideInterval);
+            isPaused = true;
         }
         
-        // Show footer subscription message
-        function showFooterSubscribeMessage(message, type) {
-            footerSubscribeMessage.textContent = message;
-            footerSubscribeMessage.className = `subscription-message ${type}`;
-            footerSubscribeMessage.style.display = 'block';
-            
-            // Hide message after 8 seconds for success, 5 for error
-            setTimeout(() => {
-                footerSubscribeMessage.style.display = 'none';
-            }, type === 'success' ? 8000 : 5000);
+        function resumeAutoSlide() {
+            if (isPaused) {
+                isPaused = false;
+                startAutoSlide();
+            }
         }
+        
+        // Pause on hover/touch
+        hotTopicsTrack.addEventListener('mouseenter', stopAutoSlide);
+        hotTopicsTrack.addEventListener('touchstart', stopAutoSlide);
+        
+        // Resume after 3 seconds of no interaction
+        hotTopicsTrack.addEventListener('mouseleave', function() {
+            setTimeout(resumeAutoSlide, 3000);
+        });
+        hotTopicsTrack.addEventListener('touchend', function() {
+            setTimeout(resumeAutoSlide, 3000);
+        });
+        
+        // Close button functionality - REMOVED localStorage saving
+        closeHotTopicsBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            hotTopicsBanner.style.display = 'none';
+            // No localStorage.setItem() - banner will reappear on reload
+        });
+        
+        // Start auto-sliding
+        startAutoSlide();
+        
+        // Ensure section loads fast by loading images with priority
+        const hotTopicImages = document.querySelectorAll('.hot-topic-image img');
+        hotTopicImages.forEach(img => {
+            img.loading = 'eager'; // Load images eagerly for faster display
+        });
+    }
 
-        // Original functionality from the first code
-        function setupEventListeners() {
-            // Share functionality - only share the title
-            function shareArticle(title, platform) {
-                const url = encodeURIComponent(window.location.href);
-                const text = encodeURIComponent(`${title} - Check out this write up on kora reporters`);
-                
-                let shareUrl;
-                
-                switch(platform) {
-                    case 'facebook':
-                        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
-                        break;
-                    case 'twitter':
+    // Original functionality from the first code
+    function setupEventListeners() {
+        // Share functionality - only share the title
+        function shareArticle(title, platform) {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`${title} - Check out this write up on kora reporters`);
+            
+            let shareUrl;
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
+                    break;
+                case 'telegram':
+                    shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+                    break;
+                case 'share':
+                default:
+                    if (navigator.share) {
+                        navigator.share({
+                            title: title,
+                            text: `${title} - kora reporters`,
+                            url: window.location.href,
+                        })
+                        .then(() => console.log('Successful share'))
+                        .catch((error) => console.log('Error sharing:', error));
+                        return;
+                    } else {
+                        // Fallback for browsers that don't support the Web Share API
                         shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-                        break;
-                    case 'whatsapp':
-                        shareUrl = `https://api.whatsapp.com/send?text=${text} ${url}`;
-                        break;
-                    case 'telegram':
-                        shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
-                        break;
-                    case 'share':
-                    default:
-                        if (navigator.share) {
-                            navigator.share({
-                                title: title,
-                                text: `${title} - kora reporters`,
-                                url: window.location.href,
-                            })
-                            .then(() => console.log('Successful share'))
-                            .catch((error) => console.log('Error sharing:', error));
-                            return;
-                        } else {
-                            // Fallback for browsers that don't support the Web Share API
-                            shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-                        }
-                        break;
-                }
-                
-                if (shareUrl) {
-                    window.open(shareUrl, '_blank', 'width=600,height=400');
-                }
+                    }
+                    break;
             }
-
-            // Add share functionality to horizontal section cards
-            document.querySelectorAll('.scroll-share').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const title = this.getAttribute('data-title');
-                    shareArticle(title, 'share');
-                });
-            });
-
-// Add click functionality to horizontal section cards
-document.querySelectorAll('.scroll-card').forEach(card => {
-    card.addEventListener('click', function(e) {
-        // Only redirect if not clicking on share button or read more link
-        if (!e.target.closest('.scroll-share') && !e.target.closest('.read-more')) {
-            // Get the read more link from this card
-            const readMoreLink = this.querySelector('.read-more');
-            if (readMoreLink && readMoreLink.href) {
-                window.location.href = readMoreLink.href;
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
             }
         }
-    });
-});
-            // Latest Report functionality
-            const latestReportLink = document.getElementById('latest-report-link');
-            const recentlyAddedSection = document.getElementById('recently-added');
-            
-            latestReportLink.addEventListener('click', function() {
-                recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
-            });
 
-            // Go Up Button functionality
-            const goUpButton = document.getElementById('go-up');
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 500) {
-                    goUpButton.classList.add('active');
-                } else {
-                    goUpButton.classList.remove('active');
+        // Add share functionality to horizontal section cards
+        document.querySelectorAll('.scroll-share').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const title = this.getAttribute('data-title');
+                shareArticle(title, 'share');
+            });
+        });
+
+        // Add click functionality to horizontal section cards
+        document.querySelectorAll('.scroll-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Only redirect if not clicking on share button or read more link
+                if (!e.target.closest('.scroll-share') && !e.target.closest('.read-more')) {
+                    // Get the read more link from this card
+                    const readMoreLink = this.querySelector('.read-more');
+                    if (readMoreLink && readMoreLink.href) {
+                        window.location.href = readMoreLink.href;
+                    }
                 }
             });
-            
-            goUpButton.addEventListener('click', function() {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
+        });
 
-            // Mobile menu functionality
-            const hamburgerMenu = document.querySelector('.hamburger-menu');
-            const mobileMenu = document.querySelector('.mobile-menu');
-            const menuOverlay = document.querySelector('.menu-overlay');
-            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
-            
-            hamburgerMenu.addEventListener('click', function() {
-                mobileMenu.classList.toggle('active');
-                menuOverlay.classList.toggle('active');
-            });
-            
-            menuOverlay.addEventListener('click', function() {
+        // Latest Report functionality
+        const latestReportLink = document.getElementById('latest-report-link');
+        const recentlyAddedSection = document.getElementById('recently-added');
+        
+        latestReportLink.addEventListener('click', function() {
+            recentlyAddedSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Go Up Button functionality
+        const goUpButton = document.getElementById('go-up');
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                goUpButton.classList.add('active');
+            } else {
+                goUpButton.classList.remove('active');
+            }
+        });
+        
+        goUpButton.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Mobile menu functionality
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+        
+        hamburgerMenu.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        });
+        
+        menuOverlay.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        });
+        
+        // Close menu when a category link is clicked
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
                 mobileMenu.classList.remove('active');
                 menuOverlay.classList.remove('active');
+                
+                // If it's a category link, filter articles
+                const category = this.getAttribute('data-category');
+                if (category) {
+                    filterArticlesByCategory(category);
+                    
+                    // Update category buttons
+                    document.querySelectorAll('.category-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('data-category') === category) {
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Search functionality
+        const searchIcon = document.querySelector('.search-icon');
+        const searchModal = document.querySelector('.search-modal');
+        const closeSearch = document.querySelector('.close-search');
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-button');
+        const searchFilters = document.querySelectorAll('.search-filter');
+        const searchResults = document.querySelector('.search-results');
+        
+        searchIcon.addEventListener('click', function() {
+            searchModal.classList.add('active');
+            searchInput.focus();
+        });
+        
+        closeSearch.addEventListener('click', function() {
+            searchModal.classList.remove('active');
+        });
+        
+        // Close search modal when clicking outside
+        searchModal.addEventListener('click', function(e) {
+            if (e.target === searchModal) {
+                searchModal.classList.remove('active');
+            }
+        });
+        
+        // Search filter functionality
+        searchFilters.forEach(filter => {
+            filter.addEventListener('click', function() {
+                searchFilters.forEach(f => f.classList.remove('active'));
+                this.classList.add('active');
+                performSearch();
+            });
+        });
+        
+        // Perform search when typing or clicking search button
+        searchInput.addEventListener('input', performSearch);
+        searchButton.addEventListener('click', performSearch);
+        
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeFilter = document.querySelector('.search-filter.active').getAttribute('data-filter');
+            
+            // Filter articles based on search term and category
+            const filteredArticles = articlesData.filter(article => {
+                const matchesSearch = searchTerm === '' || 
+                    article.title.toLowerCase().includes(searchTerm) ||
+                    article.snippet.toLowerCase().includes(searchTerm) ||
+                    article.content.toLowerCase().includes(searchTerm);
+                
+                const matchesCategory = activeFilter === 'all' || article.category === activeFilter;
+                
+                return matchesSearch && matchesCategory;
             });
             
-            // Close menu when a category link is clicked
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.remove('active');
-                    menuOverlay.classList.remove('active');
+            // Display results
+            displaySearchResults(filteredArticles);
+        }
+        
+        function displaySearchResults(results) {
+            if (results.length === 0) {
+                searchResults.innerHTML = '<div class="search-result-item">No articles found matching your search criteria.</div>';
+                return;
+            }
+            
+            searchResults.innerHTML = results.map(article => `
+                <div class="search-result-item" data-article-id="${article.id}">
+                    <div class="search-result-category">${article.category.toUpperCase()}</div>
+                    <div class="search-result-title">${article.title}</div>
+                    <div class="search-result-snippet">${article.snippet}</div>
+                </div>
+            `).join('');
+            
+            // Add click event to result items
+            document.querySelectorAll('.search-result-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const articleId = this.getAttribute('data-article-id');
                     
-                    // If it's a category link, filter articles
-                    const category = this.getAttribute('data-category');
-                    if (category) {
-                        filterArticlesByCategory(category);
+                    // Close search modal
+                    searchModal.classList.remove('active');
+                    
+                    // Show all articles first
+                    document.querySelectorAll('.article').forEach(article => {
+                        article.style.display = 'block';
+                    });
+                    
+                    // Hide all articles except the selected one
+                    if (articleId) {
+                        document.querySelectorAll('.article').forEach(article => {
+                            if (article.id !== `article-${articleId}`) {
+                                article.style.display = 'none';
+                            }
+                        });
                         
-                        // Update category buttons
+                        // Scroll to the selected article
+                        const selectedArticle = document.getElementById(`article-${articleId}`);
+                        if (selectedArticle) {
+                            selectedArticle.scrollIntoView({ behavior: 'smooth' });
+                        }
+                        
+                        // Update category buttons to show "All" as active
                         document.querySelectorAll('.category-btn').forEach(btn => {
                             btn.classList.remove('active');
-                            if (btn.getAttribute('data-category') === category) {
+                            if (btn.getAttribute('data-category') === 'all') {
                                 btn.classList.add('active');
                             }
                         });
                     }
                 });
             });
-
-            // Search functionality
-            const searchIcon = document.querySelector('.search-icon');
-            const searchModal = document.querySelector('.search-modal');
-            const closeSearch = document.querySelector('.close-search');
-            const searchInput = document.querySelector('.search-input');
-            const searchButton = document.querySelector('.search-button');
-            const searchFilters = document.querySelectorAll('.search-filter');
-            const searchResults = document.querySelector('.search-results');
-            
-            searchIcon.addEventListener('click', function() {
-                searchModal.classList.add('active');
-                searchInput.focus();
+        }
+        
+        // Category filtering functionality
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const articles = document.querySelectorAll('.article');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                filterArticlesByCategory(category);
+                
+                // Update active button
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
             });
-            
-            closeSearch.addEventListener('click', function() {
-                searchModal.classList.remove('active');
-            });
-            
-            // Close search modal when clicking outside
-            searchModal.addEventListener('click', function(e) {
-                if (e.target === searchModal) {
-                    searchModal.classList.remove('active');
+        });
+        
+        function filterArticlesByCategory(category) {
+            articles.forEach(article => {
+                if (category === 'all' || article.getAttribute('data-category') === category) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
                 }
-            });
-            
-            // Search filter functionality
-            searchFilters.forEach(filter => {
-                filter.addEventListener('click', function() {
-                    searchFilters.forEach(f => f.classList.remove('active'));
-                    this.classList.add('active');
-                    performSearch();
-                });
-            });
-            
-            // Perform search when typing or clicking search button
-            searchInput.addEventListener('input', performSearch);
-            searchButton.addEventListener('click', performSearch);
-            
-            function performSearch() {
-                const searchTerm = searchInput.value.toLowerCase();
-                const activeFilter = document.querySelector('.search-filter.active').getAttribute('data-filter');
-                
-                // Filter articles based on search term and category
-                const filteredArticles = articlesData.filter(article => {
-                    const matchesSearch = searchTerm === '' || 
-                        article.title.toLowerCase().includes(searchTerm) ||
-                        article.snippet.toLowerCase().includes(searchTerm) ||
-                        article.content.toLowerCase().includes(searchTerm);
-                    
-                    const matchesCategory = activeFilter === 'all' || article.category === activeFilter;
-                    
-                    return matchesSearch && matchesCategory;
-                });
-                
-                // Display results
-                displaySearchResults(filteredArticles);
-            }
-            
-            function displaySearchResults(results) {
-                if (results.length === 0) {
-                    searchResults.innerHTML = '<div class="search-result-item">No articles found matching your search criteria.</div>';
-                    return;
-                }
-                
-                searchResults.innerHTML = results.map(article => `
-                    <div class="search-result-item" data-article-id="${article.id}">
-                        <div class="search-result-category">${article.category.toUpperCase()}</div>
-                        <div class="search-result-title">${article.title}</div>
-                        <div class="search-result-snippet">${article.snippet}</div>
-                    </div>
-                `).join('');
-                
-                // Add click event to result items
-                document.querySelectorAll('.search-result-item').forEach(item => {
-                    item.addEventListener('click', function() {
-                        const articleId = this.getAttribute('data-article-id');
-                        
-                        // Close search modal
-                        searchModal.classList.remove('active');
-                        
-                        // Show all articles first
-                        document.querySelectorAll('.article').forEach(article => {
-                            article.style.display = 'block';
-                        });
-                        
-                        // Hide all articles except the selected one
-                        if (articleId) {
-                            document.querySelectorAll('.article').forEach(article => {
-                                if (article.id !== `article-${articleId}`) {
-                                    article.style.display = 'none';
-                                }
-                            });
-                            
-                            // Scroll to the selected article
-                            const selectedArticle = document.getElementById(`article-${articleId}`);
-                            if (selectedArticle) {
-                                selectedArticle.scrollIntoView({ behavior: 'smooth' });
-                            }
-                            
-                            // Update category buttons to show "All" as active
-                            document.querySelectorAll('.category-btn').forEach(btn => {
-                                btn.classList.remove('active');
-                                if (btn.getAttribute('data-category') === 'all') {
-                                    btn.classList.add('active');
-                                }
-                            });
-                        }
-                    });
-                });
-            }
-            
-            // Category filtering functionality
-            const categoryButtons = document.querySelectorAll('.category-btn');
-            const articles = document.querySelectorAll('.article');
-            
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const category = this.getAttribute('data-category');
-                    filterArticlesByCategory(category);
-                    
-                    // Update active button
-                    categoryButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-            
-            function filterArticlesByCategory(category) {
-                articles.forEach(article => {
-                    if (category === 'all' || article.getAttribute('data-category') === category) {
-                        article.style.display = 'block';
-                    } else {
-                        article.style.display = 'none';
-                    }
-                });
-            }
-            
-            // Add share functionality to all share buttons
-            document.querySelectorAll('.share-btn').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const title = this.getAttribute('data-title');
-                    const platform = this.getAttribute('data-platform');
-                    shareArticle(title, platform);
-                });
-            });
-            
-            // Add share functionality to recent article share icons
-            document.querySelectorAll('.recent-share').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation(); // Prevent navigation when clicking share icon
-                    const title = this.getAttribute('data-title');
-                    shareArticle(title, 'share');
-                });
             });
         }
-    </script>
+        
+        // Add share functionality to all share buttons
+        document.querySelectorAll('.share-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const title = this.getAttribute('data-title');
+                const platform = this.getAttribute('data-platform');
+                shareArticle(title, platform);
+            });
+        });
+        
+        // Add share functionality to recent article share icons
+        document.querySelectorAll('.recent-share').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); // Prevent navigation when clicking share icon
+                const title = this.getAttribute('data-title');
+                shareArticle(title, 'share');
+            });
+        });
+    }
+</script>
 </body>
 </html>
