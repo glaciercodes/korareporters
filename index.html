@@ -305,7 +305,7 @@
             border-color: #ff6600;
         }
         
-        /* NEW: Writer Section Below Category Bar */
+        /* UPDATED: Writer Section Below Category Bar - Fixed layout */
         .writer-section {
             background-color: #111;
             padding: 20px 0;
@@ -318,15 +318,17 @@
             gap: 20px;
             max-width: 800px;
             margin: 0 auto;
+            flex-direction: row; /* Ensure horizontal layout */
         }
         
         .writer-pic {
-            width: 30px;
-            height: 30px;
+            width: 70px;
+            height: 70px;
             border-radius: 0;
             overflow: hidden;
             flex-shrink: 0;
             border: 2px solid #ff6600;
+            cursor: pointer;
         }
         
         .writer-pic img {
@@ -337,6 +339,7 @@
         
         .writer-info {
             flex: 1;
+            text-align: left;
         }
         
         .writer-name {
@@ -344,6 +347,13 @@
             font-weight: 600;
             margin-bottom: 7px;
             font-size: 18px;
+            cursor: pointer;
+            display: inline-block;
+            transition: color 0.3s;
+        }
+        
+        .writer-name:hover {
+            color: #fff;
         }
         
         .writer-bio {
@@ -573,6 +583,12 @@
         
         .author-name {
             font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .author-name:hover {
+            color: #ff6600;
         }
         
         .date {
@@ -1056,6 +1072,11 @@
             .writer-container {
                 padding: 0 20px;
             }
+            
+            .writer-pic {
+                width: 70px;
+                height: 70px;
+            }
         }
         
         @media (max-width: 767px) {
@@ -1088,20 +1109,22 @@
             }
             
             .writer-container {
-                flex-direction: column;
-                text-align: center;
                 padding: 0 15px;
             }
             
             .writer-pic {
-                width: 70px;
-                height: 70px;
+                width: 60px;
+                height: 60px;
             }
             
             .writer-links {
-                justify-content: center;
+                justify-content: flex-start;
                 flex-wrap: wrap;
                 gap: 15px;
+            }
+            
+            .writer-info {
+                text-align: left;
             }
         }
     </style>
@@ -1177,14 +1200,16 @@
         </div>
     </div>
 
-    <!-- NEW: Writer Section Below Category Bar -->
+    <!-- UPDATED: Writer Section Below Category Bar - Fixed layout -->
     <div class="writer-section">
         <div class="container writer-container">
-            <div class="writer-pic">
+            <!-- Image on the left -->
+            <a href="xavier.html" class="writer-pic">
                 <img src="images/grok_image_xle433i.jpg" alt="Henry Xavier">
-            </div>
+            </a>
+            <!-- Info on the right -->
             <div class="writer-info">
-                <div class="writer-name">Henry Xavier</div>
+                <a href="xavier.html" class="writer-name">Henry Xavier</a>
                 <div class="writer-bio">
                     Senior Economic Analyst & Columnist 
                 </div>
